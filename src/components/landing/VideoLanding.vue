@@ -3,12 +3,13 @@
     <div id="set-height"></div>
     <p id="time"></p>
     <video id="v0" tabindex="0" autobuffer="autobuffer" preload="preload">
-      <source type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' src="../../assets/lu.mp4" />
+      <source
+        type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+        src="../../assets/lu.mp4"
+      />
     </video>
     <div class="overlay">
-      <v-card elevation="23" outlined height="200" width="600">
-        <v-span> DELTA </v-span>
-      </v-card>
+      <v-flex class="title"> DELTA </v-flex>
     </div>
   </div>
 </template>
@@ -64,5 +65,11 @@ export default {
   top: 40%;
   left: 20%;
   z-index: 1;
+}
+
+.title {
+  font-weight: bold;
+  color: white;
+  font-size: 100px;
 }
 </style>
