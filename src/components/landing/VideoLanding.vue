@@ -8,9 +8,13 @@
         src="../../assets/lu.mp4"
       />
     </video>
-    <div class="overlay">
+    <v-container class="overlay">
       <v-flex class="title"> DELTA </v-flex>
-    </div>
+      <div class="text">
+        TRACK YOUR WORKOUTS, MEASURE YOUR PROGRESS AND, STAY MOTIVATED
+      </div>
+      <img position="right" src="../../assets/googlePlay.svg" />
+    </v-container>
   </div>
 </template>
 
@@ -67,9 +71,18 @@ export default {
   z-index: 1;
 }
 
-.title {
+.text {
+  font-family: "Bebas Neue";
   font-weight: bold;
   color: white;
-  font-size: 100px;
+  font-size: 300%;
+  width: 60%;
+}
+
+.title {
+  font-family: "Bebas Neue";
+  font-weight: bold;
+  color: white;
+  font-size: 800%;
 }
 </style>
