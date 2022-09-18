@@ -8,20 +8,12 @@
         src="../../assets/lu.mp4"
       />
     </video>
-    <v-container class="overlay">
-      <v-flex class="title"> DELTA </v-flex>
-      <div class="text">
-        TRACK YOUR WORKOUTS, MEASURE YOUR PROGRESS AND, STAY MOTIVATED
-      </div>
-      <img position="right" src="../../assets/googlePlay.svg" />
-    </v-container>
   </div>
 </template>
 
 <script>
 export default {
   name: "VideoLanding",
-
   mounted() {
     const frameNumber = 0, // start video at frame 0
       // lower numbers = faster playback
@@ -62,27 +54,5 @@ export default {
 .container video {
   position: relative;
   z-index: 0;
-}
-
-.overlay {
-  position: absolute;
-  top: 40%;
-  left: 20%;
-  z-index: 1;
-}
-
-.text {
-  font-family: "Bebas Neue";
-  font-weight: bold;
-  color: white;
-  font-size: 300%;
-  width: 60%;
-}
-
-.title {
-  font-family: "Bebas Neue";
-  font-weight: bold;
-  color: white;
-  font-size: 800%;
 }
 </style>

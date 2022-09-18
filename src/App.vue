@@ -1,18 +1,16 @@
 <template>
-  <VideoLanding> </VideoLanding>
+  <LandingPage> </LandingPage>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import VideoLanding from "@/components/landing/VideoLanding.vue";
+import LandingPage from "@/components/landing/LandingPage.vue";
 
 export default Vue.extend({
   name: "App",
-  components: { VideoLanding },
+  components: { LandingPage },
   data: () => ({}),
 });
 </script>
 
-<style>
-
-</style>
+<style></style>
