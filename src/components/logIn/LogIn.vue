@@ -1,27 +1,43 @@
 <template>
   <v-app>
 
-    <v-app-bar app color="background VMenu "   elevation="1">
-      <TopBar></TopBar>
-    </v-app-bar>
+    <TopBar/>
     <v-main class="background">
       <v-container >
         <v-row class="mt-16">
         <v-col class="d-flex justify-center align-center" >
-          <v-img src="@/assets/LOGO.png"   max-height="116" max-width="124"/>
+          <v-img src="@/assets/Logo.png"   max-height="116" max-width="124"/>
         </v-col>
         </v-row>
-        <v-row class="mt-15">
-          <v-col class="d-flex justify-center align-center">
+        <v-row class="mt-15" >
+          <v-col  class="d-flex justify-center align-center" style="align-items: center" >
           <v-sheet
               color="secondary"
               height="300"
               width="500"
               rounded="xl"
-          >
-            <v-text-field class="pt-10 pr-10 pl-10" label="Email" />
-            <v-text-field class="pt-5 pr-10 pl-10" label="Password" />
+              style="align-items: center"
 
+          >
+            <v-container>
+              <v-row justify="end">
+            <v-text-field class="pt-10 pr-10 pl-10" label="Email" />
+              </v-row>
+              <v-row justify="end">
+              <v-text-field class="pt-5 pr-10 pl-10" label="Password" />
+              </v-row>
+              <v-row justify="center">
+            <v-btn
+                :disabled="loading"
+                color="primary"
+                plain
+                class="temp"
+
+                            >
+              LOG IN
+            </v-btn>
+              </v-row>
+            </v-container>
           </v-sheet>
           </v-col>
         </v-row>
@@ -42,4 +58,8 @@ export default {
 
 <style scoped>
 
+.temp {
+  border: thin solid #CFFFB3;
+  background-color: #343434;
+}
 </style>

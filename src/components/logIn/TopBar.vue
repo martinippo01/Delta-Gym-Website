@@ -1,5 +1,8 @@
 <template>
-  <v-row justify="end">
+  <v-app-bar color="background"
+      elevation="0"
+  >
+    <v-spacer></v-spacer>
     <v-btn
         :disabled="loading"
         class="ma-3 position-absolute top-0 start-100 translate-middle"
@@ -24,7 +27,8 @@
     >
       LOG IN
     </v-btn>
-  </v-row>
+
+  </v-app-bar>
 </template>
 
 <script>
