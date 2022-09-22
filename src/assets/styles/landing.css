@@ -16,6 +16,25 @@
   font-size: 800%;
 }
 
+.mainTitle {
+  font-family: "Bebas Neue";
+  font-weight: bold;
+  color: white;
+  padding-left: 20%;
+  padding-top: 5%;
+  font-size: 1200%;
+}
+
+.phone {
+  scale: 0.8;
+}
+
 .secondaryLandingPage {
-  padding-top: 20%;
+  padding-top: 30%;
+  padding-bottom: 0;
+  font-size: 80%;
+}
+.landingPage {
+  padding-bottom: 0;
+  font-size: 80%;
 }

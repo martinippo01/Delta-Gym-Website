@@ -1,13 +1,13 @@
 <template>
   <v-row class="secondaryLandingPage" align="center" align-content="center">
     <v-col>
-      <v-flex class="title"> WHAT MAKES US DIFFERENT </v-flex>
+      <v-flex class="title"> PROGRESS, SHUFFLE, SKIP</v-flex>
       <div class="text">
-        WITH OUR UNIQUE DELTA SYSTEM EVERY WORKOUT WILL BE DIFFERENT—SEE
-        IMPROVEMENT FROM DAY ONE.
+        LET THE APP ADAPT TO YOURSELF: SHUFFLE EXERCISES, SKIP, RECORD—SEE THE
+        WHOLE PICTURE
       </div>
     </v-col>
-    <img class="phone" src="../../assets/postWorkout.png" />
+    <img class="phone" src="../../assets/inWorkout.png" />
   </v-row>
 </template>
 
@@ -15,6 +15,6 @@
 import "../../assets/styles/landing.css";
 
 export default {
-  name: "LandingTwo",
+  name: "LandingThree",
 };
 </script>

@@ -1,13 +1,13 @@
 <template>
   <v-row class="secondaryLandingPage" align="center" align-content="center">
     <v-col>
-      <v-flex class="title"> WHAT MAKES US DIFFERENT </v-flex>
+      <v-flex class="title"> EXPLORE, CREATE </v-flex>
       <div class="text">
-        WITH OUR UNIQUE DELTA SYSTEM EVERY WORKOUT WILL BE DIFFERENT—SEE
-        IMPROVEMENT FROM DAY ONE.
+        EXPLORE OUR SELECTION OF ROUTINES OR CREATE YOUR OWN WITH OUR UNIQUE
+        DELTA TRACKING
       </div>
     </v-col>
-    <img class="phone" src="../../assets/postWorkout.png" />
+    <v-btn> </v-btn>
   </v-row>
 </template>
 
@@ -15,6 +15,6 @@
 import "../../assets/styles/landing.css";
 
 export default {
-  name: "LandingTwo",
+  name: "LandingFour",
 };
 </script>
