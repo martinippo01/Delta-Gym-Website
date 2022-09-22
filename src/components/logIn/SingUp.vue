@@ -5,7 +5,7 @@
     <TopBar/>
     <v-main class="background">
       <v-container >
-        <v-row class="mt-5">
+        <v-row class="mt-1">
           <v-col class="d-flex justify-center align-center" >
             <v-img src="@/assets/Logo.png"   max-height="116" max-width="124"/>
           </v-col>
@@ -14,7 +14,7 @@
           <v-col  class="d-flex justify-center align-center" style="align-items: center" >
             <v-sheet
                 color="secondary"
-                height="460"
+                height="475"
                 width="500"
                 rounded="xl"
                 style="align-items: center"
@@ -22,19 +22,19 @@
             >
               <v-container>
                 <v-row justify="end">
-                  <v-text-field class="pt-10 pr-10 pl-10" label="Full Name" />
+                  <v-text-field class="pt-7 pr-10 pl-10" label="Full Name" />
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-5 pr-10 pl-10" label="Email" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Email" />
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-5 pr-10 pl-10" label="Password" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Password" />
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-5 pr-10 pl-10" label="Confirm Password" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Confirm Password" />
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-5 pr-10 pl-10" label="Age" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Age" />
                 </v-row>
                 <v-row justify="center">
                   <v-btn
@@ -46,6 +46,16 @@
                   >
                     REGISTER
                   </v-btn>
+                </v-row>
+                <v-row justify="center" class="mt-4">
+                  <a href="http://localhost:8080/LogIn.vue" justify="center">
+                    Already have an account?
+                  </a>
+                </v-row>
+                <v-row justify="center" class="mt-4">
+                  <a href="http://localhost:8080/LogIn.vue" justify="center">
+                        Log In
+                  </a>
                 </v-row>
               </v-container>
             </v-sheet>
