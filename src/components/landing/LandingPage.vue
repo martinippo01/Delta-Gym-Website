@@ -2,9 +2,11 @@
   <div>
     <VideoLanding> </VideoLanding>
     <v-container class="overlay">
-      <TopBar class="t"> </TopBar>
+      <TopBar class="topbar"> </TopBar>
       <LandingOne />
       <LandingTwo />
+      <LandingThree />
+      <LandingFour />
     </v-container>
   </div>
 </template>
@@ -12,12 +14,22 @@
 <script>
 import LandingOne from "./LandingOne.vue";
 import LandingTwo from "./LandingTwo.vue";
+import LandingThree from "./LandingThree.vue";
+import LandingFour from "./LandingFour.vue";
+
 import VideoLanding from "./VideoLanding.vue";
 import TopBar from "../logIn/TopBar.vue";
 
 export default {
   name: "LandingPage",
-  components: { LandingOne, LandingTwo, VideoLanding, TopBar },
+  components: {
+    LandingOne,
+    LandingTwo,
+    LandingThree,
+    LandingFour,
+    VideoLanding,
+    TopBar,
+  },
 };
 </script>
 
@@ -28,8 +40,9 @@ export default {
   left: 0%;
   z-index: 1;
 }
-
-.t {
+.topbar {
+  top: 5%;
+  right: 5%;
   position: fixed;
 }
 </style>

@@ -40,6 +40,7 @@ export default {
 </script>
 
 <style scoped>
+
 #set-height {
   display: block;
 }
