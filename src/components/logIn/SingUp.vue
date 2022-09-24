@@ -22,19 +22,19 @@
             >
               <v-container>
                 <v-row justify="end">
-                  <v-text-field class="pt-7 pr-10 pl-10" label="Full Name" />
+                  <v-text-field class="pt-7 pr-10 pl-10" label="Full Name" dark="dark" color="primary" v-model="fullName"/>
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-3 pr-10 pl-10" label="Email" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Email" dark="dark" color="primary" v-model="email"/>
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-3 pr-10 pl-10" label="Password" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Password" dark="dark" color="primary" v-model="password" type="password"/>
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-3 pr-10 pl-10" label="Confirm Password" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Confirm Password" dark="dark" color="primary" v-model="re_password" type="password"/>
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-3 pr-10 pl-10" label="Age" />
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Age" dark="dark" color="primary" v-model="age"/>
                 </v-row>
                 <v-row justify="center">
                   <v-btn
@@ -73,7 +73,16 @@
 import TopBar from "@/components/logIn/TopBar.vue";
 export default {
   name: "SingUp",
-  components:{TopBar}
+  components:{TopBar},
+  data(){
+    return{
+      fullName:'',
+      email:'',
+      password:'',
+      re_password:'',
+      age:''
+    }
+  }
 }
 </script>
 

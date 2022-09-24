@@ -2,6 +2,11 @@
   <v-app-bar color="background"
       elevation="0"
   >
+    <v-img
+        max-height="60"
+        max-width="60"
+        src="@/assets/Logo.png"
+    ></v-img>
     <v-spacer></v-spacer>
     <v-btn
         :disabled="loading"

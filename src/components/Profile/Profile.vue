@@ -18,7 +18,6 @@
         <v-col class="d-flex justify-center align-center background">
           <v-btn
               class="tmp"
-              :disabled="loading"
               color="primary"
               outlined
 
@@ -29,50 +28,47 @@
 
         <v-col class="d-flex justify-center align-center background">
           <v-sheet
-              color="white"
-           elevation="1"
-           max-height="1000"
-           rounded
-           max-width="500">
+              rounded="xl"
+              color="secondary"
+              max-height="1000"
+              max-width="500">
             <v-container>
               <v-row justify="end">
-                <v-text-field  class="pt-10 pr-10 pl-10" label="Name"/>
+                <v-text-field  class="pt-10 pr-10 pl-10" label="Name" dark="dark" color="primary" v-model="name"/>
               </v-row>
               <v-row justify="end">
-                <v-text-field  class="pt-5 pr-10 pl-10" label="Surname" />
+                <v-text-field  class="pt-5 pr-10 pl-10" label="Surname" dark="dark" color="primary" v-model="surname"/>
               </v-row>
               <v-row justify="end">
                 <v-col >
-                  <v-text-field  class="pt-5 pr-10 pl-10" label="Age" />
+                  <v-text-field  class="pt-5 pr-10 pl-10" label="Age" dark="dark" color="primary" v-model="age"/>
                 </v-col>
                 <v-col >
-                  <v-text-field  class="pt-5 pr-10 pl-10" label="Phone" />
+                  <v-text-field  class="pt-5 pr-10 pl-10" label="Phone" dark="dark" color="primary" v-model="phone"/>
                 </v-col>
               </v-row>
-              <v-row justify="end">
-                <v-text-field  class="pt-5 pr-10 pl-10" label="Email" />
+              <v-row>
+                <v-text-field  class="pt-5 pr-10 pl-10" label="Email" dark="dark" color="primary" v-model="email"/>
               </v-row>
-              <v-row justify="center">
+              <v-row justify="end">
                 <v-col >
-                <v-btn
-                    :disabled="loading"
-                    color="primary"
-                    text
-                    class="temp"
+                  <v-btn
+                      color="primary"
+                      text
+                      class="temp"
 
-                >
-                  DISCARD CHANGES
-                </v-btn>
+                  >
+                    DISCARD CHANGES
+                  </v-btn>
                 </v-col>
                 <v-col >
                   <v-btn
-                    :disabled="loading"
-                    color="primary"
-                       outlined
-                       class="temp"
-
-                >
-                  SAVE CHANGES
+                      color="primary"
+                      outlined
+                      class="temp"
+                      justify="center"
+                  >
+                    SAVE CHANGES
                   </v-btn>
                 </v-col>
               </v-row>
@@ -88,7 +84,17 @@
 import TopBar from "@/components/logIn/TopBar";
 
 export default {
-  name: "ProfilePage",  components: {TopBar},
+  name: "ProfilePage",
+  components: {TopBar},
+  data(){
+    return{
+      name:'',
+      surname:'',
+      email:'',
+      age:'',
+      phone:''
+    }
+  }
 }
 </script>
 

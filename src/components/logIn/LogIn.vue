@@ -13,7 +13,7 @@
           <v-col  class="d-flex justify-center align-center" style="align-items: center" >
           <v-sheet
               color="secondary"
-              height="300"
+              height="250"
               width="500"
               rounded="xl"
               style="align-items: center"
@@ -21,10 +21,10 @@
           >
             <v-container>
               <v-row justify="end">
-            <v-text-field class="pt-10 pr-10 pl-10" label="Email" />
+            <v-text-field class="pt-10 pr-10 pl-10" label="Email" dark="dark" color="primary" v-model="email"/>
               </v-row>
               <v-row justify="end">
-              <v-text-field class="pt-5 pr-10 pl-10" label="Password" />
+              <v-text-field class="pt-5 pr-10 pl-10" label="Password" dark="dark" color="primary" type="password" v-model="password"/>
               </v-row>
               <v-row justify="center">
             <v-btn
@@ -53,6 +53,12 @@ import TopBar from "@/components/logIn/TopBar";
 export default {
   name: "LogIn",
   components: {TopBar},
+  data(){
+    return{
+      email:'',
+      password:''
+    }
+  }
 }
 </script>
 
