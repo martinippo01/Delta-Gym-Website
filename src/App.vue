@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfilePage> </ProfilePage>
+    <MyRoutines> </MyRoutines>
   </div>
 </template>
 
@@ -14,12 +14,14 @@
   import LogIn from "@/components/logIn/LogIn.vue";
   import SingUp from "@/components/logIn/SingUp.vue";
   import LandingPage from "@/components/landing/LandingPage.vue";
+  import RoutineButton from "@/components/Routines/RoutineButton.vue";
+  import MyRoutines from "@/components/Routines/MyRoutines.vue";
 
 
 
   export default Vue.extend({
     name: "App",
-    components: {ProfilePage},
+    components: {MyRoutines},
     data: () => ({
     }),
   });
