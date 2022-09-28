@@ -9,12 +9,17 @@
   import Vue from "vue";
   import ProfilePage from "@/components/Profile/Profile.vue";
   import Vuetify from 'vuetify/lib';
+  import LandingOne from "@/components/landing/LandingOne.vue";
+  import VideoLanding from "@/components/landing/VideoLanding.vue";
+  import LogIn from "@/components/logIn/LogIn.vue";
+  import SingUp from "@/components/logIn/SingUp.vue";
+  import LandingPage from "@/components/landing/LandingPage.vue";
 
 
 
   export default Vue.extend({
     name: "App",
-    components: { ProfilePage},
+    components: {ProfilePage},
     data: () => ({
     }),
   });

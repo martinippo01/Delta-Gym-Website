@@ -1,13 +1,17 @@
 <template>
   <div>
-    <VideoLanding> </VideoLanding>
-    <v-container class="overlay">
-      <TopBar class="topbar"> </TopBar>
-      <LandingOne />
-      <LandingTwo />
-      <LandingThree />
-      <LandingFour />
-    </v-container>
+    <v-app>
+      <v-main class="background">
+<!--      <VideoLanding> </VideoLanding>-->
+        <v-container class="overlay">
+          <LandingOne />
+          <LandingTwo />
+          <LandingThree />
+          <LandingFour />
+          <TopBar class="topbar"> </TopBar>
+        </v-container>
+      </v-main>
+    </v-app>
   </div>
 </template>
 
@@ -27,7 +31,7 @@ export default {
     LandingTwo,
     LandingThree,
     LandingFour,
-    VideoLanding,
+    // VideoLanding,
     TopBar,
   },
 };

@@ -6,6 +6,7 @@
         max-height="60"
         max-width="60"
         src="@/assets/Logo.png"
+        class="ma-3 position-absolute top-100 start-100 translate-middle"
     ></v-img>
     <v-spacer></v-spacer>
     <v-btn
