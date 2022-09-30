@@ -5,7 +5,7 @@
       <v-main class="background ">
 
         <h1 class="d-flex justify-center align-center">my profile</h1>
-
+        <div>
         <v-col class="d-flex justify-center align-center background">
           <v-avatar size="200">
             <img
@@ -76,6 +76,7 @@
             </v-container>
           </v-sheet>
         </v-col>
+        </div>
       </v-main>
     </v-app>
   </div>
