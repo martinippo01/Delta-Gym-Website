@@ -6,7 +6,7 @@
         TRACK YOUR WORKOUTS, MEASURE YOUR PROGRESS AND, STAY MOTIVATED
       </template>
       <template #img>
-        <img src="../../assets/postWorkout.png" />
+        <img src="../assets/postWorkout.png"  />
       </template>
     </LandingView>
 
@@ -17,7 +17,7 @@
         IMPROVEMENT FROM DAY ONE.
       </template>
       <template #img>
-        <img src="../../assets/postWorkout.png" />
+        <img src="../assets/postWorkout.png" />
       </template>
     </LandingView>
 
@@ -28,7 +28,7 @@
         WHOLE PICTURE
       </template>
       <template #img>
-        <img src="../../assets/inWorkout.png" />
+        <img src="../assets/inWorkout.png" />
       </template>
     </LandingView>
 
@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import LandingView from "./LandingView.vue";
-import TopBar from "../logIn/TopBar.vue";
+import LandingView from "../components/landing/LandingView.vue";
+import TopBar from "../components/logIn/TopBar.vue";
 
 export default {
   name: "LandingPage",
