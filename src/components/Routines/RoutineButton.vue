@@ -1,24 +1,38 @@
 <template>
-  <div>
-
+<div>
       <v-card
           color="secondary"
           rounded="xl"
-          max-width="300"
-          max-height="300"
+          width="300"
+          height="200"
       >
-        <v-img
-            class="white--text align-end"
-            height="200px"
-            src="@/assets/routine_photo.jpg"
-        >
-          <h1
-              class="d-flex justify-center align-center"
-          >Leg Day</h1>
-        </v-img>
+
+
+          <v-img
+              class=""
+              height="200px"
+              src="@/assets/routine_photo.jpg"
+          >
+            <v-container>
+              <v-row class="justify-center">
+                <h1 class="" color="white">Leg day</h1>
+              </v-row>
+              <v-row class=" justify-end">
+                <v-icon
+                    large
+                    color="white"
+                    class=""
+                >
+                  mdi-dots-vertical
+                </v-icon>
+              </v-row>
+            </v-container>
+          </v-img>
+
+
       </v-card>
 
-  </div>
+</div>
 </template>
 
 <script>
@@ -30,12 +44,29 @@ export default {
       photo:'@/assets/routine_photo.jpg',
       name:''
     }
+  },
+  methods: {
+    getImage() {
+      return require('@/assets/routine_photo.jpg')
+    }
   }
 }
 </script>
 
 <style scoped>
+.card-title{
+  color: white;
+  position: absolute;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+}
+
 h1{
   font-family: "Bebas Neue";
+  color: white;
 }
 </style>

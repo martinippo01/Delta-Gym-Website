@@ -9,13 +9,21 @@
               max-height="1000"
               min-height="100"
               rounded="xl"
-              max-width="1200"
+              max-width="1300"
               min-width="100"
             >
-            <h1>my routines</h1>
+
+            <v-row class="justify-center">
+<!--              <div class="text-h2 routines-title top-0 start-100" >my routines</div>-->
+                          <h1>my routines</h1>
+            </v-row>
+            <v-row>
               <RoutineButton class="ma-3 position-absolute top-0 start-100 translate-middle" ></RoutineButton>
               <RoutineButton class="ma-3 position-absolute top-0 start-100 translate-middle"></RoutineButton>
               <RoutineButton class="ma-3 position-absolute top-0 start-100 translate-middle"></RoutineButton>
+              <RoutineButton class="ma-3 position-absolute top-0 start-100 translate-middle"></RoutineButton>
+              <add-routine class="ma-3 position-absolute top-0 start-100 translate-middle"></add-routine>
+            </v-row>
           </v-sheet>
         </v-main>
     </v-app>
@@ -25,9 +33,10 @@
 <script>
 import RoutineButton from "@/components/Routines/RoutineButton";
 import TopBar from "@/components/logIn/TopBar";
+import AddRoutine from "@/components/Routines/add";
 export default {
   name: "MyRoutines",
-  components: {TopBar, RoutineButton}
+  components: {AddRoutine, TopBar, RoutineButton}
 }
 </script>
 
@@ -36,5 +45,8 @@ export default {
 h1{
   color: #CFFFB3;
   font-family: "Bebas Neue";
+}
+.routines-title{
+  color: #CFFFB3;
 }
 </style>
