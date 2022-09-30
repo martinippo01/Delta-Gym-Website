@@ -1,7 +1,7 @@
 <template>
   <v-app>
 
-    <TopBar/>
+    <TopBar select="logIn"/>
     <v-main class="background">
       <v-container >
         <v-row class="mt-16">

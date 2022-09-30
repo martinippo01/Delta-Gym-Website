@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <TopBar></TopBar>
+      <MainTopBar select="profile"></MainTopBar>
       <v-main class="background ">
 
         <h1 class="d-flex justify-center align-center">my profile</h1>
@@ -63,6 +63,7 @@
                 </v-col>
                 <v-col >
                   <v-btn
+
                       color="primary"
                       outlined
                       class="temp"
@@ -81,11 +82,11 @@
 </template>
 
 <script>
-import TopBar from "@/components/logIn/TopBar";
+import MainTopBar from "@/components/MainTopBar";
 
 export default {
   name: "ProfilePage",
-  components: {TopBar},
+  components: {MainTopBar},
   data(){
     return{
       name:'',

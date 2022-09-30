@@ -2,7 +2,7 @@
 
   <v-app>
 
-    <TopBar/>
+    <TopBar select="singUp"/>
     <v-main class="background">
       <v-container >
         <v-row class="mt-1">
@@ -34,7 +34,7 @@
                   <v-text-field class="pt-3 pr-10 pl-10" label="Confirm Password" dark="dark" color="primary" v-model="re_password" type="password"/>
                 </v-row>
                 <v-row justify="end">
-                  <v-text-field class="pt-3 pr-10 pl-10" label="Age" dark="dark" color="primary" v-model="age"/>
+                  <v-text-field class="pt-3 pr-10 pl-10" label="Age" dark="dark" color="primary" @keypress="filter" v-model="age"/>
                 </v-row>
                 <v-row justify="center">
                   <v-btn
@@ -53,7 +53,7 @@
                   </a>
                 </v-row>
                 <v-row justify="center" class="mt-4">
-                  <a href="http://localhost:8080/LogIn.vue" justify="center">
+                  <a href="http://localhost:8080/LogIn.vue" >
                         Log In
                   </a>
                 </v-row>
@@ -81,6 +81,18 @@ export default {
       password:'',
       re_password:'',
       age:''
+    }
+  },
+  methods:{
+    filter: function (evt) {
+      evt = (evt) ? evt : window.event;
+      let expect = evt.target.value.toString() + evt.key.toString();
+
+      if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
+        evt.preventDefault();
+      } else {
+        return true;
+      }
     }
   }
 }

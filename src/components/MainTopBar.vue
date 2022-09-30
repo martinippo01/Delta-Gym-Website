@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="background"
-      elevation="0"
+             elevation="0"
   >
     <v-img
         max-height="60"
@@ -19,18 +19,18 @@
     <v-btn
         :disabled="loading"
         class="ma-3 position-absolute top-0 start-100 translate-middle"
-        :color="select === 'singUp' ? 'primary':'topBar'"
+        :color="select === 'myRoutines' ? 'primary':'topBar'"
         plain
     >
-      SING UP
+     MY ROUTINES
     </v-btn>
     <v-btn
         :disabled="loading"
         class="ma-3 position-absolute top-0 start-100 translate-middle"
-        :color="select === 'logIn' ? 'primary':'topBar'"
+        :color="select === 'profile' ? 'primary':'topBar'"
         plain
     >
-      LOG IN
+      <v-icon>mdi-account-circle-outline</v-icon>
     </v-btn>
 
   </v-app-bar>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "TopBar",
+  name: "MainTopBar",
   props:{
     select: {
       type:String,
