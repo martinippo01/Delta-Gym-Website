@@ -157,7 +157,7 @@ import TopBar from "@/components/logIn/TopBar";
 import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
 export default {
-  name: "CreateRoutune",
+  name: "CreateRoutuneView",
   components: { MainTopBar, exerciseCard },
   data() {
     return {
