@@ -41,7 +41,6 @@
                   />
                 </v-row>
                 <v-row justify="center">
-                  <router-link to="/myRoutines">
                     <v-btn
                       @click="loginHandler()"
                       color="primary"
@@ -50,7 +49,6 @@
                     >
                       LOG IN
                     </v-btn>
-                  </router-link>
                 </v-row>
               </v-container>
             </v-sheet>
@@ -64,6 +62,7 @@
 <script>
 import TopBar from "@/components/logIn/TopBar";
 import { store } from "../store/user.js";
+import router from "@/router";
 
 export default {
   name: "LogIn",
@@ -80,6 +79,7 @@ export default {
       //get data from user
       store.setLoggedIn();
       console.log("logged in and value is: " + store.loggedIn);
+      router.push("/myRoutines");
     },
   },
 };

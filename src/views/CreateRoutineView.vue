@@ -1,3 +1,5 @@
+
+
 <template>
   <div id="app">
     <v-app>
@@ -22,6 +24,7 @@
                 color="primary"
                 plain
                 class="temp justify-end mr-7"
+                @click="discard"
               >
                 DISCARD
               </v-btn>
@@ -29,6 +32,7 @@
                 :disabled="loading"
                 color="primary"
                 class="temp justify-end mr-7 secondary--text"
+                @click="save"
               >
                 SAVE
               </v-btn>
@@ -156,6 +160,7 @@
 import TopBar from "@/components/logIn/TopBar";
 import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
+import router from "@/router";
 export default {
   name: "CreateRoutune",
   components: { MainTopBar, exerciseCard },
@@ -163,6 +168,14 @@ export default {
     return {
       routineName: "",
     };
+   },
+   methods: {
+    discard() {
+      router.push("/myRoutines");     
+    },
+    save() {
+      router.push("/myRoutines");
+    }
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="secondary" rounded="xl" width="300" height="200">
+    <v-card  class="box" color="secondary" rounded="xl" width="300" height="200">
       <v-container>
         <v-row class="mx-auto justify-center align-center">
           <v-icon large color="primary" class="center"> mdi-plus </v-icon>
@@ -25,5 +25,9 @@ h1 {
 .center {
   margin: auto;
   width: 50%;
+}
+
+.box {
+  border-style: dashed;
 }
 </style>
