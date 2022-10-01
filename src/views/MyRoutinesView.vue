@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <MainTopBar />
+      <MainTopBar select="myRoutines" />
       <v-main class="background">
         <v-sheet
           class="mx-auto"

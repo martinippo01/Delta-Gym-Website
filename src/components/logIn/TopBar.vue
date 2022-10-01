@@ -12,7 +12,6 @@
       <v-spacer></v-spacer>
       <router-link to="/explore">
         <v-btn
-          :disabled="loading"
           class="ma-3 position-absolute top-0 start-100 translate-middle"
           :color="select === 'explore' ? 'primary' : 'topBar'"
           plain
@@ -22,7 +21,6 @@
       </router-link>
       <router-link to="/signup">
         <v-btn
-          :disabled="loading"
           class="ma-3 position-absolute top-0 start-100 translate-middle"
           :color="select === 'singUp' ? 'primary' : 'topBar'"
           plain
@@ -32,7 +30,6 @@
       </router-link>
       <router-link to="/login">
         <v-btn
-          :disabled="loading"
           class="ma-3 position-absolute top-0 start-100 translate-middle"
           :color="select === 'logIn' ? 'primary' : 'topBar'"
           plain

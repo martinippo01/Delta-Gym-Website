@@ -41,9 +41,16 @@
                   />
                 </v-row>
                 <v-row justify="center">
-                  <v-btn :disabled="loading" color="primary" plain class="temp">
-                    <router-link to="/myRoutines"> LOG IN </router-link>
-                  </v-btn>
+                  <router-link to="/myRoutines">
+                    <v-btn
+                      @click="loginHandler()"
+                      color="primary"
+                      plain
+                      class="temp"
+                    >
+                      LOG IN
+                    </v-btn>
+                  </router-link>
                 </v-row>
               </v-container>
             </v-sheet>
@@ -56,6 +63,7 @@
 
 <script>
 import TopBar from "@/components/logIn/TopBar";
+import { store } from "../store/user.js";
 
 export default {
   name: "LogIn",
@@ -65,6 +73,14 @@ export default {
       email: "",
       password: "",
     };
+  },
+  methods: {
+    loginHandler() {
+      //call api and authenticate
+      //get data from user
+      store.setLoggedIn();
+      console.log("logged in and value is: " + store.loggedIn);
+    },
   },
 };
 </script>
