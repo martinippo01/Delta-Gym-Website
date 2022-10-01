@@ -162,7 +162,7 @@ import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
 import router from "@/router";
 export default {
-  name: "CreateRoutune",
+  name: "CreateRoutuneView",
   components: { MainTopBar, exerciseCard },
   data() {
     return {

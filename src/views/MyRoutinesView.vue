@@ -9,33 +9,53 @@
           max-height="1000"
           min-height="100"
           rounded="xl"
-          max-width="1300"
+          max-width="1400"
           min-width="100"
         >
-          <v-row class="justify-center">
-            <!--              <div class="text-h2 routines-title top-0 start-100" >my routines</div>-->
+
+          <v-row
+            justify="center"
+
+          >
             <h1>my routines</h1>
           </v-row>
-          <v-row>
-            <RoutineButton
-              class="ma-3 position-absolute top-0 start-100 translate-middle"
-            ></RoutineButton>
-            <RoutineButton
-              class="ma-3 position-absolute top-0 start-100 translate-middle"
-            ></RoutineButton>
-            <RoutineButton
-              class="ma-3 position-absolute top-0 start-100 translate-middle"
-            ></RoutineButton>
-            <RoutineButton
-              class="ma-3 position-absolute top-0 start-100 translate-middle"
-            ></RoutineButton>
-            <router-link to="/createRoutine">
-            <add-routine
-              class="ma-3 position-absolute top-0 start-100 translate-middle"
-            ></add-routine>
-            </router-link>
-          </v-row>
+
+
+          <v-container
+            color="secondary"
+            style="justify-content: center"
+            rounded="xl"
+            elevation="0"
+          >
+                <v-row
+                  class="routines-group"
+                >
+                  <router-link to="/createRoutine">
+                    <add-routine
+                      class=" routine-card"
+                    ></add-routine>
+                  </router-link>
+                  <RoutineButton
+                    class=" routine-card"
+                  ></RoutineButton>
+                  <RoutineButton
+                    class=" routine-card"
+                  ></RoutineButton>
+                  <RoutineButton
+                    class=" routine-card"
+                  ></RoutineButton>
+                  <RoutineButton
+                    class=" routine-card"
+                  ></RoutineButton>
+                  <RoutineButton
+                    class=" routine-card"
+                  ></RoutineButton>
+                </v-row>
+
+          </v-container>
+
         </v-sheet>
+
       </v-main>
     </v-app>
   </div>
@@ -58,5 +78,14 @@ h1 {
 }
 .routines-title {
   color: #cfffb3;
+}
+
+.routines-group{
+  padding: 20px;
+  justify-content: left;
+}
+
+.routine-card{
+  padding: 10px;
 }
 </style>
