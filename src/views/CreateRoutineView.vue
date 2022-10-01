@@ -171,10 +171,7 @@ export default {
    },
    methods: {
     discard() {
-      router.push("/myRoutines");     
-    },
-    save() {
-      router.push("/myRoutines");
+     router.push("/myRoutines");
     }
   },
 };
