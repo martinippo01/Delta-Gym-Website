@@ -1,5 +1,8 @@
 <template>
-  <div class="landing">
+  <v-app>
+    <TopBar select=""/>
+
+    <div class="landing">
     <LandingView>
       <template #title> DELTA </template>
       <template #body>
@@ -43,8 +46,8 @@
       </template>
     </LandingView>
 
-    <TopBar class="topbar"> </TopBar>
   </div>
+  </v-app>
 </template>
 
 <script>
@@ -67,9 +70,5 @@ export default {
   margin-left: 0;
   margin-right: 0;
 }
-.topbar {
-  top: 5%;
-  right: 5%;
-  position: fixed;
-}
+
 </style>

@@ -12,35 +12,38 @@
     ></v-img>
     </router-link>
     <v-spacer></v-spacer>
-    <v-btn
+    <router-link to="/explore">
+      <v-btn
         :disabled="loading"
         class="ma-3 position-absolute top-0 start-100 translate-middle"
         :color="select === 'explore' ? 'primary':'topBar'"        plain
     >
-      <router-link to="/explore">
+
       EXPLORE
-      </router-link>
     </v-btn>
+    </router-link>
+    <router-link to="/signup">
+
     <v-btn
         :disabled="loading"
         class="ma-3 position-absolute top-0 start-100 translate-middle"
         :color="select === 'singUp' ? 'primary':'topBar'"
         plain
     >
-      <router-link to="/signup">
       SING UP
-      </router-link>
     </v-btn>
+    </router-link>
+    <router-link to="/login">
+
     <v-btn
         :disabled="loading"
         class="ma-3 position-absolute top-0 start-100 translate-middle"
         :color="select === 'logIn' ? 'primary':'topBar'"
         plain
     >
-      <router-link to="/login">
       LOG IN
-      </router-link>
     </v-btn>
+    </router-link>
 
   </v-app-bar>
   </nav>

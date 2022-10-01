@@ -1,6 +1,5 @@
 <template>
   <v-app>
-
     <TopBar select="logIn"/>
     <v-main class="background">
       <v-container >

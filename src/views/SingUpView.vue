@@ -1,7 +1,6 @@
 <template>
 
   <v-app>
-
     <TopBar select="singUp"/>
     <v-main class="background">
       <v-container >

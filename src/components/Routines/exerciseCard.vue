@@ -1,5 +1,6 @@
 <template>
-  <v-card color="red">
+  <div class="card">
+  <v-card  height="100%" color="#D9D9D9"  rounded="xl">
     <v-card-title >
       <v-text-field
           label="Insert Name" v-model="exerciseName">
@@ -32,25 +33,14 @@
         </v-list>
       </v-menu>
     </v-card-title>
-    <v-card-actions class="mt-1">
-      <v-container>
-    <v-row >
-      <v-col>
-        <v-text-field prepend-icon="mdi-alarm" label="Mins" @keypress="filter(event)" v-model="time"></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter(event)" v-model="weight"></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field label="SETS" @keypress="filter(event)" v-model="sets"></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field label="REPS" @keypress="filter" v-model="reps"></v-text-field>
-      </v-col>
-    </v-row>
-      </v-container>
+    <v-card-actions class="mt-0">
+        <v-text-field class="ml-" prepend-icon="mdi-alarm" label="Mins" @keypress="filter" v-model="time"></v-text-field>
+        <v-text-field class="textField" prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter" v-model="weight"></v-text-field>
+        <v-text-field class="textField" label="SETS" @keypress="filter" v-model="sets"></v-text-field>
+        <v-text-field class="textField" label="REPS" @keypress="filter" v-model="reps"></v-text-field>
   </v-card-actions>
   </v-card>
+  </div>
 </template>
 
 <script>
@@ -83,5 +73,12 @@ export default {
 </script>
 
 <style scoped>
-
+.textField{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.card{
+  width: 300px;
+  height: 200px;
+}
 </style>
