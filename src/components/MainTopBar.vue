@@ -1,59 +1,54 @@
 <template>
-  <v-app-bar color="background"
-             elevation="0"
-  >
+  <v-app-bar color="background" elevation="0">
     <v-img
-        max-height="60"
-        max-width="60"
-        src="@/assets/Logo.png"
-        class="ma-3 position-absolute top-100 start-100 translate-middle"
+      max-height="60"
+      max-width="60"
+      src="@/assets/Logo.png"
+      class="ma-3 position-absolute top-100 start-100 translate-middle"
     ></v-img>
     <v-spacer></v-spacer>
     <v-btn
-        :disabled="loading"
-        class="ma-3 position-absolute top-0 start-100 translate-middle"
-        :color="select === 'explore' ? 'primary':'topBar'"        plain
+      :disabled="loading"
+      class="ma-3 position-absolute top-0 start-100 translate-middle"
+      :color="select === 'explore' ? 'primary' : 'topBar'"
+      plain
     >
-      EXPLORE
+      <router-link to="/explore"> EXPLORE </router-link>
     </v-btn>
     <v-btn
-        :disabled="loading"
-        class="ma-3 position-absolute top-0 start-100 translate-middle"
-        :color="select === 'myRoutines' ? 'primary':'topBar'"
-        plain
+      :disabled="loading"
+      class="ma-3 position-absolute top-0 start-100 translate-middle"
+      :color="select === 'myRoutines' ? 'primary' : 'topBar'"
+      plain
     >
-     MY ROUTINES
+      <router-link to="/myRoutines"> MY ROUTINES </router-link>
     </v-btn>
     <v-btn
-        :disabled="loading"
-        class="ma-3 position-absolute top-0 start-100 translate-middle"
-        :color="select === 'profile' ? 'primary':'topBar'"
-        plain
+      :disabled="loading"
+      class="ma-3 position-absolute top-0 start-100 translate-middle"
+      :color="select === 'profile' ? 'primary' : 'topBar'"
+      plain
     >
-      <v-icon>mdi-account-circle-outline</v-icon>
+      <router-link to="/profile">
+        <v-icon>mdi-account-circle-outline</v-icon>
+      </router-link>
     </v-btn>
-
   </v-app-bar>
 </template>
 
 <script>
 export default {
   name: "MainTopBar",
-  props:{
+  props: {
     select: {
-      type:String,
-      required:true
-    }
-
+      type: String,
+      required: true,
+    },
   },
-  data(){
-    return{
-    }
+  data() {
+    return {};
   },
-
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
