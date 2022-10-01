@@ -29,9 +29,11 @@
             <RoutineButton
               class="ma-3 position-absolute top-0 start-100 translate-middle"
             ></RoutineButton>
+            <router-link to="/createRoutine">
             <add-routine
               class="ma-3 position-absolute top-0 start-100 translate-middle"
             ></add-routine>
+            </router-link>
           </v-row>
         </v-sheet>
       </v-main>
