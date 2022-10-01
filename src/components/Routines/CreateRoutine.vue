@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <TopBar></TopBar>
+      <MainTopBar select="myRoutines"></MainTopBar>
       <v-main class="background">
         <v-sheet
             class="mx-auto sheet"
@@ -12,9 +12,9 @@
         <v-row class="d-flex ">
             <!--              <div class="text-h2 routines-title top-0 start-100" >my routines</div>-->
           <v-col class="d-flex ml-7">
-            <h1>Nombre Rutina</h1>
-            <v-icon class="ml-4" color="#D9D9D9">mdi-alarm</v-icon>
-            <h4 > TIEMPO</h4>
+            <v-text-field label="ROUTINE NAME"    :rules="[() => !!routineName || 'This field is required']" class="textField" v-model="routineName"></v-text-field>
+         <!--   <v-icon class="ml-4" color="#D9D9D9">mdi-alarm</v-icon>
+            <h4 > TIEMPO</h4> -->
           </v-col>
           <v-col class="justify-end d-flex "  md="2"
                  offset-md="3">
@@ -42,7 +42,7 @@
         </v-row>
 
           <v-row>
-            <p class="descripcion">DESCRIPCION LARGA</p>
+            <v-text-field class="descripcion" label="DESCRIPTION"></v-text-field>
           </v-row>
         </v-sheet>
         <div class="slider">
@@ -128,9 +128,15 @@
 <script>
 import TopBar from "@/components/logIn/TopBar";
 import exerciseCard from "@/components/Routines/exerciseCard";
+import MainTopBar from "@/components/MainTopBar";
 export default {
   name: "CreateRoutune",
-  components: {exerciseCard, TopBar}
+  components: {MainTopBar, exerciseCard},
+  data(){
+    return{
+      routineName:''
+    }
+  }
 }
 </script>
 
@@ -151,7 +157,7 @@ h1,h4{
   color: #CFFFB3;
 }
 .slider{
-  max-width: 80%;
+  max-width: 77%;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -161,6 +167,7 @@ h1,h4{
 }
 .descripcion{
   margin-left: 40px;
+  max-width: 95%;
   font-family: "Bebas Neue";
   color: #D9D9D9;
 
@@ -171,6 +178,9 @@ h1,h4{
   margin-right: auto;
   justify-content: center;
   margin-top: 20px;
+}
+.textField{
+  max-width: 350px;
 }
 
 </style>
