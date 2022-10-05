@@ -22,6 +22,7 @@
                 color="primary"
                 plain
                 class="temp justify-end mr-7"
+                @click="discard"
               >
                 DISCARD
               </v-btn>
@@ -29,6 +30,7 @@
                 :disabled="loading"
                 color="primary"
                 class="temp justify-end mr-7 secondary--text"
+                @click="save"
               >
                 SAVE
               </v-btn>
@@ -141,10 +143,10 @@
 import TopBar from "@/components/logIn/TopBar";
 import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
-import addButtom from "@/components/Routines/add"
+import router from "@/router";
 export default {
   name: "CreateRoutuneView",
-  components: { MainTopBar, exerciseCard , addButtom},
+  components: { MainTopBar, exerciseCard },
   data() {
     return {
       routineName: "",
@@ -153,18 +155,23 @@ export default {
       exerciseList:[{number:1}],
 
     };
+   },
+   methods: {
+    discard() {
+     router.push("/myRoutines");
+
+    },
+     addRoutine( type){
+       switch (type){
+         case type === "warmUp":
+           this.warmUpList.push({number: this.warmUpList[this.warmUpList.length -1]+1});
+           break;
+         case
+       }
+       this.exerciseList.push({number: 2});
+     }
   },
-  methods:{
-      addRoutine( type){
-        switch (type){
-          case type === "warmUp":
-            this.warmUpList.push({number: this.warmUpList[this.warmUpList.length -1]+1});
-            break;
-          case 
-        }
-        this.exerciseList.push({number: 2});
-    }
-  }
+
 };
 </script>
 
