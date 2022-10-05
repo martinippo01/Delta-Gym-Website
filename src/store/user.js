@@ -6,4 +6,11 @@ export const store = reactive({
   setLoggedIn() {
     this.loggedIn = true;
   },
+  currentRoutine:{warpUpExercise:new Map(),mainSetExercise:new Map(),coolDownExercise: new Map()},
+  addExercise(exerciseId,name){
+    this.currentRoutine.coolDownExercise.set(exerciseId,name);
+  },
+  getExercises(){
+    return this.currentRoutine.coolDownExercise.get(3);
+  }
 });

@@ -29,5 +29,6 @@ h1 {
 
 .box {
   border-style: dashed;
+  border-color: #cfffb3;
 }
 </style>
