@@ -44,7 +44,10 @@
 </template>
 
 <script>
+import { store } from "@/store/user";
+
 export default {
+
   name: "exerciseCard",
 
   data(){
@@ -54,8 +57,11 @@ export default {
       time:'',
       weight:'',
       sets:'',
-      reps:''
+      reps:'',
     }
+  },
+  props:{
+    id: undefined,
   },
   methods: {
     filter: function (evt) {
@@ -67,6 +73,11 @@ export default {
       } else {
         return true;
       }
+    }
+  },
+  watch:{
+    exerciseName(newExerciseName) {
+        store.addExercise(this.id,newExerciseName);
     }
   }
 }

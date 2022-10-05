@@ -47,92 +47,60 @@
         <div class="slider">
           <h1 class="textSlider">WARM UP</h1>
           <v-slide-group
-            v-model="model"
             class="pa-4"
             active-class="success"
             show-arrows
           >
-            <v-slide-item>
+            <v-slide-item v-for="card in warmUpList" :key="card.number">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
+              <button @click="addRoutine('warmUp')">
+                <addButtom></addButtom>
+              </button>
             </v-slide-item>
           </v-slide-group>
         </div>
         <div class="slider">
           <h1 class="textSlider">MAIN SETS</h1>
           <v-slide-group
-            v-model="model"
             class="pa-4"
             active-class="success"
             show-arrows
           >
-            <v-slide-item>
+            <v-slide-item v-for="card in mainSetList" :key="card.number">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
+              <button @click="addRoutine('mainSet')">
+                <addButtom></addButtom>
+              </button>
             </v-slide-item>
           </v-slide-group>
         </div>
         <div class="slider">
           <h1 class="textSlider">COOL DOWN</h1>
           <v-slide-group
-            v-model="model"
             class="pa-4"
             active-class="success"
             show-arrows
           >
-            <v-slide-item v-for="card in exerciseList" :key="card.number">
+            <v-slide-item v-for="card in coolDownExercises"  :key="card.number">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-                  <button @click="addRoutine">
+                  <button @click="addRoutine('coolDown')">
                     <addButtom></addButtom>
                   </button>
             </v-slide-item>
           </v-slide-group>
+
         </div>
       </v-main>
     </v-app>
@@ -140,19 +108,18 @@
 </template>
 
 <script>
-import TopBar from "@/components/logIn/TopBar";
 import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
 import router from "@/router";
+import addButtom from "@/components/Routines/add"
+import { store } from "@/store/user";
 export default {
   name: "CreateRoutuneView",
-  components: { MainTopBar, exerciseCard },
+  components: { MainTopBar, exerciseCard ,addButtom},
   data() {
     return {
       routineName: "",
-      warmUpList:[{number:1}],
-      mainSetList:[{number:1}],
-      coolDownList:[{number:1}],
+      exercise:[{number:1,exerciseType:"coolDown"}],
 
     };
    },
@@ -161,21 +128,21 @@ export default {
      router.push("/myRoutines");
 
     },
-     addRoutine( type){
-       switch (type){
-         case "warmUp":
-           this.warmUpList.push({number: this.warmUpList[this.warmUpList.length -1]+1});
-           break;
-         case "mainSet":
-            this.mainSetList.push({number: this.mainSetList[this.mainSetList.length -1]+1});
-            break;
-         case "coolDown":
-           this.coolDownList.push({number: this.coolDownList[this.coolDownList.length -1]+1});
+     save(){
+      console.log( store.getExercises());
+       //router.push("/myRoutines");
 
-       }
-       this.exerciseList.push({number: 2});
+     },
+     addRoutine( type){
+       this.exercise.push({number: this.exercise[this.exercise.length -1].number+1 , exerciseType: type});
      }
   },
+  computed:{
+    coolDownExercises(){
+      return this.exercise.filter(ex => ex.exerciseType === "coolDown")
+
+    }
+  }
 
 };
 </script>
