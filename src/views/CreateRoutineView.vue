@@ -1,5 +1,3 @@
-
-
 <template>
   <div id="app">
     <v-app>
@@ -168,11 +166,14 @@ export default {
     return {
       routineName: "",
     };
-   },
-   methods: {
+  },
+  methods: {
     discard() {
-     router.push("/myRoutines");
-    }
+      router.push("/myRoutines");
+    },
+    save() {
+      router.push("/myRoutines");
+    },
   },
 };
 </script>
