@@ -151,8 +151,8 @@ export default {
     return {
       routineName: "",
       warmUpList:[{number:1}],
-      exerciseList:[{number:1}],
-      exerciseList:[{number:1}],
+      mainSetList:[{number:1}],
+      coolDownList:[{number:1}],
 
     };
    },
@@ -163,10 +163,15 @@ export default {
     },
      addRoutine( type){
        switch (type){
-         case type === "warmUp":
+         case "warmUp":
            this.warmUpList.push({number: this.warmUpList[this.warmUpList.length -1]+1});
            break;
-         case
+         case "mainSet":
+            this.mainSetList.push({number: this.mainSetList[this.mainSetList.length -1]+1});
+            break;
+         case "coolDown":
+           this.coolDownList.push({number: this.coolDownList[this.coolDownList.length -1]+1});
+
        }
        this.exerciseList.push({number: 2});
      }
