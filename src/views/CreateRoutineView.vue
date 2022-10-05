@@ -120,30 +120,15 @@
             active-class="success"
             show-arrows
           >
-            <v-slide-item>
+            <v-slide-item v-for="card in exerciseList" :key="card.number">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item>
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-              ></exerciseCard>
+                  <button @click="addRoutine">
+                    <addButtom></addButtom>
+                  </button>
             </v-slide-item>
           </v-slide-group>
         </div>
@@ -156,14 +141,30 @@
 import TopBar from "@/components/logIn/TopBar";
 import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
+import addButtom from "@/components/Routines/add"
 export default {
   name: "CreateRoutuneView",
-  components: { MainTopBar, exerciseCard },
+  components: { MainTopBar, exerciseCard , addButtom},
   data() {
     return {
       routineName: "",
+      warmUpList:[{number:1}],
+      exerciseList:[{number:1}],
+      exerciseList:[{number:1}],
+
     };
   },
+  methods:{
+      addRoutine( type){
+        switch (type){
+          case type === "warmUp":
+            this.warmUpList.push({number: this.warmUpList[this.warmUpList.length -1]+1});
+            break;
+          case 
+        }
+        this.exerciseList.push({number: 2});
+    }
+  }
 };
 </script>
 
