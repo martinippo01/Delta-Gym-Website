@@ -67,8 +67,25 @@
           </v-col>
         </v-row>
       </v-container>
-
     </v-main>
+  <!--    Esto es para el snackbar. Es como un pop up-->
+    <v-snackbar
+      v-model="snackbar"
+      color="error"
+    >
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          v-bind="attrs"
+          @click="snackbar = false"
+          outlined
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   </v-app>
 
 
