@@ -18,7 +18,6 @@
             </v-col>
             <v-col class="justify-end d-flex" md="2" offset-md="3">
               <v-btn
-                :disabled="loading"
                 color="primary"
                 plain
                 class="temp justify-end mr-7"
@@ -27,7 +26,6 @@
                 DISCARD
               </v-btn>
               <v-btn
-                :disabled="loading"
                 color="primary"
                 class="temp justify-end mr-7 secondary--text"
                 @click="save"
@@ -51,9 +49,9 @@
             active-class="success"
             show-arrows
           >
-            <v-slide-item v-for="card in warmUpList" :key="card.number">
+            <v-slide-item v-for="card in warmUpExercises" :key="card.number">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number" type="warmUp"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -70,9 +68,9 @@
             active-class="success"
             show-arrows
           >
-            <v-slide-item v-for="card in mainSetList" :key="card.number">
+            <v-slide-item v-for="card in mainSetExercises" :key="card.number">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number" type="mainSet"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -91,7 +89,7 @@
           >
             <v-slide-item v-for="card in coolDownExercises"  :key="card.number">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number"
+                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number" type="coolDown"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -112,35 +110,43 @@ import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
 import router from "@/router";
 import addButtom from "@/components/Routines/add"
-import { store } from "@/store/user";
+import {mapState} from "pinia"
+import {useExerciseStore} from '@/store/exerciseData'
+
 export default {
   name: "CreateRoutuneView",
   components: { MainTopBar, exerciseCard ,addButtom},
   data() {
     return {
       routineName: "",
-      exercise:[{number:1,exerciseType:"coolDown"}],
+      exercise:[{number:0,type:"nothing"}],
 
     };
    },
    methods: {
+    ...mapState(useExerciseStore,["getCoolDownExercise"]),
     discard() {
      router.push("/myRoutines");
 
     },
      save(){
-      console.log( store.getExercises());
+      console.log( this.getCoolDownExercise());
        //router.push("/myRoutines");
 
      },
      addRoutine( type){
-       this.exercise.push({number: this.exercise[this.exercise.length -1].number+1 , exerciseType: type});
+       this.exercise.push({number: this.exercise[this.exercise.length -1].number+1 , type: type});
      }
   },
   computed:{
     coolDownExercises(){
-      return this.exercise.filter(ex => ex.exerciseType === "coolDown")
-
+      return this.exercise.filter(ex => ex.type === "coolDown")
+    },
+    mainSetExercises(){
+      return this.exercise.filter(ex => ex.type === "mainSet")
+    },
+    warmUpExercises(){
+      return this.exercise.filter(ex => ex.type === "warmUp")
     }
   }
 

@@ -59,6 +59,7 @@ export default {
   components: {
     LandingView,
     TopBar,
+
   },
 };
 </script>
