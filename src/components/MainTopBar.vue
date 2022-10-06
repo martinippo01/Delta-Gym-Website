@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="background" elevation="0">
-    <router-link to="/">
+    <router-link style="text-decoration: none; color: inherit;" to="/">
       <v-img
         max-height="60"
         max-width="60"
@@ -14,21 +14,21 @@
       :color="select === 'explore' ? 'primary' : 'topBar'"
       plain
     >
-      <router-link to="/explore"> EXPLORE </router-link>
+      <router-link  style="text-decoration: none; color: inherit;" to="/explore"> EXPLORE </router-link>
     </v-btn>
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
       :color="select === 'myRoutines' ? 'primary' : 'topBar'"
       plain
     >
-      <router-link to="/myRoutines"> MY ROUTINES </router-link>
+      <router-link style="text-decoration: none; color: inherit;" to="/myRoutines"> MY ROUTINES </router-link>
     </v-btn>
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
       :color="select === 'profile' ? 'primary' : 'topBar'"
       plain
     >
-      <router-link to="/profile">
+      <router-link style="text-decoration: none; color: inherit;" to="/profile">
         <v-icon>mdi-account-circle-outline</v-icon>
       </router-link>
     </v-btn>

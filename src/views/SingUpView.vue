@@ -36,33 +36,56 @@
                   <v-text-field class="pt-3 pr-10 pl-10" label="Age" dark="dark" color="primary" @keypress="filter" v-model="age"/>
                 </v-row>
                 <v-row justify="center">
-                  <v-btn
-                      :disabled="loading"
-                      color="primary"
-                      plain
-                      class="temp"
+                  <router-link to="/VerifyEmail">
+                    <v-btn
+                        :disabled="loading"
+                        color="primary"
+                        plain
+                        class="temp"
 
-                  >
-                    REGISTER
-                  </v-btn>
+                    >
+                      REGISTER
+                    </v-btn>
+                  </router-link>
                 </v-row>
                 <v-row justify="center" class="mt-4">
-                  <a href="http://localhost:8080/LogIn.vue" justify="center">
-                    Already have an account?
-                  </a>
+                  <router-link to="/login">
+                    <a justify="center">
+                      Already have an account?
+                    </a>
+                  </router-link>
                 </v-row>
                 <v-row justify="center" class="mt-4">
-                  <a href="http://localhost:8080/LogIn.vue" >
-                        Log In
-                  </a>
+                  <router-link to="/login">
+                    <a>
+                          Log In
+                    </a>
+                  </router-link>
                 </v-row>
               </v-container>
             </v-sheet>
           </v-col>
         </v-row>
       </v-container>
-
     </v-main>
+  <!--    Esto es para el snackbar. Es como un pop up-->
+    <v-snackbar
+      v-model="snackbar"
+      color="error"
+    >
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          v-bind="attrs"
+          @click="snackbar = false"
+          outlined
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   </v-app>
 
 

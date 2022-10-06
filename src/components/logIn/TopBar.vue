@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-app-bar color="background" elevation="0">
-      <router-link to="/">
+      <router-link style="text-decoration: none; color: inherit;" to="/">
         <v-img
           max-height="60"
           max-width="60"
@@ -10,7 +10,7 @@
         ></v-img>
       </router-link>
       <v-spacer></v-spacer>
-      <router-link to="/explore">
+      <router-link style="text-decoration: none; color: inherit;" to="/explore">
         <v-btn
           class="ma-3 position-absolute top-0 start-100 translate-middle"
           :color="select === 'explore' ? 'primary' : 'topBar'"
@@ -19,7 +19,7 @@
           EXPLORE
         </v-btn>
       </router-link>
-      <router-link to="/signup">
+      <router-link style="text-decoration: none; color: inherit;" to="/signup">
         <v-btn
           class="ma-3 position-absolute top-0 start-100 translate-middle"
           :color="select === 'singUp' ? 'primary' : 'topBar'"
@@ -28,7 +28,7 @@
           SING UP
         </v-btn>
       </router-link>
-      <router-link to="/login">
+      <router-link  style="text-decoration: none; color: inherit;" to="/login">
         <v-btn
           class="ma-3 position-absolute top-0 start-100 translate-middle"
           :color="select === 'logIn' ? 'primary' : 'topBar'"
