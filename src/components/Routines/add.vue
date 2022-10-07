@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-      style="border-style: 'dotted';"
+      style="border-style: 'dotted'"
       class="box"
       color="secondary"
       rounded="xl"
