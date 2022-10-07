@@ -7,6 +7,8 @@ class UserApi {
     return `${Api.baseUrl}/users${slug ? `/${slug}` : ""}`;
   }
 
+  /* aca la clave esta en que le agrego al url el slug login debido a que
+   * la api me pide ese url para manejar el login! */
   static async login(credentials, controller) {
     return await Api.post(
       UserApi.getUrl("login"),

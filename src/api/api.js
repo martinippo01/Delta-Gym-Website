@@ -13,18 +13,28 @@ class Api {
     return 60 * 1000;
   }
 
-  /* todo lo que no esta comentado medio que va mas alla, es un manejo de errores */
+  /* secure: boolean que determina si tengo que estar o no autenticado para usar la api
+   * url: a donde hacer el fetch
+   * init: los argumentos del fetch
+   * */
   static async fetch(url, secure, init = {}, controller) {
+    //aca tengo que chequear si tengo el token para hablar con la api y
+    //si la conexion es segura
     if (secure && Api.token) {
+      //sino tengo el header entonces lo inicializo (sino no puedo agregar el
+      //token a este para la autorizacion)
       if (!init.headers) init.headers = {};
 
+      //aca agrego el header que estoy autenticado, el token``
       init.headers["Authorization"] = `bearer ${Api.token}`;
     }
 
+    //esto es tal que tenga un timeout, que no espere indefinidamente a que responda mi api
     controller = controller || new AbortController();
     init.signal = controller.signal;
     const timer = setTimeout(() => controller.abort(), Api.timeout);
 
+    //aca creamos un try catch porque incluimos el timer de la fetch, y managemos los errores.
     try {
       //hago el fetch de mi url con los parametros correspondientes
       const response = await fetch(url, init);

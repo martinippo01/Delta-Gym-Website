@@ -1,11 +1,15 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 
 <script>
+import { useSecurityStore } from "@/store/securityStore";
 export default {
   name: "App",
-  components: { }
-}
+  components: {},
+  async created() {
+    const securityStore = useSecurityStore();
+    await securityStore.initialize();
+  },
+};
 </script>
-

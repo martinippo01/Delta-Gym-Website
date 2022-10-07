@@ -77,23 +77,27 @@
 import TopBar from "@/components/logIn/TopBar";
 import { store } from "../store/user.js";
 import router from "@/router";
+import { UserApi, Credentials } from "@/api/user";
 
 export default {
   name: "LogIn",
   components: { TopBar },
   data() {
     return {
-      email: "",
-      password: "",
+      email: "johndoe",
+      password: "1234",
     };
   },
   methods: {
-    loginHandler() {
-      //call api and authenticate
-      //get data from user
-      store.setLoggedIn();
-      console.log("logged in and value is: " + store.loggedIn);
-      router.push("/myRoutines");
+    loginHandler: async function () {
+      //llamo a la api y autentico, el controlador no la incluyo
+      //por ende lo toma como null y lo define la Api.fetch() en si
+      const credentials = new Credentials(this.email, this.password);
+      const res = await UserApi.login(credentials);
+
+      if (res.code === 500) router.push("/errorPage");
+      if (res.code === 200) router.push("/myRoutines");
+      if (res.code === 401) console.log("invalid account");
     },
   },
 };
