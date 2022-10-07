@@ -92,12 +92,15 @@ export default {
     loginHandler: async function () {
       //llamo a la api y autentico, el controlador no la incluyo
       //por ende lo toma como null y lo define la Api.fetch() en si
-      const credentials = new Credentials(this.email, this.password);
+      /*const credentials = new Credentials(this.email, this.password);
       const res = await UserApi.login(credentials);
 
       if (res.code === 500) router.push("/errorPage");
       if (res.code === 200) router.push("/myRoutines");
-      if (res.code === 401) console.log("invalid account");
+      if (res.code === 401) {
+      router.push("/myRoutines");
+      console.log("invalid account");
+      */
     },
   },
 };

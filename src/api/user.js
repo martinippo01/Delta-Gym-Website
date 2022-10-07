@@ -18,12 +18,22 @@ class UserApi {
     );
   }
 
+  static async addUser(registration, controller) {
+    await Api.post(UserApi.getUrl("user"), false, registration, controller);
+  }
+
   static async logout(controller) {
     await Api.post(UserApi.getUrl("logout"), true, controller);
   }
 
   static async get(controller) {
     return Api.get(UserApi.getUrl("current"), true, controller);
+  }
+}
+
+class Registration {
+  constructor(name, password) {
+    //queda agregar todos los argumentos y nullear los que no se usan actualmente
   }
 }
 
