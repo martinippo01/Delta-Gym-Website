@@ -10,7 +10,8 @@ export default new Vuetify({
         background: "#1E1E1E",
         primary: "#CFFFB3",
         secondary: "#4b4b4b",
-        topBar: "#FFFFFF"
+        topBar: "#FFFFFF",
+        error: "#EF5757",
       },
     },
   },
