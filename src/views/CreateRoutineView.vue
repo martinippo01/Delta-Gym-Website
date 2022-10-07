@@ -92,7 +92,7 @@
             active-class="success"
             show-arrows
           >
-            <v-slide-item v-for="card in coolDownExercises"  :key="card.number">
+            <v-slide-item v-for="card in exerciseList"  :key="card.number">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number" type="coolDown"
               ></exerciseCard>
@@ -115,8 +115,8 @@ import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
 import router from "@/router";
 import addButtom from "@/components/Routines/add"
-import {mapState} from "pinia"
-import {useExerciseStore} from '@/store/exerciseData'
+import {mapState,mapActions} from 'pinia'
+import {useExerciseStore} from "@/store/exerciseData"
 
 export default {
   name: "CreateRoutuneView",
@@ -125,28 +125,32 @@ export default {
     return {
       routineName: "",
       exercise:[{number:0,type:"nothing"}],
+      maxId:0,
 
     };
    },
    methods: {
-    ...mapState(useExerciseStore,["getCoolDownExercise"]),
-    discard() {
+    ...mapActions(useExerciseStore,['addExercise']),
+     ...mapState(useExerciseStore,['getExercises']),
+
+     discard() {
      router.push("/myRoutines");
 
     },
      save(){
-      console.log( this.getCoolDownExercise());
        //router.push("/myRoutines");
 
      },
      addRoutine( type){
-       this.exercise.push({number: this.exercise[this.exercise.length -1].number+1 , type: type});
-     }
-  },
+       this.addExercise(this.maxId,type);
+       this.maxId++;
+       console.log(this.getExercises());
+
+     },
+
+   },
   computed:{
-    coolDownExercises(){
-      return this.exercise.filter(ex => ex.type === "coolDown")
-    },
+
     mainSetExercises(){
       return this.exercise.filter(ex => ex.type === "mainSet")
     },
