@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, mapState } from "pinia";
 type exercise = {
     name:string,
     type:string,
@@ -7,28 +7,29 @@ type exercise = {
     reps:number,
     sets:number
 };
-export const useExerciseStore = defineStore('counter', {
+export const useExerciseStore = defineStore('exercises', {
 
     state: () => ({
         exerciseList:new Map<number,exercise>()
     }),
     getters: {
-        getExercises(state){
-            return this.exerciseList;
+        getExercises(){
+            Array.from(this.exerciseList.values());
         },
         getCoolDownExercise(state){
-            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "coolDown" && exercise.name !== undefined);
+            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "coolDown" );
         },
         getMainSetExercises(state){
-            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "mainSet" && exercise.name !== undefined);
+            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "mainSet" );
         },
         getWarmUpExercises(state){
-            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "warmUp" && exercise.name !== undefined );
+            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "warmUp"  );
         }
     },
     actions: {
         addExercise( id:number,type:string){
-            this.exerciseList.set(id,{name:'',type:type,time:0,weight:0,reps:0,sets:0});
+            this.exerciseList.set(id,{name:'',type:type,time:id,weight:0,reps:0,sets:0});
+           console.log(Array.from(this.exerciseList.values()))
         },
         deleteExercise(id:number){
             this.exerciseList.delete(id);

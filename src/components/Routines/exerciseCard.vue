@@ -104,9 +104,7 @@ export default {
   watch:{
 
   },
-  mounted() {
-    this.addExercise(this.id,this.type);
-  }
+
 }
 </script>
 
