@@ -30,9 +30,9 @@
                 <v-row
                   class="routines-group"
                 >
-                  <router-link to="/createRoutine">
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
                     <add-routine
-                      class=" routine-card"
+                      class="routine-card"
                     ></add-routine>
                   </router-link>
                   <RoutineButton
