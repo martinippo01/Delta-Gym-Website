@@ -12,6 +12,9 @@
                 :rules="[() => !!routineName || 'This field is required']"
                 class="textField"
                 v-model="routineName"
+                dark
+                height="50"
+                color="primary"
               ></v-text-field>
               <!--   <v-icon class="ml-4" color="#D9D9D9">mdi-alarm</v-icon>
             <h4 > TIEMPO</h4> -->
@@ -39,6 +42,8 @@
             <v-text-field
               class="descripcion"
               label="DESCRIPTION"
+              color="primary"
+              dark
             ></v-text-field>
           </v-row>
         </v-sheet>
@@ -182,7 +187,7 @@ h4 {
 .descripcion {
   margin-left: 40px;
   max-width: 95%;
-  font-family: "Bebas Neue";
+  font-family: "Roboto";
   color: #d9d9d9;
 }
 .sheet {
@@ -194,5 +199,7 @@ h4 {
 }
 .textField {
   max-width: 350px;
+  font-size: 40px;
+  font-family: "Bebas Neue";
 }
 </style>

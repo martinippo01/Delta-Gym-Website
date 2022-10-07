@@ -6,8 +6,6 @@
           width="300"
           height="200"
       >
-
-
           <v-img
               class=""
               height="200px"
@@ -15,7 +13,7 @@
           >
             <v-container>
               <v-row class="justify-center">
-                <h1 class="" color="white">Leg day</h1>
+                <h1 class="">Leg day</h1>
               </v-row>
               <v-row class=" justify-end">
                 <v-icon
@@ -28,8 +26,6 @@
               </v-row>
             </v-container>
           </v-img>
-
-
       </v-card>
 
 </div>
@@ -46,9 +42,7 @@ export default {
     }
   },
   methods: {
-    getImage() {
-      return require('@/assets/routine_photo.jpg')
-    }
+
   }
 }
 </script>

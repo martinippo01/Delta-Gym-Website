@@ -15,7 +15,7 @@
 
           <v-row
             justify="center"
-
+            style="padding: 10px"
           >
             <h1>my routines</h1>
           </v-row>
@@ -82,7 +82,7 @@ h1 {
 
 .routines-group{
   padding: 20px;
-  justify-content: left;
+  justify-content: center;
 }
 
 .routine-card{

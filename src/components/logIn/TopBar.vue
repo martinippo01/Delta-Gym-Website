@@ -1,5 +1,4 @@
 <template>
-  <nav>
     <v-app-bar color="background" elevation="0">
       <router-link style="text-decoration: none; color: inherit;" to="/">
         <v-img
@@ -38,7 +37,6 @@
         </v-btn>
       </router-link>
     </v-app-bar>
-  </nav>
 </template>
 
 <script>

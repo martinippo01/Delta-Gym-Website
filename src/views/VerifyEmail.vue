@@ -24,22 +24,27 @@
                 </v-row>
 
                 <v-row justify="center" style="padding: 10px; font-family: 'Roboto'; color: white">
-                  <p>   Please check your inbox at <span style="font-family: 'Roboto Black'" >{{email}} </span>. Use the code found in the email to verify your account.
+                  <p>   Please check your inbox at <span style="font-family: 'Roboto Black'" >{{email}}</span>. Use the code found in the email to verify your account.
                     <br><span style="font-family: 'Roboto Black'">Note:</span> Do not share or type the code outside of this website</p>
                 </v-row>
 
                 <v-row justify="end">
-                  <v-text-field filled
-                                rounded
-                                dense
-                                class="pt-7 pr-10 pl-10"
-                                label="Code"
-                                dark="dark"
-                                color="primary"
-                                @keypress="filter"
-                                v-model="code"
-                                :maxlength="maxInput"
-                                />
+                  <v-otp-input
+                    dark
+                    color="primary"
+                    rounded
+                    length="4"
+                    type="number"
+                    style="padding: 10px"
+                    v-model="code"
+                    @finish="onFinish"
+                  ></v-otp-input>
+                  <v-overlay absolute :value="loading">
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-overlay>
                 </v-row>
 
                 <v-row justify="center" style="padding: 10px">
@@ -95,19 +100,21 @@ export default {
       email:'test@mail.com',
       snackbar: false,
       text: `Error: The verification code typed does not match`,
+      loading: false,
+      snackbarColor: 'default',
+      expectedCode: '1234',
     }
   },
   methods:{
-    filter: function (evt) {
-      evt = (evt) ? evt : window.event;
-      let expect = evt.target.value.toString() + evt.key.toString();
-
-      if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
-        evt.preventDefault();
-      } else {
-        return true;
-      }
-    }
+    onFinish (rsp) {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+        this.snackbarColor = (rsp === this.expectedCode) ? 'success' : 'warning'
+        this.text = `Processed OTP with "${rsp}" (${this.snackbarColor})`
+        this.snackbar = true
+      }, 3500)
+    },
   }
 };
 </script>

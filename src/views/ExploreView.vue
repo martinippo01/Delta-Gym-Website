@@ -1,6 +1,8 @@
 <template>
+  <div id="app">
   <v-app>
     <TopBar select="explore"></TopBar>
+
     <v-main class="background">
       <v-sheet
         class="mx-auto"
@@ -8,49 +10,60 @@
         max-height="1000"
         min-height="100"
         rounded="xl"
-        max-width="1300"
+        max-width="1400"
         min-width="100"
       >
-        <br />
-        <v-row class="justify-center">
-          <div class="text-h2 color-pr routines-title top-10 start-100">EXPLORE</div>
+
+        <v-row class="justify-center" style="padding: 10px">
+          <h1>EXPLORE</h1>
         </v-row>
-        <br />
+
         <v-autocomplete
           dense
-          filled
-          rounded
           solo
-          backgroundColor="#F5EFE6"
-          style="margin-left: 4%; margin-right: 4%"
+          rounded
+          backgroundColor="#cccccc"
+          label="Search"
+          style="margin-left: 4%; margin-right: 4%; padding: 10px"
         ></v-autocomplete>
-        <v-row
-          style="margin-left: 0%; margin-right: 0%; justify-content: left"
+
+        <v-container
+          color="secondary"
+          style="justify-content: center"
+          rounded="xl"
+          elevation="0"
         >
-          <RoutineButton
-            class="ma-3 position-absolute top-0 start-100 translate-middle"
-          ></RoutineButton>
-          <RoutineButton
-            class="ma-3 position-absolute top-0 start-100 translate-middle"
-          ></RoutineButton>
-          <RoutineButton
-            class="ma-3 position-absolute top-0 start-100 translate-middle"
-          ></RoutineButton>
-          <RoutineButton
-            class="ma-3 position-absolute top-0 start-100 translate-middle"
-          ></RoutineButton>
-          <RoutineButton
-            class="ma-3 position-absolute top-0 start-100 translate-middle"
-          ></RoutineButton>
-        </v-row>
+
+          <v-row
+            class="routines-group"
+          >
+            <RoutineButton
+              class="ma-3 position-absolute top-0 start-100 translate-middle"
+            ></RoutineButton>
+            <RoutineButton
+              class="ma-3 position-absolute top-0 start-100 translate-middle"
+            ></RoutineButton>
+            <RoutineButton
+              class="ma-3 position-absolute top-0 start-100 translate-middle"
+            ></RoutineButton>
+            <RoutineButton
+              class="ma-3 position-absolute top-0 start-100 translate-middle"
+            ></RoutineButton>
+            <RoutineButton
+              class="ma-3 position-absolute top-0 start-100 translate-middle"
+            ></RoutineButton>
+          </v-row>
+        </v-container>
       </v-sheet>
     </v-main>
   </v-app>
+</div>
 </template>
 
 <script>
 import TopBar from "@/components/logIn/TopBar";
 import RoutineButton from "@/components/Routines/RoutineButton";
+
 
 export default {
   name: "ExploreView",
@@ -58,4 +71,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+h1 {
+  color: #cfffb3;
+  font-family: "Bebas Neue";
+}
+
+.routines-group{
+  padding: 20px;
+  justify-content: center;
+}
+</style>
