@@ -41,14 +41,20 @@
                   />
                 </v-row>
                 <v-row justify="center">
-                    <v-btn
-                      @click="loginHandler()"
-                      color="primary"
-                      plain
-                      class="temp"
-                    >
-                      LOG IN
-                    </v-btn>
+                  <v-btn
+                    @click="loginHandler()"
+                    color="primary"
+                    plain
+                    class="temp"
+                  >
+                    LOG IN
+                  </v-btn>
+                </v-row>
+
+                <v-row justify="center" class="mt-4">
+                  <router-link to="/signUp">
+                    <a justify="center"> Don't have an account? </a>
+                  </router-link>
                 </v-row>
               </v-container>
             </v-sheet>
@@ -56,21 +62,12 @@
         </v-row>
       </v-container>
     </v-main>
-<!--    Esto es para el snackbar. Es como un pop up-->
-    <v-snackbar
-      v-model="snackbar"
-      color="error"
-    >
+    <!--    Esto es para el snackbar. Es como un pop up-->
+    <v-snackbar v-model="snackbar" color="error">
       {{ text }}
 
       <template v-slot:action="{ attrs }">
-        <v-btn
-          v-bind="attrs"
-          @click="snackbar = false"
-          outlined
-        >
-          Close
-        </v-btn>
+        <v-btn v-bind="attrs" @click="snackbar = false" outlined> Close </v-btn>
       </template>
     </v-snackbar>
   </v-app>
