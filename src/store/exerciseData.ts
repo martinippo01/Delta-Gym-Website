@@ -5,74 +5,70 @@ type exercise = {
     time:number,
     weight:number,
     reps:number,
-    sets:number
+    sets:number,
+    id:number
 };
 export const useExerciseStore = defineStore('exercises', {
 
     state: () => ({
-        exerciseList:new Map<number,exercise>()
+        exercisArray:[] as exercise[]
     }),
     getters: {
-        getExercises(){
-            Array.from(this.exerciseList.values());
-        },
+
         getCoolDownExercise(state){
-            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "coolDown" );
+            return this.exercisArray.filter(ex=>ex.type === 'coolDown');
         },
         getMainSetExercises(state){
-            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "mainSet" );
+            return this.exercisArray.filter(ex=>ex.type === 'mainSet');
         },
         getWarmUpExercises(state){
-            return Array.from(this.exerciseList.values()).filter(exercise => exercise.type === "warmUp"  );
+            return this.exercisArray.filter(ex=>ex.type === 'warmUp');
         }
     },
     actions: {
         addExercise( id:number,type:string){
-            this.exerciseList.set(id,{name:'',type:type,time:id,weight:0,reps:0,sets:0});
-           console.log(Array.from(this.exerciseList.values()))
+           this.exercisArray.push({name:'',type:type,time:id,weight:0,reps:0,sets:0,id:id}) - 1;
         },
         deleteExercise(id:number){
-            this.exerciseList.delete(id);
+            const aux= this.exercisArray.findIndex(ex => ex.id === id);
+            if(aux !== undefined)
+             this.exercisArray.splice(aux,1);
+            console.log(this.exercisArray.length)
         },
         updateName(id:number,ex_name:string){
-            const aux = this.exerciseList.get(id);
+            const aux= this.exercisArray.findIndex(ex => ex.id === id);
+
             if(aux === undefined)
                 return;
-
-            aux.name = ex_name;
-            this.exerciseList.set(id,aux);
+            this.exercisArray[aux].name = ex_name;
         },
         updateTime(id:number,time:number){
-            const aux = this.exerciseList.get(id);
+            const aux= this.exercisArray.findIndex(ex => ex.id === id);
+
             if(aux === undefined)
                 return;
-
-            aux.time = time;
-            this.exerciseList.set(id,aux);
+            this.exercisArray[aux].time = time;
         },
         updateWeight(id:number,weight:number){
-            const aux = this.exerciseList.get(id);
+            const aux= this.exercisArray.findIndex(ex => ex.id === id);
+
             if(aux === undefined)
                 return;
-
-            aux.weight = weight;
-            this.exerciseList.set(id,aux);
+            this.exercisArray[aux].weight = weight;
         },
         updateReps(id:number,reps:number){
-            const aux = this.exerciseList.get(id);
+            const aux= this.exercisArray.findIndex(ex => ex.id === id);
+
             if(aux === undefined)
                 return;
-
-            aux.reps = reps;
-            this.exerciseList.set(id,aux);
+            this.exercisArray[aux].reps = reps;
         },
-        updateSets(id:number,reps:number){
-            const aux = this.exerciseList.get(id);
+        updateSets(id:number,sets:number){
+            const aux= this.exercisArray.findIndex(ex => ex.id === id);
+
             if(aux === undefined)
                 return;
-
-            aux.sets = reps;
-            this.exerciseList.set(id,aux);
+            this.exercisArray[aux].sets = sets;
         },
 
 

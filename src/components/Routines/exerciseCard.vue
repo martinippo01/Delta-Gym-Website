@@ -28,7 +28,7 @@
               v-for="(item, i) in items"
               :key="i"
           >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title><v-btn @click="deleteMe">{{ item.title }}</v-btn></v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -82,9 +82,10 @@ export default {
       ...mapActions(useExerciseStore,['updateWeight']),
       ...mapActions(useExerciseStore,['updateReps']),
       ...mapActions(useExerciseStore,['updateSets']),
-
+    deleteMe(){
+      this.deleteExercise(this.id);
+    },
     update_name() {
-      console.log(this.exerciseName);
       this.updateName(this.id,this.exerciseName);
     },
     update_time(){

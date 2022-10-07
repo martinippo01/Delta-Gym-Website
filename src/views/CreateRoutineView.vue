@@ -54,9 +54,9 @@
             active-class="success"
             show-arrows
           >
-            <v-slide-item v-for="card in warmUpExercises" :key="card.number">
+            <v-slide-item v-for="card in getWarmUpExercises" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number" type="warmUp"
+                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="warmUp"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -73,9 +73,9 @@
             active-class="success"
             show-arrows
           >
-            <v-slide-item v-for="card in mainSetExercises" :key="card.number">
+            <v-slide-item v-for="card in getMainSetExercises" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number" type="mainSet"
+                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="mainSet"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -92,9 +92,9 @@
             active-class="success"
             show-arrows
           >
-            <v-slide-item v-for="card in exerciseList"  :key="card.number">
+            <v-slide-item v-for="card in getCoolDownExercise"  :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.number" type="coolDown"
+                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="coolDown"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -115,7 +115,7 @@ import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
 import router from "@/router";
 import addButtom from "@/components/Routines/add"
-import {mapState,mapActions} from 'pinia'
+import {mapState,mapActions,storeToRefs} from 'pinia'
 import {useExerciseStore} from "@/store/exerciseData"
 
 export default {
@@ -124,40 +124,37 @@ export default {
   data() {
     return {
       routineName: "",
-      exercise:[{number:0,type:"nothing"}],
-      maxId:0,
+      maxId:1,
 
     };
    },
    methods: {
     ...mapActions(useExerciseStore,['addExercise']),
-     ...mapState(useExerciseStore,['getExercises']),
 
      discard() {
      router.push("/myRoutines");
 
     },
      save(){
-       //router.push("/myRoutines");
+       router.push("/myRoutines");
 
      },
      addRoutine( type){
        this.addExercise(this.maxId,type);
        this.maxId++;
-       console.log(this.getExercises());
 
      },
 
    },
   computed:{
+    ...mapState(useExerciseStore,['getCoolDownExercise']),
+    ...mapState(useExerciseStore,['getMainSetExercises']),
+    ...mapState(useExerciseStore,['getWarmUpExercises']),
 
-    mainSetExercises(){
-      return this.exercise.filter(ex => ex.type === "mainSet")
-    },
-    warmUpExercises(){
-      return this.exercise.filter(ex => ex.type === "warmUp")
-    }
-  }
+
+
+  },
+
 
 };
 </script>
