@@ -95,14 +95,13 @@
         </v-row>
       </v-container>
     </v-main>
-    <!--    Esto es para el snackbar. Es como un pop up-->
-    <!-- <v-snackbar v-model="snackbar" color="error"> -->
-    <!--   {{ text }} -->
-    <!---->
-    <!--   <template v-slot:action="{ attrs }"> -->
-    <!--     <v-btn v-bind="attrs" @click="snackbar = false" outlined> Close </v-btn> -->
-    <!--   </template> -->
-    <!-- </v-snackbar> -->
+    <v-snackbar v-model="snackbar" color="error">
+      {{ snackbarMsg }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn v-bind="attrs" @click="snackbar = false" outlined> Close </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -116,6 +115,8 @@ export default {
   components: { TopBar },
   data() {
     return {
+      snackbar: false,
+      snackbarMsg: "",
       fullName: "",
       email: "",
       password: "",
@@ -134,7 +135,7 @@ export default {
         return true;
       }
     },
-    registerHandler() {
+    async registerHandler() {
       const credentials = new Registration(
         this.fullName,
         this.email,
@@ -143,10 +144,13 @@ export default {
       );
 
       try {
-        UserApi.addUser(credentials);
-        console.log("added user!");
+        await UserApi.addUser(credentials);
+        router.push("/verifyEmail");
       } catch (error) {
-        console.log("error");
+        this.snackbar = true;
+        this.snackbarMsg = "failed to add";
+        //aca habria que hacer un buen trabajo, presentar bien en que fallo
+        //esto es HCI
       }
     },
   },
