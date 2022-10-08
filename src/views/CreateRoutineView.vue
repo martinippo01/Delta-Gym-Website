@@ -54,6 +54,7 @@
             class="pa-4"
             active-class="success"
             show-arrows
+            dark
           >
             <v-slide-item v-for="card in getWarmUpExercises" :key="card.id">
               <exerciseCard
@@ -73,6 +74,7 @@
             class="pa-4"
             active-class="success"
             show-arrows
+            dark
           >
             <v-slide-item v-for="card in getMainSetExercises" :key="card.id">
               <exerciseCard
@@ -92,6 +94,7 @@
             class="pa-4"
             active-class="success"
             show-arrows
+            dark
           >
             <v-slide-item v-for="card in getCoolDownExercise"  :key="card.id">
               <exerciseCard

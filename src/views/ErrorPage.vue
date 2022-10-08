@@ -15,13 +15,15 @@
             <h2>There has been an <span style="color: #EF5757; font-family: 'Roboto Black'">error</span></h2>
           </v-row>
           <v-row justify="center" style="padding: 10px">
-            <v-btn
-              color="primary"
-              outlined
-              class="temp"
-            >
-              Take me to the home page
-            </v-btn>
+            <router-link style="text-decoration: none; color: inherit;" to="/">
+              <v-btn
+                color="primary"
+                outlined
+                class="temp"
+              >
+                Take me to the home page
+              </v-btn>
+            </router-link>
           </v-row>
         </v-card>
         </v-row>

@@ -1,45 +1,43 @@
 <template>
   <div class="card">
-  <v-card  height="100%" color="#D9D9D9"  rounded="xl">
-    <v-card-title >
-      <v-text-field
-          label="Insert Name" v-model="exerciseName" @blur="update_name">
-      </v-text-field>
+    <v-card  height="100%" color="secondary"  rounded="xl">
+        <v-card-title >
+          <v-text-field
+              label="Insert Name" v-model="exerciseName" @blur="update_name" dark color="primary">
+          </v-text-field>
 
-
-      <v-menu
-          ffset-y
-          :close-on-click="true"
-
-      >
-        <template v-slot:activator="{on ,attrs}">
-          <v-btn
-              light
-              icon
-              v-bind="attrs"
-              v-on="on"
+          <v-menu
+              ffset-y
+              :close-on-click="true"
           >
-            <v-icon>mdi-dots-horizontal</v-icon>
-          </v-btn>
-        </template>
+            <template v-slot:activator="{on ,attrs}">
+              <v-btn
+                  light
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                <v-icon color=" primary">mdi-dots-horizontal</v-icon>
+              </v-btn>
+            </template>
 
-        <v-list >
-          <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
-          >
-            <v-list-item-title><v-btn @click="deleteMe">{{ item.title }}</v-btn></v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-card-title>
-    <v-card-actions class="mt-0">
-        <v-text-field class="ml-" prepend-icon="mdi-alarm" label="Mins" @keypress="filter" v-model="time" @blur="update_time"></v-text-field>
-        <v-text-field class="textField" prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter" v-model="weight" @blur="update_weight"></v-text-field>
-        <v-text-field class="textField" label="SETS" @keypress="filter" v-model="sets" @blur="update_sets"></v-text-field>
-        <v-text-field class="textField" label="REPS" @keypress="filter" v-model="reps" @blur="update_reps"></v-text-field>
-  </v-card-actions>
-  </v-card>
+            <v-list >
+              <v-list-item
+                  v-for="(item, i) in items"
+                  :key="i"
+              >
+                <v-list-item-title><v-btn @click="deleteMe">{{ item.title }}</v-btn></v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-card-title>
+        <v-card-actions class="mt-0">
+            <v-text-field class="ml-" prepend-icon="mdi-alarm" label="Mins" @keypress="filter" v-model="time" @blur="update_time" dark color="primary"></v-text-field>
+            <v-text-field class="textField" prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter" v-model="weight" @blur="update_weight" dark color="primary"></v-text-field>
+            <v-text-field class="textField" label="SETS" @keypress="filter" v-model="sets" @blur="update_sets" dark color="primary"></v-text-field>
+            <v-text-field class="textField" label="REPS" @keypress="filter" v-model="reps" @blur="update_reps" dark color="primary"></v-text-field>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 

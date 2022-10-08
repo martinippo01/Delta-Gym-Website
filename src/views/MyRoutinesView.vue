@@ -9,7 +9,7 @@
           max-height="1000"
           min-height="100"
           rounded="xl"
-          max-width="1400"
+          max-width="1450"
           min-width="100"
         >
 
@@ -35,21 +35,41 @@
                       class="routine-card"
                     ></add-routine>
                   </router-link>
-                  <RoutineButton
-                    class=" routine-card"
-                  ></RoutineButton>
-                  <RoutineButton
-                    class=" routine-card"
-                  ></RoutineButton>
-                  <RoutineButton
-                    class=" routine-card"
-                  ></RoutineButton>
-                  <RoutineButton
-                    class=" routine-card"
-                  ></RoutineButton>
-                  <RoutineButton
-                    class=" routine-card"
-                  ></RoutineButton>
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
+                    <RoutineButton
+                      class=" routine-card"
+                    ></RoutineButton>
+                  </router-link>
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
+                    <RoutineButton
+                      class=" routine-card"
+                    ></RoutineButton>
+                  </router-link>
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
+                    <RoutineButton
+                      class=" routine-card"
+                    ></RoutineButton>
+                  </router-link>
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
+                    <RoutineButton
+                      class=" routine-card"
+                    ></RoutineButton>
+                  </router-link>
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
+                    <RoutineButton
+                      class=" routine-card"
+                    ></RoutineButton>
+                  </router-link>
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
+                    <RoutineButton
+                      class=" routine-card"
+                    ></RoutineButton>
+                  </router-link>
+                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
+                    <RoutineButton
+                      class=" routine-card"
+                    ></RoutineButton>
+                  </router-link>
                 </v-row>
 
           </v-container>
