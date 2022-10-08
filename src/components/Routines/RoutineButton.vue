@@ -1,6 +1,7 @@
 <template>
 <div>
-  <v-hover v-slot="{ hover }">
+  <!----- ippo no tenes idea lo que rompe todo la clase del v-hover, no me deja pasar props la mierda!!!!!!!--->
+  <v-hover >
       <v-card
         :elevation="hover ? 20 : 2"
         :class="{ 'on-hover': hover }"
@@ -16,7 +17,7 @@
           >
             <v-container>
               <v-row class="justify-center">
-                <h1 class="">Leg day</h1>
+                <h1 >{{this.routineName}}</h1>
               </v-row>
               <v-row class=" justify-end">
                 <v-icon
@@ -39,6 +40,9 @@
 export default {
   name: "RoutineButton",
   components: {},
+  props: {
+    routineName: {type: String},
+  },
   data(){
     return{
       photo:'@/assets/routine_photo.jpg',
