@@ -27,7 +27,7 @@ export const useExerciseStore = defineStore('exercises', {
     },
     actions: {
         addExercise( id:number,type:string){
-           this.exercisArray.push({name:'',type:type,time:id,weight:0,reps:0,sets:0,id:id}) - 1;
+           this.exercisArray.push({name:'',type:type,time:id,weight:0,reps:0,sets:0,id:id}) ;
         },
         deleteExercise(id:number){
             const aux= this.exercisArray.findIndex(ex => ex.id === id);

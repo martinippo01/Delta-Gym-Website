@@ -43,6 +43,7 @@
               class="descripcion"
               label="DESCRIPTION"
               color="primary"
+              max-
               dark
             ></v-text-field>
           </v-row>
@@ -142,7 +143,6 @@ export default {
      addRoutine( type){
        this.addExercise(this.maxId,type);
        this.maxId++;
-
      },
 
    },
@@ -150,9 +150,6 @@ export default {
     ...mapState(useExerciseStore,['getCoolDownExercise']),
     ...mapState(useExerciseStore,['getMainSetExercises']),
     ...mapState(useExerciseStore,['getWarmUpExercises']),
-
-
-
   },
 
 
