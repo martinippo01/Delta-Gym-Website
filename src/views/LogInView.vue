@@ -94,14 +94,17 @@ export default {
   methods: {
     ...mapActions(useSecurityStore, ["login"]),
     loginHandler: async function () {
-      const credentials = new Credentials(this.email, this.password);
+      router.push("/myRoutines");
+      /*     const credentials = new Credentials(this.email, this.password);
 
+      
       try {
         await this.login(credentials, false);
         router.push("/myRoutines");
       } catch (error) {
         this.snackbar = true;
       }
+      */
     },
   },
 };

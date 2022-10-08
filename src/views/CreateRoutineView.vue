@@ -50,15 +50,12 @@
         </v-sheet>
         <div class="slider">
           <h1 class="textSlider">WARM UP</h1>
-          <v-slide-group
-            class="pa-4"
-            active-class="success"
-            show-arrows
-            dark
-          >
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
             <v-slide-item v-for="card in getWarmUpExercises" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="warmUp"
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.id"
+                type="warmUp"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -70,15 +67,12 @@
         </div>
         <div class="slider">
           <h1 class="textSlider">MAIN SETS</h1>
-          <v-slide-group
-            class="pa-4"
-            active-class="success"
-            show-arrows
-            dark
-          >
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
             <v-slide-item v-for="card in getMainSetExercises" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="mainSet"
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.id"
+                type="mainSet"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -90,24 +84,20 @@
         </div>
         <div class="slider">
           <h1 class="textSlider">COOL DOWN</h1>
-          <v-slide-group
-            class="pa-4"
-            active-class="success"
-            show-arrows
-            dark
-          >
-            <v-slide-item v-for="card in getCoolDownExercise"  :key="card.id">
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+            <v-slide-item v-for="card in getCoolDownExercise" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="coolDown"
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.id"
+                type="coolDown"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-                  <button @click="addRoutine('coolDown')">
-                    <addButtom></addButtom>
-                  </button>
+              <button @click="addRoutine('coolDown')">
+                <addButtom></addButtom>
+              </button>
             </v-slide-item>
           </v-slide-group>
-
         </div>
       </v-main>
     </v-app>
@@ -118,44 +108,53 @@
 import exerciseCard from "@/components/Routines/exerciseCard";
 import MainTopBar from "@/components/MainTopBar";
 import router from "@/router";
-import addButtom from "@/components/Routines/add"
-import {mapState,mapActions,storeToRefs} from 'pinia'
-import {useExerciseStore} from "@/store/exerciseData"
+import addButtom from "@/components/Routines/add";
+import { mapState, mapActions, storeToRefs } from "pinia";
+import { useExerciseStore } from "@/store/exerciseData";
+import { RoutinesApi, Routine } from "@/api/routines";
 
 export default {
   name: "CreateRoutuneView",
-  components: { MainTopBar, exerciseCard ,addButtom},
+  components: { MainTopBar, exerciseCard, addButtom },
   data() {
     return {
       routineName: "",
-      maxId:1,
-
+      maxId: 1,
+      detail: "none",
+      difficulty: "medium",
+      isPublic: true,
     };
-   },
-   methods: {
-    ...mapActions(useExerciseStore,['addExercise']),
-
-     discard() {
-     router.push("/myRoutines");
-
-    },
-     save(){
-       router.push("/myRoutines");
-
-     },
-     addRoutine( type){
-       this.addExercise(this.maxId,type);
-       this.maxId++;
-     },
-
-   },
-  computed:{
-    ...mapState(useExerciseStore,['getCoolDownExercise']),
-    ...mapState(useExerciseStore,['getMainSetExercises']),
-    ...mapState(useExerciseStore,['getWarmUpExercises']),
   },
+  methods: {
+    ...mapActions(useExerciseStore, ["addExercise"]),
 
+    discard() {
+      router.push("/myRoutines");
+    },
+    async save() {
+      try {
+        await RoutinesApi.addRoutine(
+          this.routineName,
+          this.detail,
+          this.difficulty,
+          this.isPublic
+        );
 
+        router.push("/myRoutines");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    addRoutine(type) {
+      this.addExercise(this.maxId, type);
+      this.maxId++;
+    },
+  },
+  computed: {
+    ...mapState(useExerciseStore, ["getCoolDownExercise"]),
+    ...mapState(useExerciseStore, ["getMainSetExercises"]),
+    ...mapState(useExerciseStore, ["getWarmUpExercises"]),
+  },
 };
 </script>
 
