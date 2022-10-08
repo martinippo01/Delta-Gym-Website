@@ -1,7 +1,7 @@
 export { Api };
 
 class Api {
-  static token;
+  static token: string;
 
   //aca 127.0.0.0.1 = localhost,
   //esto setea donde vive la api y su puerto
@@ -17,7 +17,12 @@ class Api {
    * url: a donde hacer el fetch
    * init: los argumentos del fetch
    * */
-  static async fetch(url, secure, init = {}, controller) {
+  static async fetch(
+    url: any,
+    secure: boolean,
+    init: any = {},
+    controller: any
+  ) {
     //aca tengo que chequear si tengo el token para hablar con la api y
     //si la conexion es segura
     if (secure && Api.token) {
@@ -45,7 +50,7 @@ class Api {
       const result = text ? JSON.parse(text) : {};
       if (result.code) throw result;
       return result;
-    } catch (error) {
+    } catch (error: any) {
       if (error.code) throw error;
       if (error.name === "AbortError")
         throw { code: 98, description: error.message.toLowerCase() };
@@ -57,12 +62,12 @@ class Api {
   }
 
   /* wrapper de fetch que ya maneja errores y seguridad */
-  static async get(url, secure, controller) {
+  static async get(url: string, secure: boolean, controller: any) {
     return await Api.fetch(url, secure, {}, controller);
   }
 
   /* wrapper de fetch para hacer un post facilmente */
-  static async post(url, secure, data, controller) {
+  static async post(url: string, secure: boolean, data: object, controller: any) {
     return await Api.fetch(
       url,
       secure,
@@ -78,7 +83,7 @@ class Api {
   }
 
   /* wrapper de put para hacer un post facilmente */
-  static async put(url, secure, data, controller) {
+  static async put(url: string, secure: boolean, data: object, controller: any) {
     return await Api.fetch(
       url,
       secure,
@@ -94,7 +99,7 @@ class Api {
   }
 
   /* wrapper de delete para hacer un post facilmente */
-  static async delete(url, secure, controller) {
+  static async delete(url: string, secure: boolean, controller: any) {
     return await Api.fetch(
       url,
       secure,

@@ -62,25 +62,22 @@
                 <v-row justify="end">
                   <v-text-field
                     class="pt-3 pr-10 pl-10"
-                    label="Age"
+                    label="Birthday"
                     dark="dark"
                     color="primary"
                     @keypress="filter"
-                    v-model="age"
+                    v-model="birthday"
                   />
                 </v-row>
                 <v-row justify="center">
-                  <router-link to="/VerifyEmail">
-                    <v-btn
-                      :disabled="loading"
-                      color="primary"
-                      plain
-                      class="temp"
-                      @click="registerHandler"
-                    >
-                      REGISTER
-                    </v-btn>
-                  </router-link>
+                  <v-btn
+                    color="primary"
+                    plain
+                    class="temp"
+                    @click="registerHandler"
+                  >
+                    REGISTER
+                  </v-btn>
                 </v-row>
                 <v-row justify="center" class="mt-4">
                   <router-link to="/login">
@@ -99,19 +96,19 @@
       </v-container>
     </v-main>
     <!--    Esto es para el snackbar. Es como un pop up-->
-    <v-snackbar v-model="snackbar" color="error">
-      {{ text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn v-bind="attrs" @click="snackbar = false" outlined> Close </v-btn>
-      </template>
-    </v-snackbar>
+    <!-- <v-snackbar v-model="snackbar" color="error"> -->
+    <!--   {{ text }} -->
+    <!---->
+    <!--   <template v-slot:action="{ attrs }"> -->
+    <!--     <v-btn v-bind="attrs" @click="snackbar = false" outlined> Close </v-btn> -->
+    <!--   </template> -->
+    <!-- </v-snackbar> -->
   </v-app>
 </template>
 
 <script>
 import TopBar from "@/components/logIn/TopBar.vue";
-import { UserApi, Credentials } from "@/api/user";
+import { UserApi, Registration } from "@/api/user";
 import router from "@/router";
 
 export default {
@@ -123,7 +120,7 @@ export default {
       email: "",
       password: "",
       re_password: "",
-      age: "",
+      birthday: 0,
     };
   },
   methods: {
@@ -137,14 +134,20 @@ export default {
         return true;
       }
     },
-    registerHandler: () => {
-      //llamo a la api y autentico, el controlador no la incluyo
-      //por ende lo toma como null y lo define la Api.fetch() en si
-      /*const credentials = new Credentials(this.email, this.password);
+    registerHandler() {
+      const credentials = new Registration(
+        this.fullName,
+        this.email,
+        this.password,
+        this.birthday
+      );
 
-      if (res.code === 500) router.push("/errorPage");
-      if (res.code === 200) router.push("/myRoutines");
-      if (res.code === 401) console.log("invalid account"); */
+      try {
+        UserApi.addUser(credentials);
+        console.log("added user!");
+      } catch (error) {
+        console.log("error");
+      }
     },
   },
 };
