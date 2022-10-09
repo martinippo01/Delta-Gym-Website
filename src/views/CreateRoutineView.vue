@@ -243,31 +243,22 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col
-                cols="12"
-                sm="10"
-                md="8"
-              >
-                <v-autocomplete
-                  label="Search"
-                  required
-                  color="primary"
-                  dark
-                ></v-autocomplete>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-btn
-                  color="primary"
-                >
-                  <span style="color: #1e1e1e">Create New</span>
-                </v-btn>
-              </v-col>
               <v-col>
-                <v-text-field dark color="primary"></v-text-field>
+                <v-text-field dark color="primary" label="Name"></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-textarea
+                  v-model="title"
+                  label="Description"
+                  counter
+                  maxlength="120"
+                  full-width
+                  single-line
+                  dark
+                  color="primary"
+                ></v-textarea>
               </v-col>
             </v-row>
           </v-container>
