@@ -42,7 +42,7 @@
 
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
-      :color="select === 'myRoutines' ? 'primary' : 'topBar'"
+      :color="'topBar'"
       plain
       @click="handleLogout()"
     >

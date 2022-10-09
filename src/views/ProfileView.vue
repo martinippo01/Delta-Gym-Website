@@ -102,8 +102,6 @@
 import { UserApi } from "@/api/user";
 import NavBar from "@/components/NavBar";
 import router from "@/router";
-import { onMounted } from "vue";
-
 
 export default {
   name: "ProfilePage",
@@ -118,15 +116,19 @@ export default {
     };
   },
   async created() {
-    console.log("entered!");
-       try {
-        const res = await UserApi.get();
-        console.log(res);
-        this.username = res.username;
-        this.email = res.email;
-      } catch (error) {
-        router.push("/errorPage");
-      }
+    try {
+      const res = await UserApi.get();
+      console.log(res);
+      this.username = res.username;
+      this.email = res.email;
+    } catch (error) {
+      router.push("/errorPage");
+    }
+  },
+  methods: {
+    saveHandler() {
+      const res = {};
+    },
   },
 };
 </script>

@@ -1,10 +1,5 @@
 <template>
-<div>
-  <!----- ippo no tenes idea lo que rompe todo la clase del v-hover, no me deja pasar props la mierda!!!!!!!--->
-  <v-hover >
       <v-card
-        :elevation="hover ? 20 : 2"
-        :class="{ 'on-hover': hover }"
           color="secondary"
           rounded="xl"
           width="300"
@@ -31,9 +26,6 @@
             </v-container>
           </v-img>
       </v-card>
-  </v-hover>
-
-</div>
 </template>
 
 <script>
