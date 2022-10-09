@@ -157,8 +157,8 @@
               </v-col>
               <v-col>
                 <v-autocomplete
-                  v-model="values"
-                  :items="items"
+                  :items="createdExercise"
+                  item-text="name"
                   dense
                   chips
                   small-chips
@@ -171,10 +171,16 @@
               </v-col>
               <v-col>
                 <v-virtual-scroll
-                  :items="items"
+                  :items="createdExercise"
                   :item-height="50"
                   height="300"
-                ></v-virtual-scroll>
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item>
+                      {{item.name}}
+                    </v-list-item>
+                  </template>
+                </v-virtual-scroll>
               </v-col>
             </v-row>
           </v-container>
@@ -195,10 +201,10 @@
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
+
         </v-card-actions>
       </v-card>
     </v-dialog>
-
 <!--    ____________________________________________________________________________-->
   </div>
 </template>
@@ -230,8 +236,7 @@ export default {
    methods: {
     ...mapActions(useExerciseStore,['addExercise']),
      ...mapActions(useExerciseStore,['upLoadExercises']),
-
-
+      ...mapActions(useExerciseStore,['getCreatedExercises']),
      discard() {
      router.push("/myRoutines");
 
@@ -247,7 +252,9 @@ export default {
 
      },
       addRoutine( type){
-       this.addExercise(this.maxId, type);
+        this.dialog = true;
+       //this.addExercise(this.maxId, type);
+        //this.getExercises();
        this.maxId++;
      },
 
@@ -256,7 +263,11 @@ export default {
     ...mapState(useExerciseStore,['getCoolDownExercise']),
     ...mapState(useExerciseStore,['getMainSetExercises']),
     ...mapState(useExerciseStore,['getWarmUpExercises']),
+    ...mapState(useExerciseStore,['createdExercise']),
   },
+  created() {
+    this.getCreatedExercises();
+  }
 
 
 };

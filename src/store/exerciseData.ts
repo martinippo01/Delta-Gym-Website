@@ -3,17 +3,25 @@ import {exerciseApi} from "@/api/exercises"
 interface Exercise {
      name: string | undefined;
      type: string  | undefined;
+     cycleId: number | undefined;
      time : number  | undefined;
      weight: number  | undefined;
      reps:number  | undefined;
      sets: number  | undefined;
      id : number;
 }
-export {Exercise}
+interface ExerciseAPiType{
+    name:string | undefined;
+    detail: string|undefined;
+    type: 'exercise';
+    metadata: any;
+}
+export {ExerciseAPiType}
 export const useExerciseStore = defineStore('exercises', {
 
     state: () => ({
-        exercisArray: [] as Exercise []
+        exercisArray: [] as Exercise [],
+        createdExercise:[]
     }),
     getters: {
 
@@ -25,12 +33,11 @@ export const useExerciseStore = defineStore('exercises', {
         },
         getWarmUpExercises(state){
             return this.exercisArray.filter(ex=>ex.type === 'warmUp');
-        }
+        },
+
+
     },
     actions: {
-        addExercise( id:number,type:string){
-           this.exercisArray.push({id:id,type:type,time:0,weight:0,reps:0,sets:0,name:''}) ;
-        },
         deleteExercise(id:number){
             const aux= this.exercisArray.findIndex(ex => ex.id === id);
             if(aux !== undefined)
@@ -72,18 +79,14 @@ export const useExerciseStore = defineStore('exercises', {
                 return;
             this.exercisArray[aux].sets = sets;
         },
-        async upLoadExercises(){
+        async upLoadExercises(exercise : ExerciseAPiType,cicleId : number){
+            const idAux = await exerciseApi.uploadExercises(exercise);
+            this.exercisArray.push({name:exercise.name,id:idAux,type:'',cycleId:cicleId,reps:0,weight:0,sets:0,time:0});
+            this.createdExercise = await exerciseApi.getExercises();
 
-            for (const ex in this.exercisArray){
-                if (!this.exercisArray[ex].name)
-                    throw (`Element with Id: ${this.exercisArray[ex].id} not name`);
-                try{
-                    await exerciseApi.uploadExercises(this.exercisArray[ex]);
-                }catch (error){
-                    console.log(error)
-                }
-            }
+        },
+        async getCreatedExercises(){
+            this.createdExercise = await exerciseApi.getExercises();
         }
-
     },
 })

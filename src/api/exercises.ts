@@ -1,5 +1,5 @@
 import {Api}  from "@/api/api"
-import {Exercise} from "@/store/exerciseData";
+import {ExerciseAPiType} from "@/store/exerciseData";
 
 export {exerciseApi}
 class exerciseApi{
@@ -9,14 +9,17 @@ class exerciseApi{
   /*
     Lo que voy a hacer es subir todos los ejercicios y guardarme el id del mismo
   */
-  static async uploadExercises(exercise:Exercise){
-      return await  Api.post(exerciseApi.getUrl(),true,{
-        "name": `${exercise.name}`,
-        "detail": "Jumping Jacks",
-        "type": "exercise",
-        "metadata": null
-      },null);
+  static async uploadExercises(exercise:ExerciseAPiType){
+      return await  Api.post(exerciseApi.getUrl(),true,exercise,null);
   }
+  static async modifyExercise(id:number,exercise : ExerciseAPiType){
+    return await Api.put(this.getUrl(id.toString()),true,exercise);
+  }
+  static async getExercises(){
+      const result =  await Api.get(exerciseApi.getUrl(),true,null);
+      return result.content
+  }
+
 
 
 }
