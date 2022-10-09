@@ -15,14 +15,8 @@ export const useRoutinesStore = defineStore("routines", {
   },
   actions: {
     async setRoutines() {
-      try {
-      const res   = await RoutinesApi.getAllRoutines();
+      const res = await RoutinesApi.getAllRoutines();
       this.routines = res.content;
-      } catch (error) {
-        console.log(error);
-        router.push("/erroPage");
-      }
-      console.log(this.routines);
     },
   },
 });
