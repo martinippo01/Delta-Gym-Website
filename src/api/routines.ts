@@ -22,12 +22,10 @@ class Routine {
   ) {
     this.isPublic = isPublic;
     this.difficulty = difficulty;
-    this.id = Math.random() % 100;
     this.name = name;
     this.detail = detail;
   }
 
-  id: number;
   name: string;
   detail: string;
   isPublic: boolean;

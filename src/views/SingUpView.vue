@@ -59,16 +59,7 @@
                     type="password"
                   />
                 </v-row>
-                <v-row justify="end">
-                  <v-text-field
-                    class="pt-3 pr-10 pl-10"
-                    label="Birthday"
-                    dark="dark"
-                    color="primary"
-                    @keypress="filter"
-                    v-model="birthday"
-                  />
-                </v-row>
+                <v-row justify="end"> </v-row>
                 <v-row justify="center">
                   <v-btn
                     color="primary"
@@ -107,7 +98,10 @@
 
 <script>
 import TopBar from "@/components/logIn/TopBar.vue";
+
 import { UserApi, Registration } from "@/api/user";
+import { useUserStore } from "@/store/user";
+
 import router from "@/router";
 
 export default {
@@ -121,7 +115,6 @@ export default {
       email: "",
       password: "",
       re_password: "",
-      birthday: 0,
     };
   },
   methods: {
@@ -139,10 +132,10 @@ export default {
       const credentials = new Registration(
         this.fullName,
         this.email,
-        this.password,
-        this.birthday
+        this.password
       );
-
+      const store = useUserStore();
+      store.addEmail(this.email);
       try {
         await UserApi.addUser(credentials);
         router.push("/verifyEmail");

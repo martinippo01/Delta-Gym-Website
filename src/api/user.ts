@@ -1,4 +1,4 @@
-export { UserApi, Credentials, Registration };
+export { UserApi, Credentials, Registration, Confirmation };
 
 import { Api } from "./api";
 
@@ -18,6 +18,15 @@ class UserApi {
     );
   }
 
+  static async confirmUser(confirmation: Confirmation) {
+    return await Api.post(
+      UserApi.getUrl("verify_email"),
+      false,
+      confirmation,
+      null
+    );
+  }
+
   static async addUser(registration: Registration, controller: any) {
     return await Api.post(UserApi.getUrl(""), false, registration, controller);
   }
@@ -31,20 +40,23 @@ class UserApi {
   }
 }
 
+class Confirmation {
+  constructor(email: string, code: string) {
+    this.email = email;
+    this.code = code;
+  }
+
+  email: string;
+  code: string;
+}
+
 class Registration {
-  constructor(
-    _name: string,
-    _email: string,
-    _password: string,
-    _birthday: number
-  ) {
+  constructor(_name: string, _email: string, _password: string) {
     this.username = _name;
     this.password = _password;
     this.email = _email;
-    this.birthdate = _birthday;
   }
 
-  birthdate: number;
   username: string;
   password: string;
   email: string;
