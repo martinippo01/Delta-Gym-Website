@@ -1,7 +1,7 @@
 <template>
   <div>
-    <NavBarLanding v-if="!isLoggedIn" select="select" />
-    <NavBarLoggedIn v-else select="select" />
+    <NavBarLanding v-if="!isLoggedIn" :select="select" />
+    <NavBarLoggedIn v-else :select="select" />
   </div>
 </template>
 

@@ -24,17 +24,19 @@
           >
             <v-row class="routines-group">
               <router-link
-                style="text-decoration: none; color: inherit; padding: 10px"
                 to="/createRoutine"
-              >
-                <add-routine class="routine-card"></add-routine>
-              </router-link>
-              <router-link
                 style="text-decoration: none; color: inherit; padding: 10px"
-                to="/createRoutine"
               >
-                <RoutineButton class="routine-card"></RoutineButton>
+                <Add />
               </router-link>
+              <RoutineButton
+                @click="
+                  handleClickRoutine();
+                  console.log('clicked');
+                "
+                style="text-decoration: none; color: inherit; padding: 10px"
+                class="routine-card"
+              ></RoutineButton>
             </v-row>
           </v-container>
         </v-sheet>
@@ -46,10 +48,27 @@
 <script>
 import RoutineButton from "@/components/Routines/RoutineButton";
 import NavBar from "@/components/NavBar";
-import AddRoutine from "@/components/Routines/add";
+import { RoutinesApi, FetchRoutines } from "@/api/routines";
+import router from "@/router";
+import Add from "@/components/Routines/add.vue";
+import { mapActions } from "pinia";
+import useRoutineStore from "@/store/routinesStore";
+
 export default {
   name: "MyRoutines",
-  components: { AddRoutine, NavBar, RoutineButton },
+  components: { NavBar, RoutineButton, Add },
+  async created() {
+    try {
+      const res = await RoutinesApi.getAllRoutines();
+      console.log(res);
+      //this.setRoutines(res);
+    } catch (error) {
+      router.push("/erroPage");
+    }
+  },
+  methods: {
+    ...mapActions(useRoutineStore, ["setRoutines"]),
+  },
 };
 </script>
 
