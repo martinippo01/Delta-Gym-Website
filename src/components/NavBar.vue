@@ -1,8 +1,6 @@
 <template>
-
     <NavBarLanding v-if="!isLoggedIn" select="select" />
     <NavBarLoggedIn v-else select="select" />
-
 </template>
 
 <script>
