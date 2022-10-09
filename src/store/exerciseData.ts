@@ -80,6 +80,7 @@ export const useExerciseStore = defineStore('exercises', {
             this.exercisArray[aux].sets = sets;
         },
         async uploadExercises(exercise : ExerciseAPiType,cicleId : number){
+            console.log("LLEGUE");
             const idAux = await exerciseApi.uploadExercises(exercise);
             this.exercisArray.push({name:exercise.name,id:idAux,type:'',cycleId:cicleId,reps:0,weight:0,sets:0,time:0});
             this.createdExercise = await exerciseApi.getExercises();

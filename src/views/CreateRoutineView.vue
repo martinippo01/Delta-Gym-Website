@@ -212,16 +212,19 @@
           <v-btn
             color="primary"
             outlined
-            @click="dialogSelectExercise = false"
+            @click="dialogSelectExercise = false; selectedName = null"
           >
             Discard
           </v-btn>
           <v-btn
             color="primary"
             filled
-            @click="dialogSelectExercise = false"
+            :disabled="selectedName === null"
+            @click="dialogSelectExercise = false; selectedName = null;this.uploadExercises({name: 'PRUEBA',detail:'PRUEBA', type:'exercise',metadata:null },0)"
           >
-            <span style="color: #1e1e1e">Save</span>
+            <span style="color: #1e1e1e">
+              Save
+            </span>
           </v-btn>
 
         </v-card-actions>
@@ -269,14 +272,14 @@
           <v-btn
             color="primary"
             outlined
-            @click="dialogCreateExercise = false"
+            @click="dialogCreateExercise = false; selectedName = null"
           >
             Discard
           </v-btn>
           <v-btn
             color="primary"
             filled
-            @click="dialogCreateExercise = false"
+            @click="dialogCreateExercise = false; selectedName = null"
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
@@ -317,8 +320,9 @@ export default {
    },
    methods: {
     ...mapActions(useExerciseStore,['addExercise']),
-     ...mapActions(useExerciseStore,['upLoadExercises']),
+     ...mapActions(useExerciseStore,['uploadExercises']),
       ...mapActions(useExerciseStore,['getCreatedExercises']),
+
      discard() {
      router.push("/myRoutines");
 
