@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <TopBar select="singUp" />
+    <NavBar select="singUp" />
     <v-main class="background">
       <v-container>
         <v-row class="mt-1">
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import TopBar from "@/components/logIn/TopBar.vue";
+import NavBar from "@/components/NavBar";
 
 import { UserApi, Registration } from "@/api/user";
 import { useUserStore } from "@/store/user";
@@ -106,7 +106,7 @@ import router from "@/router";
 
 export default {
   name: "SingUp",
-  components: { TopBar },
+  components: { NavBar },
   data() {
     return {
       snackbar: false,

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <MainTopBar select="myRoutines"></MainTopBar>
+      <NavBar select="myRoutines"></NavBar>
       <v-main class="background">
         <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
           <v-row class="d-flex">
@@ -106,7 +106,7 @@
 
 <script>
 import exerciseCard from "@/components/Routines/exerciseCard";
-import MainTopBar from "@/components/MainTopBar";
+import NavBar from "@/components/NavBar";
 import router from "@/router";
 import addButtom from "@/components/Routines/add";
 import { mapState, mapActions, storeToRefs } from "pinia";
@@ -115,7 +115,7 @@ import { RoutinesApi, Routine } from "@/api/routines";
 
 export default {
   name: "CreateRoutuneView",
-  components: { MainTopBar, exerciseCard, addButtom },
+  components: { NavBar, exerciseCard, addButtom },
   data() {
     return {
       routineName: "",

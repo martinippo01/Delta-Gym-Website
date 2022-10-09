@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <TopBar select="logIn" />
+    <NavBar select="logIn" />
     <v-main class="background">
       <v-container>
         <v-row class="mt-16">
@@ -73,14 +73,14 @@
 </template>
 
 <script>
-import TopBar from "@/components/logIn/TopBar";
+import NavBar from "@/components/NavBar";
 import { useSecurityStore } from "../store/securityStore.js";
 import router from "@/router";
 import { UserApi, Credentials } from "@/api/user";
 
 export default {
   name: "LogIn",
-  components: { TopBar },
+  components: { NavBar },
   data() {
     return {
       username: "johnDoe1",

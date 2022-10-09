@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <TopBar select="singUp" />
+    <NavBar select="singUp" />
     <v-main class="background">
       <v-container>
         <v-row class="mt-1">
@@ -96,14 +96,14 @@
 
 <script>
 import { UserApi, Confirmation } from "@/api/user";
-import TopBar from "@/components/logIn/TopBar";
+import NavBar from "@/components/NavBar";
 import router from "@/router";
 
 import { useUserStore } from "@/store/user";
 
 export default {
   name: "VerifyEmail",
-  components: { TopBar },
+  components: { NavBar },
   data() {
     return {
       snackbar: false,

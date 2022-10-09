@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <MainTopBar select="myRoutines" />
+      <NavBar select="myRoutines" />
       <v-main class="background">
         <v-sheet
           class="mx-auto"
@@ -45,11 +45,11 @@
 
 <script>
 import RoutineButton from "@/components/Routines/RoutineButton";
-import MainTopBar from "@/components/MainTopBar";
+import NavBar from "@/components/NavBar";
 import AddRoutine from "@/components/Routines/add";
 export default {
   name: "MyRoutines",
-  components: { AddRoutine, MainTopBar, RoutineButton },
+  components: { AddRoutine, NavBar, RoutineButton },
 };
 </script>
 
