@@ -29,11 +29,11 @@
               >
                 <Add />
               </router-link>
+
               <RoutineButton
-                @click="
-                  handleClickRoutine();
-                  console.log('clicked');
-                "
+                v-for="routine in routines"
+                @click="handleClickRoutine()"
+                :key="routine.id"
                 style="text-decoration: none; color: inherit; padding: 10px"
                 class="routine-card"
               ></RoutineButton>
@@ -51,23 +51,24 @@ import NavBar from "@/components/NavBar";
 import { RoutinesApi, FetchRoutines } from "@/api/routines";
 import router from "@/router";
 import Add from "@/components/Routines/add.vue";
-import { mapActions } from "pinia";
-import useRoutineStore from "@/store/routinesStore";
+import { useRoutinesStore } from "@/store/routinesStore";
+import { mapActions, mapState } from "pinia";
 
 export default {
   name: "MyRoutines",
   components: { NavBar, RoutineButton, Add },
   async created() {
     try {
-      const res = await RoutinesApi.getAllRoutines();
-      console.log(res);
-      //this.setRoutines(res);
+      await this.setRoutines();
     } catch (error) {
-      router.push("/erroPage");
+      router.push("/errorPage");
     }
   },
   methods: {
-    ...mapActions(useRoutineStore, ["setRoutines"]),
+    ...mapActions(useRoutinesStore, ["setRoutines"]),
+  },
+  computed: {
+    ...mapState(useRoutinesStore, ["routines"]),
   },
 };
 </script>
