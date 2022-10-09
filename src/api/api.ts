@@ -1,7 +1,7 @@
 export { Api };
 
 class Api {
-  static token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImlhdCI6MTY2NTI4Mzk5NjIyMCwiZXhwIjoxNjY1Mjg2NTg4MjIwfQ.Ly6BS5v9d_bgiXBphh-f6Z95PUxuoNy9PBMPyceO6gs';
+  static token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImlhdCI6MTY2NTMyMTExNTIyNywiZXhwIjoxNjY1MzIzNzA3MjI3fQ.m3cUXIJR2oSx9LVDJwb_w7cPx0dWb7gzDpCN3y9ZXiQ';
 
   //aca 127.0.0.0.1 = localhost,
   //esto setea donde vive la api y su puerto
@@ -31,7 +31,7 @@ class Api {
       if (!init.headers) init.headers = {};
 
       //aca agrego el header que estoy autenticado, el token``
-      //init.headers['Authorization'] = `bearer ${Api.token}`;
+      init.headers['Authorization'] = `bearer ${Api.token}`;
     }
 
     //esto es tal que tenga un timeout, que no espere indefinidamente a que responda mi api
@@ -75,7 +75,6 @@ class Api {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
-          Authorization : "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImlhdCI6MTY2NTMyMTExNTIyNywiZXhwIjoxNjY1MzIzNzA3MjI3fQ.m3cUXIJR2oSx9LVDJwb_w7cPx0dWb7gzDpCN3y9ZXiQ"
         },
         body: JSON.stringify(data),
       },
