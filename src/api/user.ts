@@ -31,8 +31,8 @@ class UserApi {
     return await Api.post(UserApi.getUrl(""), false, registration, controller);
   }
 
-  static async logout(controller: any) {
-    await Api.post(UserApi.getUrl("logout"), true, {}, controller);
+  static async logout() {
+    await Api.post(UserApi.getUrl("logout"), true, {}, null);
   }
 
   static async get(controller: any) {

@@ -1,20 +1,20 @@
 <template>
   <div>
-    <MainTopBar v-if="!isLoggedIn" select="select" />
-    <TopBar v-if="isLoggedIn" select="select" />
+    <NavBarLanding v-if="!isLoggedIn" select="select" />
+    <NavBarLoggedIn v-else select="select" />
   </div>
 </template>
 
 <script>
-import MainTopBar from "./MainTopBar.vue";
-import TopBar from "./TopBar.vue";
+import NavBarLoggedIn from "./NavBarLoggedIn.vue";
+import NavBarLanding from "./NavBarLanding.vue";
 
-import { mapGetters } from "pinia";
+import { mapGetters, mapState } from "pinia";
 import { useSecurityStore } from "../store/securityStore";
 
 export default {
   name: "NavBar",
-  components: { MainTopBar, TopBar },
+  components: { NavBarLoggedIn, NavBarLanding },
   props: {
     select: {
       type: String,
@@ -24,6 +24,8 @@ export default {
   data() {
     return {};
   },
-  ...mapGetters(useSecurityStore, ["isLoggedIn"]),
+  computed: {
+    ...mapState(useSecurityStore, ["isLoggedIn"]),
+  },
 };
 </script>

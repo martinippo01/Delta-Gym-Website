@@ -76,7 +76,7 @@
 import NavBar from "@/components/NavBar";
 import { useSecurityStore } from "../store/securityStore.js";
 import router from "@/router";
-import { UserApi, Credentials } from "@/api/user";
+import { Credentials } from "@/api/user";
 
 export default {
   name: "LogIn",
@@ -86,6 +86,7 @@ export default {
       username: "johnDoe1",
       password: "1234",
       snackbar: false,
+      rememberMe: false,
       text: "Invalid username/password",
     };
   },
@@ -95,7 +96,7 @@ export default {
       const store = useSecurityStore();
 
       try {
-        await store.login(credentials, false);
+        await store.login(credentials, this.rememberMe);
         router.push("/myRoutines");
       } catch (error) {
         this.snackbar = true;
