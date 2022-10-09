@@ -66,7 +66,7 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('warmUp'); dialog = true">
+              <button @click="addRoutine('warmUp'); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -86,7 +86,7 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('mainSet'); dialog = true">
+              <button @click="addRoutine('mainSet'); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -106,7 +106,7 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('coolDown'); dialog = true">
+              <button @click="addRoutine('coolDown'); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -119,12 +119,12 @@
 
 <!--    ____________________________________________________________________________-->
     <v-dialog
-      v-model="dialog"
+      v-model="dialogSelectExercise"
       persistent
       max-width="600px"
     >
       <v-card
-        color="secondary"
+        color="background"
       >
         <v-card-title>
           <span class="text-h5" style="color: #CFFFB3">Add exercise</span>
@@ -151,6 +151,7 @@
               >
                 <v-btn
                   color="primary"
+                  @click="dialogSelectExercise = false; dialogCreateExercise = true"
                 >
                   <span style="color: #1e1e1e">Create New</span>
                 </v-btn>
@@ -169,6 +170,8 @@
                   background-color="secondary"
                 ></v-autocomplete>
               </v-col>
+            </v-row>
+              <v-row>
               <v-col>
                 <v-virtual-scroll
                   :items="createdExercise"
@@ -176,8 +179,26 @@
                   height="300"
                 >
                   <template v-slot:default="{ item }">
-                    <v-list-item>
-                      {{item.name}}
+                    <v-list-item :key="item">
+
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          <span style="color: white">{{ item.name }}</span>
+                        </v-list-item-title>
+                      </v-list-item-content>
+
+                      <v-list-item-action>
+                        <v-btn
+                          fab
+                          small
+                          depressed
+                          color="primary"
+                          @click="selectedName = item"
+                        >
+                          <v-icon color="#1e1e1e" v-if="selectedName === item">mdi-check</v-icon>
+                          <v-icon color="#1e1e1e" v-else>mdi-plus</v-icon>
+                        </v-btn>
+                      </v-list-item-action>
                     </v-list-item>
                   </template>
                 </v-virtual-scroll>
@@ -186,18 +207,19 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
+
           <v-spacer></v-spacer>
           <v-btn
             color="primary"
             outlined
-            @click="dialog = false"
+            @click="dialogSelectExercise = false"
           >
             Discard
           </v-btn>
           <v-btn
             color="primary"
             filled
-            @click="dialog = false"
+            @click="dialogSelectExercise = false"
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
@@ -205,6 +227,64 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+<!--    ____________________________________________________________________________-->
+
+    <v-dialog
+      v-model="dialogCreateExercise"
+      persistent
+      max-width="600px"
+    >
+      <v-card
+        color="background"
+      >
+        <v-card-title>
+          <span class="text-h5" style="color: #CFFFB3">Create new exercise</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-text-field dark color="primary" label="Name"></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-textarea
+                  v-model="title"
+                  label="Description"
+                  counter
+                  maxlength="120"
+                  full-width
+                  single-line
+                  dark
+                  color="primary"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            outlined
+            @click="dialogCreateExercise = false"
+          >
+            Discard
+          </v-btn>
+          <v-btn
+            color="primary"
+            filled
+            @click="dialogCreateExercise = false"
+          >
+            <span style="color: #1e1e1e">Save</span>
+          </v-btn>
+
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
 <!--    ____________________________________________________________________________-->
   </div>
 </template>
@@ -230,7 +310,9 @@ export default {
       detail: "none",
       difficulty: "medium",
       isPublic: true,
-      dialog: false,
+      dialogSelectExercise: false,
+      dialogCreateExercise: false,
+      selectedName: null,
     };
    },
    methods: {
@@ -252,7 +334,7 @@ export default {
 
      },
       addRoutine( type){
-        this.dialog = true;
+        this.dialogSelectExercise = true;
        //this.addExercise(this.maxId, type);
         //this.getExercises();
        this.maxId++;

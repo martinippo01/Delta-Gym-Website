@@ -32,8 +32,7 @@
 
               <RoutineButton
                 v-for="routine in routines"
-                @click="
-                  handleClickRoutine();                "
+                @click="handleClickRoutine()"
                 :key="routine.id"
                 style="text-decoration: none; color: inherit; padding: 10px"
                 class="routine-card"
@@ -59,14 +58,18 @@ export default {
   name: "MyRoutines",
   components: { NavBar, RoutineButton, Add },
   async created() {
-    await this.setRoutines();
+    try {
+      await this.setRoutines();
+    } catch (error) {
+      router.push("/errorPage");
+    }
   },
   methods: {
     ...mapActions(useRoutinesStore, ["setRoutines"]),
   },
-  computed:{
-    ...mapState(useRoutinesStore,['routines'])
-  }
+  computed: {
+    ...mapState(useRoutinesStore, ["routines"]),
+  },
 };
 </script>
 
