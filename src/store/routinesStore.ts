@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import { RoutinesApi } from "@/api/routines";
+import router from "@/router";
 
 export const useRoutinesStore = defineStore("routines", {
   state: () => {
@@ -12,8 +14,15 @@ export const useRoutinesStore = defineStore("routines", {
     },
   },
   actions: {
-    setRoutines(routines: []) {
-      this.routines = routines;
+    async setRoutines() {
+      try {
+      const res   = await RoutinesApi.getAllRoutines();
+      this.routines = res.content;
+      } catch (error) {
+        console.log(error);
+        router.push("/erroPage");
+      }
+      console.log(this.routines);
     },
   },
 });
