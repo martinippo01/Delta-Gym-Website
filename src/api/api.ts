@@ -75,7 +75,7 @@ class Api {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
-          Authorization : "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImlhdCI6MTY2NTI4Mzk5NjIyMCwiZXhwIjoxNjY1Mjg2NTg4MjIwfQ.Ly6BS5v9d_bgiXBphh-f6Z95PUxuoNy9PBMPyceO6gs"
+          Authorization : "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImlhdCI6MTY2NTMyMTExNTIyNywiZXhwIjoxNjY1MzIzNzA3MjI3fQ.m3cUXIJR2oSx9LVDJwb_w7cPx0dWb7gzDpCN3y9ZXiQ"
         },
         body: JSON.stringify(data),
       },

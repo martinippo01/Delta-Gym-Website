@@ -109,6 +109,12 @@
           </v-slide-group>
 
         </div>
+        <v-snackbar v-model="error" color="error">
+          {{ errorText }}
+          <template v-slot:action="{ attrs }">
+            <v-btn v-bind="attrs" @click="error = false" outlined> Close </v-btn>
+          </template>
+        </v-snackbar>
       </v-main>
     </v-app>
   </div>
@@ -129,6 +135,8 @@ export default {
     return {
       routineName: "",
       maxId:1,
+      error:false,
+      errorText:""
 
     };
    },
@@ -141,13 +149,18 @@ export default {
      router.push("/myRoutines");
 
     },
-     save(){
-       this.upLoadExercises();
+     async save(){
+       try {
+       await this.upLoadExercises();
        router.push("/myRoutines");
+     }catch (error){
+       this.error = true;
+       this.errorText = error.name;
+     }
 
      },
-     addRoutine( type){
-       this.addExercise(this.maxId,type);
+      addRoutine( type){
+       this.addExercise(this.maxId, type);
        this.maxId++;
      },
 

@@ -75,8 +75,10 @@ export const useExerciseStore = defineStore('exercises', {
         async upLoadExercises(){
 
             for (const ex in this.exercisArray){
+                if (!this.exercisArray[ex].name)
+                    throw (`Element with Id: ${this.exercisArray[ex].id} not name`);
                 try{
-                    await exerciseApi.uploadExercises(JSON.parse(ex));
+                    await exerciseApi.uploadExercises(this.exercisArray[ex]);
                 }catch (error){
                     console.log(error)
                 }

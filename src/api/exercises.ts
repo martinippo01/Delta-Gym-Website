@@ -11,7 +11,7 @@ class exerciseApi{
   */
   static async uploadExercises(exercise:Exercise){
       return await  Api.post(exerciseApi.getUrl(),true,{
-        "name": "CHAU",
+        "name": `${exercise.name}`,
         "detail": "Jumping Jacks",
         "type": "exercise",
         "metadata": null
