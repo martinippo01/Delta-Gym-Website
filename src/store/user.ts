@@ -1,3 +1,4 @@
+import { UpdatableCredentials, UserApi } from "@/api/user";
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("user", {
@@ -15,5 +16,8 @@ export const useUserStore = defineStore("user", {
     addEmail(email: string): void {
       this.email = email;
     },
+    updateUser(credentials: UpdatableCredentials) {
+        UserApi.updateUser(credentials)
+    }
   },
 });

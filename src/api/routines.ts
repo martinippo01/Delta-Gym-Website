@@ -26,7 +26,13 @@ class RoutinesApi {
 }
 
 class FetchRoutines {
-  constructor(orderBy: string, isPublic: boolean, difficulty: string, detail: string, name: string) {
+  constructor(
+    orderBy: string,
+    isPublic: boolean,
+    difficulty: string,
+    detail: string,
+    name: string
+  ) {
     this.isPublic = isPublic;
     this.orderBy = orderBy;
     this.difficulty = difficulty;

@@ -1,4 +1,10 @@
-export { UserApi, Credentials, Registration, Confirmation, UpdatableCredentials };
+export {
+  UserApi,
+  Credentials,
+  Registration,
+  Confirmation,
+  UpdatableCredentials,
+};
 
 import { Api } from "./api";
 
@@ -39,8 +45,8 @@ class UserApi {
     await Api.post(UserApi.getUrl("logout"), true, {}, null);
   }
 
-  static async get(controller: any) {
-    return Api.get(UserApi.getUrl("current"), true, controller);
+  static async get() {
+    return Api.get(UserApi.getUrl("current"), true, null);
   }
 }
 
@@ -77,14 +83,21 @@ class Credentials {
 }
 
 class UpdatableCredentials {
-
-  constructor(firstName: string, lastName: string, gender: string, birthdate: number) {
+  constructor(
+    firstName: string,
+    lastName: string,
+    gender: string,
+    birthdate: number,
+    avatar: string
+  ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.gender = gender;
+    this.avatar = avatar;
     this.birthdate = birthdate;
   }
 
+  avatar: string;
   firstName: string;
   lastName: string;
   gender: string;
