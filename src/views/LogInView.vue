@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <TopBar select="logIn" />
+    <NavBar select="logIn" />
     <v-main class="background">
       <v-container>
         <v-row class="mt-16">
@@ -24,10 +24,10 @@
                 <v-row justify="end">
                   <v-text-field
                     class="pt-10 pr-10 pl-10"
-                    label="Email"
+                    label="Username"
                     dark="dark"
                     color="primary"
-                    v-model="email"
+                    v-model="username"
                   />
                 </v-row>
                 <v-row justify="end">
@@ -73,31 +73,30 @@
 </template>
 
 <script>
-import TopBar from "@/components/logIn/TopBar";
-import { store } from "../store/user.js";
+import NavBar from "@/components/NavBar";
 import { useSecurityStore } from "../store/securityStore.js";
 import router from "@/router";
-import { UserApi, Credentials } from "@/api/user";
-import { mapState, mapActions, storeToRefs } from "pinia";
+import { Credentials } from "@/api/user";
 
 export default {
   name: "LogIn",
-  components: { TopBar },
+  components: { NavBar },
   data() {
     return {
-      email: "johndoe",
+      username: "johnDoe1",
       password: "1234",
       snackbar: false,
+      rememberMe: false,
       text: "Invalid username/password",
     };
   },
   methods: {
-    ...mapActions(useSecurityStore, ["login"]),
     loginHandler: async function () {
-      const credentials = new Credentials(this.email, this.password);
+      const credentials = new Credentials(this.username, this.password);
+      const store = useSecurityStore();
 
       try {
-        await this.login(credentials, false);
+        await store.login(credentials, this.rememberMe);
         router.push("/myRoutines");
       } catch (error) {
         this.snackbar = true;

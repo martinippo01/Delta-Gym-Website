@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <MainTopBar select="myRoutines"></MainTopBar>
+      <NavBar select="myRoutines"></NavBar>
       <v-main class="background">
         <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
           <v-row class="d-flex">
@@ -50,15 +50,12 @@
         </v-sheet>
         <div class="slider">
           <h1 class="textSlider">WARM UP</h1>
-          <v-slide-group
-            class="pa-4"
-            active-class="success"
-            show-arrows
-            dark
-          >
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
             <v-slide-item v-for="card in getWarmUpExercises" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="warmUp"
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.id"
+                type="warmUp"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -70,15 +67,12 @@
         </div>
         <div class="slider">
           <h1 class="textSlider">MAIN SETS</h1>
-          <v-slide-group
-            class="pa-4"
-            active-class="success"
-            show-arrows
-            dark
-          >
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
             <v-slide-item v-for="card in getMainSetExercises" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="mainSet"
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.id"
+                type="mainSet"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -90,31 +84,22 @@
         </div>
         <div class="slider">
           <h1 class="textSlider">COOL DOWN</h1>
-          <v-slide-group
-            class="pa-4"
-            active-class="success"
-            show-arrows
-            dark
-          >
-            <v-slide-item v-for="card in getCoolDownExercise"  :key="card.id">
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+            <v-slide-item v-for="card in getCoolDownExercise" :key="card.id">
               <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle" :id="card.id" type="coolDown"
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.id"
+                type="coolDown"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-                  <button @click="addRoutine('coolDown')">
-                    <addButtom></addButtom>
-                  </button>
+              <button @click="addRoutine('coolDown')">
+                <addButtom></addButtom>
+              </button>
             </v-slide-item>
           </v-slide-group>
 
         </div>
-        <v-snackbar v-model="error" color="error">
-          {{ errorText }}
-          <template v-slot:action="{ attrs }">
-            <v-btn v-bind="attrs" @click="error = false" outlined> Close </v-btn>
-          </template>
-        </v-snackbar>
       </v-main>
     </v-app>
   </div>
@@ -122,21 +107,26 @@
 
 <script>
 import exerciseCard from "@/components/Routines/exerciseCard";
-import MainTopBar from "@/components/MainTopBar";
+import NavBar from "@/components/NavBar";
 import router from "@/router";
-import addButtom from "@/components/Routines/add"
-import {mapState,mapActions,storeToRefs} from 'pinia'
-import {useExerciseStore} from "@/store/exerciseData"
+import addButtom from "@/components/Routines/add";
+import { mapState, mapActions, storeToRefs } from "pinia";
+import { useExerciseStore } from "@/store/exerciseData";
+import { RoutinesApi, Routine } from "@/api/routines";
 
 export default {
   name: "CreateRoutuneView",
-  components: { MainTopBar, exerciseCard ,addButtom},
+  components: { NavBar, exerciseCard, addButtom },
   data() {
     return {
       routineName: "",
       maxId:1,
       error:false,
-      errorText:""
+      errorText:"",
+      detail: "none",
+      difficulty: "medium",
+      isPublic: true,
+
 
     };
    },

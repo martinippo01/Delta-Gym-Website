@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <TopBar select="singUp" />
+    <NavBar select="singUp" />
     <v-main class="background">
       <v-container>
         <v-row class="mt-1">
@@ -24,10 +24,10 @@
                 <v-row justify="end">
                   <v-text-field
                     class="pt-7 pr-10 pl-10"
-                    label="Full Name"
+                    label="Username"
                     dark="dark"
                     color="primary"
-                    v-model="fullName"
+                    v-model="username"
                   />
                 </v-row>
                 <v-row justify="end">
@@ -59,16 +59,7 @@
                     type="password"
                   />
                 </v-row>
-                <v-row justify="end">
-                  <v-text-field
-                    class="pt-3 pr-10 pl-10"
-                    label="Birthday"
-                    dark="dark"
-                    color="primary"
-                    @keypress="filter"
-                    v-model="birthday"
-                  />
-                </v-row>
+                <v-row justify="end"> </v-row>
                 <v-row justify="center">
                   <v-btn
                     color="primary"
@@ -106,22 +97,24 @@
 </template>
 
 <script>
-import TopBar from "@/components/logIn/TopBar.vue";
+import NavBar from "@/components/NavBar";
+
 import { UserApi, Registration } from "@/api/user";
+import { useUserStore } from "@/store/user";
+
 import router from "@/router";
 
 export default {
   name: "SingUp",
-  components: { TopBar },
+  components: { NavBar },
   data() {
     return {
       snackbar: false,
       snackbarMsg: "",
-      fullName: "",
+      username: "",
       email: "",
       password: "",
       re_password: "",
-      birthday: 0,
     };
   },
   methods: {
@@ -137,12 +130,12 @@ export default {
     },
     async registerHandler() {
       const credentials = new Registration(
-        this.fullName,
+        this.username,
         this.email,
-        this.password,
-        this.birthday
+        this.password
       );
-
+      const store = useUserStore();
+      store.addEmail(this.email);
       try {
         await UserApi.addUser(credentials);
         router.push("/verifyEmail");

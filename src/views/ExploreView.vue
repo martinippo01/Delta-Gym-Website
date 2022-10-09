@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <TopBar select="explore"></TopBar>
+      <NavBar select="explore"></NavBar>
 
       <v-main class="background">
         <v-sheet
@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import TopBar from "@/components/logIn/TopBar";
+import NavBar from "@/components/NavBar";
 import RoutineButton from "@/components/Routines/RoutineButton";
 
 export default {
   name: "ExploreView",
-  components: { TopBar, RoutineButton },
+  components: { NavBar, RoutineButton },
   data() {
     return {
       routines: ["leg day", "push day"],

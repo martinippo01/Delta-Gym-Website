@@ -82,15 +82,6 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/ErrorPage.vue"),
   },
-  {
-    path: "/errorPage",
-    name: "ErrorPage",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ErrorPage.vue"),
-  },
 ];
 
 const router = new VueRouter({

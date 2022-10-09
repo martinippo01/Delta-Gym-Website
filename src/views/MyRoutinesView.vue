@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <MainTopBar select="myRoutines" />
+      <NavBar select="myRoutines" />
       <v-main class="background">
         <v-sheet
           class="mx-auto"
@@ -12,14 +12,9 @@
           max-width="1450"
           min-width="100"
         >
-
-          <v-row
-            justify="center"
-            style="padding: 10px"
-          >
+          <v-row justify="center" style="padding: 10px">
             <h1>my routines</h1>
           </v-row>
-
 
           <v-container
             color="secondary"
@@ -27,55 +22,22 @@
             rounded="xl"
             elevation="0"
           >
-                <v-row
-                  class="routines-group"
-                >
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <add-routine
-                      class="routine-card"
-                    ></add-routine>
-                  </router-link>
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <RoutineButton
-                      class=" routine-card"
-                    ></RoutineButton>
-                  </router-link>
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <RoutineButton
-                      class=" routine-card"
-                    ></RoutineButton>
-                  </router-link>
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <RoutineButton
-                      class=" routine-card"
-                    ></RoutineButton>
-                  </router-link>
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <RoutineButton
-                      class=" routine-card"
-                    ></RoutineButton>
-                  </router-link>
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <RoutineButton
-                      class=" routine-card"
-                    ></RoutineButton>
-                  </router-link>
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <RoutineButton
-                      class=" routine-card"
-                    ></RoutineButton>
-                  </router-link>
-                  <router-link style="text-decoration: none; color: inherit; padding: 10px" to="/createRoutine">
-                    <RoutineButton
-                      class=" routine-card"
-                    ></RoutineButton>
-                  </router-link>
-                </v-row>
-
+            <v-row class="routines-group">
+              <router-link
+                style="text-decoration: none; color: inherit; padding: 10px"
+                to="/createRoutine"
+              >
+                <add-routine class="routine-card"></add-routine>
+              </router-link>
+              <router-link
+                style="text-decoration: none; color: inherit; padding: 10px"
+                to="/createRoutine"
+              >
+                <RoutineButton class="routine-card"></RoutineButton>
+              </router-link>
+            </v-row>
           </v-container>
-
         </v-sheet>
-
       </v-main>
     </v-app>
   </div>
@@ -83,11 +45,11 @@
 
 <script>
 import RoutineButton from "@/components/Routines/RoutineButton";
-import MainTopBar from "@/components/MainTopBar";
+import NavBar from "@/components/NavBar";
 import AddRoutine from "@/components/Routines/add";
 export default {
   name: "MyRoutines",
-  components: { AddRoutine, MainTopBar, RoutineButton },
+  components: { AddRoutine, NavBar, RoutineButton },
 };
 </script>
 
@@ -100,12 +62,12 @@ h1 {
   color: #cfffb3;
 }
 
-.routines-group{
+.routines-group {
   padding: 20px;
   justify-content: center;
 }
 
-.routine-card{
+.routine-card {
   padding: 10px;
 }
 </style>
