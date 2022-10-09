@@ -42,69 +42,69 @@
 </template>
 
 <script>
-import {mapActions} from 'pinia'
-import {useExerciseStore} from "@/store/exerciseData"
-export default {
+  import {mapActions} from 'pinia'
+  import {useExerciseStore} from "@/store/exerciseData"
+  export default {
 
-  name: "exerciseCard",
+    name: "exerciseCard",
 
-  data(){
-    return{
-      items:[{title:'editar'},{title:'eliminar'}],
-      exerciseName:'',
-      time:'',
-      weight:'',
-      sets:'',
-      reps:'',
-    }
-  },
-  props:{
-    id: undefined,
-    type:String
-  },
-  methods: {
-    filter: function (evt) {
-      evt = (evt) ? evt : window.event;
-      let expect = evt.target.value.toString() + evt.key.toString();
-
-      if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
-        evt.preventDefault();
-      } else {
-        return true;
+    data(){
+      return{
+        items:[{title:'editar'},{title:'eliminar'}],
+        exerciseName:'',
+        time:'',
+        weight:'',
+        sets:'',
+        reps:'',
       }
     },
-      ...mapActions(useExerciseStore,['addExercise']),
-      ...mapActions(useExerciseStore,['deleteExercise']),
-      ...mapActions(useExerciseStore,['updateName']),
-      ...mapActions(useExerciseStore,['updateTime']),
-      ...mapActions(useExerciseStore,['updateWeight']),
-      ...mapActions(useExerciseStore,['updateReps']),
-      ...mapActions(useExerciseStore,['updateSets']),
-    deleteMe(){
-      this.deleteExercise(this.id);
+    props:{
+      id: undefined,
+      type:String
     },
-    update_name() {
-      this.updateName(this.id,this.exerciseName);
-    },
-    update_time(){
-      this.updateTime(this.id,this.time);
-    },
-    update_weight(){
-      this.updateWeight(this.id,this.weight);
-    },
-    update_reps(){
-      this.updateReps(this.id,this.reps);
-    },
-    update_sets(){
-      this.updateSets(this.id,this.sets);
-    }
-  },
+    methods: {
+      filter: function (evt) {
+        evt = (evt) ? evt : window.event;
+        let expect = evt.target.value.toString() + evt.key.toString();
 
-  watch:{
+        if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
+          evt.preventDefault();
+        } else {
+          return true;
+        }
+      },
+        ...mapActions(useExerciseStore,['addExercise']),
+        ...mapActions(useExerciseStore,['deleteExercise']),
+        ...mapActions(useExerciseStore,['updateName']),
+        ...mapActions(useExerciseStore,['updateTime']),
+        ...mapActions(useExerciseStore,['updateWeight']),
+        ...mapActions(useExerciseStore,['updateReps']),
+        ...mapActions(useExerciseStore,['updateSets']),
+      deleteMe(){
+        this.deleteExercise(this.id);
+      },
+      update_name() {
+        this.updateName(this.id,this.exerciseName);
+      },
+      update_time(){
+        this.updateTime(this.id,this.time);
+      },
+      update_weight(){
+        this.updateWeight(this.id,this.weight);
+      },
+      update_reps(){
+        this.updateReps(this.id,this.reps);
+      },
+      update_sets(){
+        this.updateSets(this.id,this.sets);
+      }
+    },
 
-  },
+    watch:{
 
-}
+    },
+
+  }
 </script>
 
 <style scoped>
