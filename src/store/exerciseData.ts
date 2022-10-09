@@ -1,4 +1,4 @@
-import { defineStore, mapState } from "pinia";
+import { defineStore } from "pinia";
 import {exerciseApi} from "@/api/exercises"
 interface Exercise {
      name: string | undefined;

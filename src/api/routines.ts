@@ -23,7 +23,9 @@ class RoutinesApi {
   static async getAllRoutines() {
     return await Api.get(RoutinesApi.getUrl(""), true, {});
   }
-}
+  static async addCycle(rutineId:number,name:string,detail:string,type:string,order:number,repetitions:number){
+    return await Api.post(this.getUrl(`${rutineId.toString()}/cycle`),true,new Cycle(name,detail,type,order,repetitions),null)
+  }}
 
 class FetchRoutines {
   constructor(orderBy: string, isPublic: boolean, difficulty: string, detail: string, name: string) {
@@ -52,10 +54,28 @@ class Routine {
     this.difficulty = difficulty;
     this.name = name;
     this.detail = detail;
+    this.category = {
+      "id":1
+    }
   }
 
   name: string;
   detail: string;
   isPublic: boolean;
   difficulty: string;
+  category:any
+}
+class Cycle{
+  constructor(name:string,detail:string,type:string,order:number,repetitions:number) {
+    this.name = name;
+    this.detail = detail;
+    this.type = type;
+    this.order = order;
+    this.repetitions = repetitions;
+  }
+  name:string;
+  detail:string;
+  type:string;
+  order:number;
+  repetitions:number;
 }
