@@ -117,17 +117,16 @@ export default {
       phone: "",
     };
   },
-  methods: {
-    async created() {
+  async created() {
     console.log("entered!");
-      try {
+       try {
         const res = await UserApi.get();
         console.log(res);
         this.username = res.username;
+        this.email = res.email;
       } catch (error) {
         router.push("/errorPage");
       }
-    },
   },
 };
 </script>
