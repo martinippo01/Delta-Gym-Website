@@ -98,6 +98,7 @@
               </button>
             </v-slide-item>
           </v-slide-group>
+
         </div>
       </v-main>
     </v-app>
@@ -119,42 +120,48 @@ export default {
   data() {
     return {
       routineName: "",
-      maxId: 1,
+      maxId:1,
+      error:false,
+      errorText:"",
       detail: "none",
       difficulty: "medium",
       isPublic: true,
+
+
     };
-  },
-  methods: {
-    ...mapActions(useExerciseStore, ["addExercise"]),
+   },
+   methods: {
+    ...mapActions(useExerciseStore,['addExercise']),
+     ...mapActions(useExerciseStore,['upLoadExercises']),
 
-    discard() {
-      router.push("/myRoutines");
-    },
-    async save() {
-      try {
-        await RoutinesApi.addRoutine(
-          this.routineName,
-          this.detail,
-          this.difficulty,
-          this.isPublic
-        );
 
-        router.push("/myRoutines");
-      } catch (error) {
-        console.log(error);
-      }
+     discard() {
+     router.push("/myRoutines");
+
     },
-    addRoutine(type) {
-      this.addExercise(this.maxId, type);
-      this.maxId++;
-    },
+     async save(){
+       try {
+       await this.upLoadExercises();
+       router.push("/myRoutines");
+     }catch (error){
+       this.error = true;
+       this.errorText = error.name;
+     }
+
+     },
+      addRoutine( type){
+       this.addExercise(this.maxId, type);
+       this.maxId++;
+     },
+
+   },
+  computed:{
+    ...mapState(useExerciseStore,['getCoolDownExercise']),
+    ...mapState(useExerciseStore,['getMainSetExercises']),
+    ...mapState(useExerciseStore,['getWarmUpExercises']),
   },
-  computed: {
-    ...mapState(useExerciseStore, ["getCoolDownExercise"]),
-    ...mapState(useExerciseStore, ["getMainSetExercises"]),
-    ...mapState(useExerciseStore, ["getWarmUpExercises"]),
-  },
+
+
 };
 </script>
 
