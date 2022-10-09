@@ -24,10 +24,10 @@
                 <v-row justify="end">
                   <v-text-field
                     class="pt-7 pr-10 pl-10"
-                    label="Full Name"
+                    label="Username"
                     dark="dark"
                     color="primary"
-                    v-model="fullName"
+                    v-model="username"
                   />
                 </v-row>
                 <v-row justify="end">
@@ -111,7 +111,7 @@ export default {
     return {
       snackbar: false,
       snackbarMsg: "",
-      fullName: "",
+      username: "",
       email: "",
       password: "",
       re_password: "",
@@ -130,7 +130,7 @@ export default {
     },
     async registerHandler() {
       const credentials = new Registration(
-        this.fullName,
+        this.username,
         this.email,
         this.password
       );

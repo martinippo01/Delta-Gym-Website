@@ -37,10 +37,10 @@
                 <v-row justify="end">
                   <v-text-field
                     class="pt-5 pr-10 pl-10"
-                    label="Surname"
+                    label="Username"
                     dark="dark"
                     color="primary"
-                    v-model="surname"
+                    v-model="username"
                   />
                 </v-row>
                 <v-row justify="end">
@@ -99,19 +99,35 @@
 </template>
 
 <script>
+import { UserApi } from "@/api/user";
 import NavBar from "@/components/NavBar";
+import router from "@/router";
+import { onMounted } from "vue";
+
 
 export default {
   name: "ProfilePage",
   components: { NavBar },
   data() {
     return {
+      username: "",
       name: "",
-      surname: "",
       email: "",
       age: "",
       phone: "",
     };
+  },
+  methods: {
+    async created() {
+    console.log("entered!");
+      try {
+        const res = await UserApi.get();
+        console.log(res);
+        this.username = res.username;
+      } catch (error) {
+        router.push("/errorPage");
+      }
+    },
   },
 };
 </script>
