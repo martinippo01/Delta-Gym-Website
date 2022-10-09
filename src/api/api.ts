@@ -1,12 +1,12 @@
 export { Api };
 
 class Api {
-  static token: string;
+  static token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImlhdCI6MTY2NTI4Mzk5NjIyMCwiZXhwIjoxNjY1Mjg2NTg4MjIwfQ.Ly6BS5v9d_bgiXBphh-f6Z95PUxuoNy9PBMPyceO6gs';
 
   //aca 127.0.0.0.1 = localhost,
   //esto setea donde vive la api y su puerto
   static get baseUrl() {
-    return "http://127.0.0.1:8080/api";
+    return "http://127.0.0.1:8081/api";
   }
 
   static get timeout() {
@@ -21,7 +21,7 @@ class Api {
     url: any,
     secure: boolean,
     init: any = {},
-    controller: any
+
   ) {
     //aca tengo que chequear si tengo el token para hablar con la api y
     //si la conexion es segura
@@ -31,11 +31,11 @@ class Api {
       if (!init.headers) init.headers = {};
 
       //aca agrego el header que estoy autenticado, el token``
-      init.headers["Authorization"] = `bearer ${Api.token}`;
+      //init.headers['Authorization'] = `bearer ${Api.token}`;
     }
 
     //esto es tal que tenga un timeout, que no espere indefinidamente a que responda mi api
-    controller = controller || new AbortController();
+    const controller =   new AbortController();
     init.signal = controller.signal;
     const timer = setTimeout(() => controller.abort(), Api.timeout);
 
@@ -63,7 +63,7 @@ class Api {
 
   /* wrapper de fetch que ya maneja errores y seguridad */
   static async get(url: string, secure: boolean, controller: any) {
-    return await Api.fetch(url, secure, {}, controller);
+    return await Api.fetch(url, secure, {});
   }
 
   /* wrapper de fetch para hacer un post facilmente */
@@ -75,15 +75,16 @@ class Api {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
+          Authorization : "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImlhdCI6MTY2NTI4Mzk5NjIyMCwiZXhwIjoxNjY1Mjg2NTg4MjIwfQ.Ly6BS5v9d_bgiXBphh-f6Z95PUxuoNy9PBMPyceO6gs"
         },
         body: JSON.stringify(data),
       },
-      controller
+
     );
   }
 
   /* wrapper de put para hacer un post facilmente */
-  static async put(url: string, secure: boolean, data: object, controller: any) {
+  static async put(url: string, secure: boolean, data: object) {
     return await Api.fetch(
       url,
       secure,
@@ -94,7 +95,7 @@ class Api {
         },
         body: JSON.stringify(data),
       },
-      controller
+
     );
   }
 
@@ -106,7 +107,7 @@ class Api {
       {
         method: "DELETE",
       },
-      controller
+
     );
   }
 }

@@ -134,12 +134,15 @@ export default {
    },
    methods: {
     ...mapActions(useExerciseStore,['addExercise']),
+     ...mapActions(useExerciseStore,['upLoadExercises']),
+
 
      discard() {
      router.push("/myRoutines");
 
     },
      save(){
+       this.upLoadExercises();
        router.push("/myRoutines");
 
      },
