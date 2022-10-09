@@ -33,8 +33,8 @@
             rounded="xl"
             elevation="0"
           >
-            <v-row class="routines-group" v-for="r in routines" v-bind:key="r">
-              <RoutineButton :routineName="r" :key="r" />
+            <v-row  >
+              <RoutineButton v-for="r in routines" v-bind:key="r" :routineName="r" class="routines-group" />
             </v-row>
           </v-container>
         </v-sheet>

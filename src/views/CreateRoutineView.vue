@@ -3,6 +3,9 @@
     <v-app>
       <NavBar select="myRoutines"></NavBar>
       <v-main class="background">
+
+
+<!--        _______________________________________________________________________________________-->
         <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
           <v-row class="d-flex">
             <!--              <div class="text-h2 routines-title top-0 start-100" >my routines</div>-->
@@ -48,6 +51,10 @@
             ></v-text-field>
           </v-row>
         </v-sheet>
+
+
+<!--        _______________________________________________________________________________________-->
+
         <div class="slider">
           <h1 class="textSlider">WARM UP</h1>
           <v-slide-group class="pa-4" active-class="success" show-arrows dark>
@@ -59,12 +66,15 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('warmUp')">
+              <button @click="addRoutine('warmUp'); dialog = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
           </v-slide-group>
         </div>
+
+
+<!--        _______________________________________________________________________________________-->
         <div class="slider">
           <h1 class="textSlider">MAIN SETS</h1>
           <v-slide-group class="pa-4" active-class="success" show-arrows dark>
@@ -76,12 +86,15 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('mainSet')">
+              <button @click="addRoutine('mainSet'); dialog = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
           </v-slide-group>
         </div>
+
+
+<!--        _______________________________________________________________________________________-->
         <div class="slider">
           <h1 class="textSlider">COOL DOWN</h1>
           <v-slide-group class="pa-4" active-class="success" show-arrows dark>
@@ -93,7 +106,7 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('coolDown')">
+              <button @click="addRoutine('coolDown'); dialog = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -102,6 +115,91 @@
         </div>
       </v-main>
     </v-app>
+
+
+<!--    ____________________________________________________________________________-->
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+    >
+      <v-card
+        color="secondary"
+      >
+        <v-card-title>
+          <span class="text-h5" style="color: #CFFFB3">Add exercise</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="10"
+                md="8"
+              >
+                <v-autocomplete
+                  label="Search"
+                  required
+                  color="primary"
+                  dark
+                ></v-autocomplete>
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-btn
+                  color="primary"
+                >
+                  <span style="color: #1e1e1e">Create New</span>
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-autocomplete
+                  v-model="values"
+                  :items="items"
+                  dense
+                  chips
+                  small-chips
+                  label="Tags"
+                  multiple
+                  solo
+                  color="secondary"
+                  background-color="secondary"
+                ></v-autocomplete>
+              </v-col>
+              <v-col>
+                <v-virtual-scroll
+                  :items="items"
+                  :item-height="50"
+                  height="300"
+                ></v-virtual-scroll>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            outlined
+            @click="dialog = false"
+          >
+            Discard
+          </v-btn>
+          <v-btn
+            color="primary"
+            filled
+            @click="dialog = false"
+          >
+            <span style="color: #1e1e1e">Save</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+<!--    ____________________________________________________________________________-->
   </div>
 </template>
 
@@ -126,8 +224,7 @@ export default {
       detail: "none",
       difficulty: "medium",
       isPublic: true,
-
-
+      dialog: false,
     };
    },
    methods: {
