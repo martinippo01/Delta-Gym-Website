@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
 import {exerciseApi} from "@/api/exercises"
+import {ExerciseCycle} from "@/store/createRoutine";
+
 interface Exercise {
      name: string | undefined;
-     type: string  | undefined;
-     cycleId: string | undefined;
-     time : number  | undefined;
+     cycleId: number ;
+     exerciseCycle:ExerciseCycle;
      weight: number  | undefined;
-     reps:number  | undefined;
      sets: number  | undefined;
      id : number;
      indexId:number;
@@ -23,18 +23,19 @@ export const useExerciseStore = defineStore('exercises', {
 
     state: () => ({
         exercisArray: [] as Exercise [],
-        createdExercise:[] as ExerciseAPiType[]
+        createdExercise:[] as ExerciseAPiType[],
+        exerciseIndex:[1,1,1]
     }),
     getters: {
 
         getCoolDownExercise(state){
-            return this.exercisArray.filter(ex=>ex.cycleId === 'coolDown');
+            return this.exercisArray.filter(ex=>ex.cycleId === 2);
         },
         getMainSetExercises(state){
-            return this.exercisArray.filter(ex=>ex.cycleId === 'mainSet');
+            return this.exercisArray.filter(ex=>ex.cycleId === 1);
         },
         getWarmUpExercises(state){
-            return this.exercisArray.filter(ex=>ex.cycleId === 'warmUp');
+            return this.exercisArray.filter(ex=>ex.cycleId === 0);
         },
 
 
@@ -58,7 +59,7 @@ export const useExerciseStore = defineStore('exercises', {
 
             if(aux === undefined)
                 return;
-            this.exercisArray[aux].time = time;
+            this.exercisArray[aux].exerciseCycle.duration = time;
         },
         updateWeight(id:number,weight:number){
             const aux= this.exercisArray.findIndex(ex => ex.indexId === id);
@@ -72,7 +73,7 @@ export const useExerciseStore = defineStore('exercises', {
 
             if(aux === undefined)
                 return;
-            this.exercisArray[aux].reps = reps;
+            this.exercisArray[aux].exerciseCycle.repetitions = reps;
         },
         updateSets(id:number,sets:number){
             const aux= this.exercisArray.findIndex(ex => ex.indexId === id);
@@ -81,14 +82,17 @@ export const useExerciseStore = defineStore('exercises', {
                 return;
             this.exercisArray[aux].sets = sets;
         },
-        async uploadExercises(exercise : ExerciseAPiType,cicleId : string,indexId:number){
+        async uploadExercises(exercise : ExerciseAPiType,cicleId : number,indexId:number){
+            const order = this.exerciseIndex[cicleId];
+            this.exerciseIndex[cicleId] = order + 1;
             const index =this.createdExercise.findIndex(ex => ex.name = exercise.name)
             if (index === -1) {
                 const idAux = await exerciseApi.uploadExercises(exercise);
-                this.exercisArray.push({ name: exercise.name, id: idAux, type: "exercise", cycleId: cicleId, reps: 0, weight: 0, sets: 0, time: 0 ,indexId:indexId});
+                this.exercisArray.push({ name: exercise.name, id: idAux, cycleId: cicleId,  weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
+                //Cuando pusheo un ejercicio lo que hago es obtener los ejercicios devuelta.
                 this.createdExercise = await exerciseApi.getExercises();
             }else{
-                this.exercisArray.push({ name: this.createdExercise[index].name, id: this.createdExercise[index].id, type: "exercise", cycleId: cicleId, reps: 0, weight: 0, sets: 0, time: 0 ,indexId:indexId});
+                this.exercisArray.push({ name: this.createdExercise[index].name, id: this.createdExercise[index].id, cycleId: cicleId, weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
             }
 
         },

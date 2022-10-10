@@ -19,8 +19,7 @@
                 height="50"
                 color="primary"
               ></v-text-field>
-              <!--   <v-icon class="ml-4" color="#D9D9D9">mdi-alarm</v-icon>
-            <h4 > TIEMPO</h4> -->
+
             </v-col>
             <v-col class="justify-end d-flex" md="2" offset-md="3">
               <v-btn
@@ -46,6 +45,7 @@
               class="descripcion"
               label="DESCRIPTION"
               color="primary"
+              v-model="routineDetail"
               max-
               dark
             ></v-text-field>
@@ -67,7 +67,7 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('warmUp'); dialogSelectExercise = true">
+              <button @click="addRoutine(0); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -88,7 +88,7 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('mainSet'); dialogSelectExercise = true">
+              <button @click="addRoutine(1); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -109,7 +109,7 @@
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('coolDown'); dialogSelectExercise = true">
+              <button @click="addRoutine(2); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -302,7 +302,7 @@ import router from "@/router";
 import addButtom from "@/components/Routines/add";
 import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
-import { RoutinesApi, Routine } from "@/api/routines";
+import {useCreateRoutine} from "@/store/createRoutine";
 
 export default {
   name: "CreateRoutuneView",
@@ -310,6 +310,7 @@ export default {
   data() {
     return {
       routineName: "",
+      routineDetail:"",
       error:false,
       errorText:"",
       detail: "none",
@@ -319,14 +320,16 @@ export default {
       dialogSelectExercise: false,
       dialogCreateExercise: false,
       selectedName: null,
-      cycleSelect:'',
-      maxId:0
+      cycleSelect:0,
+      maxId:0,
+
     };
    },
    methods: {
     ...mapActions(useExerciseStore,['addExercise']),
      ...mapActions(useExerciseStore,['uploadExercises']),
       ...mapActions(useExerciseStore,['getCreatedExercises']),
+     ...mapActions(useCreateRoutine,['createRoutine']),
 
      discard() {
      router.push("/myRoutines");
@@ -334,24 +337,26 @@ export default {
     },
      async save(){
        try {
-       await this.upLoadExercises();
-       router.push("/myRoutines");
+       await this.createRoutine(this.routineName,this.routineDetail);
+        router.push("/myRoutines");
      }catch (error){
        this.error = true;
        this.errorText = error.name;
      }
 
      },
-      addRoutine( type){
+      addRoutine(type){
         this.dialogSelectExercise = true;
         this.cycleSelect = type;
-       //this.addExercise(this.maxId, type);
-        //this.getExercises();
      },
      saveExercise(){
        this.dialogSelectExercise = false;
        this.selectedName = null;
-       this.uploadExercises({name: this.title,detail:this.detail, type:'exercise',metadata:null },this.cycleSelect,this.maxId);
+       this.uploadExercises({
+         name: this.title,
+         detail:this.detail,
+         type:'exercise',
+         metadata:null },this.cycleSelect,this.maxId);
        this.maxId++;
      }
 

@@ -11,20 +11,11 @@ class RoutinesApi {
     return await Api.post(RoutinesApi.getUrl(""), true, routine, null);
   }
 
-  // static async getRoutine(routineId: number) {
-  //   return await Api.post(
-  //     RoutinesApi.getUrl(routineId.toString()),
-  //     true,
-  //     {},
-  //     null
-  //   );
-  // }
-
   static async getAllRoutines() {
     return await Api.get(RoutinesApi.getUrl(""), true, {});
   }
   static async addCycle(rutineId:number,name:string,detail:string,type:string,order:number,repetitions:number){
-    return await Api.post(this.getUrl(`${rutineId.toString()}/cycle`),true,new Cycle(name,detail,type,order,repetitions),null)
+    return await Api.post(this.getUrl(`${rutineId.toString()}/cycles`),true,new Cycle(name,detail,type,order,repetitions),null)
   }}
 
 class FetchRoutines {
@@ -48,22 +39,25 @@ class Routine {
     name: string,
     detail: string,
     difficulty: string,
-    isPublic: boolean
+    isPublic: boolean,
   ) {
     this.isPublic = isPublic;
     this.difficulty = difficulty;
     this.name = name;
     this.detail = detail;
+    this.metadata=null;
     this.category = {
       "id":1
-    }
+    };
   }
 
   name: string;
   detail: string;
   isPublic: boolean;
   difficulty: string;
-  category:any
+  category: any;
+  metadata:any;
+
 }
 class Cycle{
   constructor(name:string,detail:string,type:string,order:number,repetitions:number) {
