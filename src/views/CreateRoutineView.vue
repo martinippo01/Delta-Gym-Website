@@ -351,6 +351,7 @@ export default {
      },
     async saveExercise(){
        this.dialogSelectExercise = false;
+       this.dialogCreateExercise = false;
        this.selectedName = null;
       await this.uploadExercises({
          name: this.title,

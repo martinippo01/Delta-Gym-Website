@@ -36,6 +36,7 @@
                 :key="routine.id"
                 style="text-decoration: none; color: inherit; padding: 10px"
                 class="routine-card"
+                :routineName="routine.name"
               ></RoutineButton>
             </v-row>
           </v-container>
