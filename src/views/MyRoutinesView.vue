@@ -39,6 +39,14 @@
               ></RoutineButton>
             </v-row>
           </v-container>
+          <v-btn
+            color="primary"
+            plain
+            class="temp justify-end mr-7"
+            @click="nextPage"
+          >
+            nextPage
+          </v-btn>
         </v-sheet>
       </v-main>
     </v-app>
@@ -59,6 +67,7 @@ export default {
   components: { NavBar, RoutineButton, Add },
   async created() {
     try {
+      this.resetStore();
       await this.setRoutines();
     } catch (error) {
       router.push("/errorPage");
@@ -66,10 +75,15 @@ export default {
   },
   methods: {
     ...mapActions(useRoutinesStore, ["setRoutines"]),
+    ...mapActions(useRoutinesStore,["nextPage"]),
+    ...mapActions(useRoutinesStore,["resetStore"])
+
   },
   computed: {
     ...mapState(useRoutinesStore, ["routines"]),
   },
+
+
 };
 </script>
 

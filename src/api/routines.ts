@@ -3,16 +3,20 @@ import { Api } from "./api";
 export { RoutinesApi, Routine, FetchRoutines };
 
 class RoutinesApi {
-  static getUrl(slug: string) {
+  static getUrl(slug?: string) {
     return `${Api.baseUrl}/routines${slug ? `/${slug}` : ""}`;
   }
-
-  static async addRoutine(routine: Routine) {
-    return await Api.post(RoutinesApi.getUrl(""), true, routine, null);
+  static getUrlParameters(slug?: string) {
+    return `${Api.baseUrl}/routines?${slug ? `${slug}` : ""}`;
   }
 
-  static async getAllRoutines() {
-    return await Api.get(RoutinesApi.getUrl(""), true, {});
+
+  static async addRoutine(routine: Routine) {
+    return await Api.post(RoutinesApi.getUrl(), true, routine, null);
+  }
+
+  static async getAllRoutines(page:number) {
+    return await Api.get(RoutinesApi.getUrlParameters(`size=11&page=${page}`), true, {});
   }
   static async addCycle(rutineId:number,name:string,detail:string,type:string,order:number,repetitions:number){
     return await Api.post(this.getUrl(`${rutineId.toString()}/cycles`),true,new Cycle(name,detail,type,order,repetitions),null)
