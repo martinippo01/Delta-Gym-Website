@@ -61,8 +61,9 @@
             <v-slide-item v-for="card in getWarmUpExercises" :key="card.id">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.id"
+                :id="card.indexId"
                 type="warmUp"
+                :exerciseName="card.name"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -81,8 +82,9 @@
             <v-slide-item v-for="card in getMainSetExercises" :key="card.id">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.id"
+                :id="card.indexId"
                 type="mainSet"
+                :exerciseName="card.name"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -101,8 +103,9 @@
             <v-slide-item v-for="card in getCoolDownExercise" :key="card.id">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.id"
+                :id="card.indexId"
                 type="coolDown"
+                :exerciseName="card.name"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -220,7 +223,7 @@
             color="primary"
             filled
             :disabled="selectedName === null"
-            @click="dialogSelectExercise = false; selectedName = null;this.uploadExercises({name: 'PRUEBA',detail:'PRUEBA', type:'exercise',metadata:null },0)"
+            @click="saveExercise"
           >
             <span style="color: #1e1e1e">
               Save
@@ -247,13 +250,13 @@
           <v-container>
             <v-row>
               <v-col>
-                <v-text-field dark color="primary" label="Name"></v-text-field>
+                <v-text-field dark color="primary" label="Name" v-model="title"></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col>
                 <v-textarea
-                  v-model="title"
+                  v-model="detail"
                   label="Description"
                   counter
                   maxlength="120"
@@ -279,7 +282,7 @@
           <v-btn
             color="primary"
             filled
-            @click="dialogCreateExercise = false; selectedName = null"
+            @click="saveExercise"
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
@@ -307,15 +310,17 @@ export default {
   data() {
     return {
       routineName: "",
-      maxId:1,
       error:false,
       errorText:"",
       detail: "none",
+      title:"none",
       difficulty: "medium",
       isPublic: true,
       dialogSelectExercise: false,
       dialogCreateExercise: false,
       selectedName: null,
+      cycleSelect:'',
+      maxId:0
     };
    },
    methods: {
@@ -339,10 +344,16 @@ export default {
      },
       addRoutine( type){
         this.dialogSelectExercise = true;
+        this.cycleSelect = type;
        //this.addExercise(this.maxId, type);
         //this.getExercises();
-       this.maxId++;
      },
+     saveExercise(){
+       this.dialogSelectExercise = false;
+       this.selectedName = null;
+       this.uploadExercises({name: this.title,detail:this.detail, type:'exercise',metadata:null },this.cycleSelect,this.maxId);
+       this.maxId++;
+     }
 
    },
   computed:{

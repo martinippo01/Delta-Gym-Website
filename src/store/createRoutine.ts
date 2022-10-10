@@ -23,8 +23,8 @@ export const createRoutine = defineStore('createRoutine', {
            this.cycles.push(response.id);
         },
         async addExercises(){
-           //TODO HACER QUE SE AGREGUE UN EJERCICIO A UN Cycle
            const store = useExerciseStore();
+
 
         }
     }

@@ -17,6 +17,7 @@ class exerciseApi{
   }
   static async getExercises(){
       const result =  await Api.get(exerciseApi.getUrl(),true,null);
+      console.log(result.content);
       return result.content
   }
 
