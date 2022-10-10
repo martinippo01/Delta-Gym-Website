@@ -33,8 +33,15 @@
             rounded="xl"
             elevation="0"
           >
-            <v-row  >
-              <RoutineButton v-for="r in routines" v-bind:key="r" :routineName="r" class="routines-group" />
+            <v-row>
+              <RoutineButton
+                v-for="routine in routines"
+                @click.native="toRoutine(false)"
+                :key="routine.id"
+                style="text-decoration: none; color: inherit; padding: 10px"
+                class="routine-card"
+                :routineName="routine.name"
+              ></RoutineButton>
             </v-row>
           </v-container>
         </v-sheet>
@@ -47,13 +54,37 @@
 import NavBar from "@/components/NavBar";
 import RoutineButton from "@/components/Routines/RoutineButton";
 
+import { useRoutinesStore } from "@/store/routinesStore";
+import { RoutinesApi } from "@/api/routines";
+import router from "@/router";
+import { mapActions, mapState } from "pinia";
+
 export default {
   name: "ExploreView",
   components: { NavBar, RoutineButton },
-  data() {
-    return {
-      routines: ["leg day", "push day"],
-    };
+  async created() {
+    try {
+      this.resetStore();
+      await this.setRoutines();
+    } catch (error) {
+      router.push("/errorPage");
+    }
+  },
+  methods: {
+    ...mapActions(useRoutinesStore, ["setRoutines"]),
+    ...mapActions(useRoutinesStore, ["nextPage"]),
+    ...mapActions(useRoutinesStore, ["resetStore"]),
+    toRoutine(mode) {
+      this.$router.push({
+        name: "createRoutine",
+        params: {
+          editMode: mode,
+        },
+      });
+    },
+  },
+  computed: {
+    ...mapState(useRoutinesStore, ["routines"]),
   },
 };
 </script>
