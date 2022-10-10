@@ -28,8 +28,7 @@ export const useCreateRoutine = defineStore('createRoutine', {
         async addExercises(){
            const store = useExerciseStore();
            for (const ex in store.exercisArray){
-             console.log(ex);
-              await CyclesApi.addExercise(this.cycles[store.exercisArray[ex].cycleId].id,store.exercisArray[ex].id,store.exercisArray[ex].exerciseCycle)
+              await CyclesApi.addExercise(this.cycles[store.exercisArray[ex].cycleId],store.exercisArray[ex].id,store.exercisArray[ex].exerciseCycle)
            }
 
 
