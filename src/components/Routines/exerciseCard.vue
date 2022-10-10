@@ -2,7 +2,9 @@
   <div class="card">
     <v-card  height="100%" color="secondary"  rounded="xl">
         <v-card-title >
-          <span>{{this.exerciseName}}</span>
+
+          <v-text-field class="textField" label="Title" @keypress="filter" v-model="reps" @blur="update_reps" dark color="primary" v-if="editMode" :value="this.exerciseName"></v-text-field>
+          <span v-if="!editMode">{{this.exerciseName}}</span>
 
           <v-menu
               ffset-y
@@ -30,10 +32,14 @@
           </v-menu>
         </v-card-title>
         <v-card-actions class="mt-0">
-            <v-text-field class="ml-" prepend-icon="mdi-alarm" label="Mins" @keypress="filter" v-model="time" @blur="update_time" dark color="primary"></v-text-field>
-            <v-text-field class="textField" prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter" v-model="weight" @blur="update_weight" dark color="primary"></v-text-field>
-            <v-text-field class="textField" label="SETS" @keypress="filter" v-model="sets" @blur="update_sets" dark color="primary"></v-text-field>
-            <v-text-field class="textField" label="REPS" @keypress="filter" v-model="reps" @blur="update_reps" dark color="primary"></v-text-field>
+          <v-text-field class="ml-" prepend-icon="mdi-alarm" label="Mins" @keypress="filter" v-model="time" @blur="update_time" dark color="primary" v-if="editMode"                   ></v-text-field>
+          <v-text-field class="textField" prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter" v-model="weight" @blur="update_weight" dark color="primary" v-if="editMode"        ></v-text-field>
+          <v-text-field class="textField" label="SETS" @keypress="filter" v-model="sets" @blur="update_sets" dark color="primary" v-if="editMode"                                      ></v-text-field>
+          <v-text-field class="textField" label="REPS" @keypress="filter" v-model="reps" @blur="update_reps" dark color="primary" v-if="editMode"                                      ></v-text-field>
+          <v-card-text v-if="!editMode">{{ this.time }}</v-card-text>
+          <v-card-text v-if="!editMode">{{ this.sets }}</v-card-text>
+          <v-card-text v-if="!editMode">{{ this.sets }}</v-card-text>
+          <v-card-text v-if="!editMode">{{ this.reps }}</v-card-text>
       </v-card-actions>
     </v-card>
   </div>
@@ -59,6 +65,7 @@
       id: undefined,
       type:String,
       exerciseName:String,
+      editMode: undefined
     },
     methods: {
       filter: function (evt) {

@@ -34,7 +34,7 @@ class UserApi {
   }
 
   static async updateUser(credentials: UpdatableCredentials) {
-    return await Api.post(UserApi.getUrl("current"), true, credentials, null);
+    return await Api.put(UserApi.getUrl("current"), true, credentials);
   }
 
   static async addUser(registration: Registration, controller: any) {
@@ -86,13 +86,11 @@ class UpdatableCredentials {
   constructor(
     firstName: string,
     lastName: string,
-    gender: string,
     birthdate: number,
     avatar: string
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.gender = gender;
     this.avatar = avatar;
     this.birthdate = birthdate;
   }
@@ -100,6 +98,5 @@ class UpdatableCredentials {
   avatar: string;
   firstName: string;
   lastName: string;
-  gender: string;
   birthdate: number;
 }
