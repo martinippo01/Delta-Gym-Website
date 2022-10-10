@@ -4,12 +4,11 @@
       <NavBar select="myRoutines"></NavBar>
       <v-main class="background">
 
-
 <!--        _______________________________________________________________________________________-->
         <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
           <v-row class="d-flex">
-            <!--              <div class="text-h2 routines-title top-0 start-100" >my routines</div>-->
             <v-col class="d-flex ml-7">
+<!--              Caso 1 ->  Vista de edicion-->
               <v-text-field
                 label="ROUTINE NAME"
                 :rules="[() => !!routineName || 'This field is required']"
@@ -18,37 +17,63 @@
                 dark
                 height="50"
                 color="primary"
+                v-if="editMode"
               ></v-text-field>
+<!--              Caso 2 -> Vista normal-->
+              <h1
+                v-else
+              >CAMBIAR NOMBRE RUTINA</h1>
 
             </v-col>
             <v-col class="justify-end d-flex" md="2" offset-md="3">
+<!--              CASO 1 -> Edit mode-->
               <v-btn
                 color="primary"
                 plain
                 class="temp justify-end mr-7"
+                v-if="editMode"
                 @click="discard"
               >
                 DISCARD
               </v-btn>
+<!--              CASO 1 -> Edit mode-->
               <v-btn
                 color="primary"
                 class="temp justify-end mr-7 secondary--text"
+                v-if="editMode"
                 @click="save"
               >
                 SAVE
+              </v-btn>
+<!--              CASO 2 -> Vista normal-->
+              <v-btn
+                color="primary"
+                class="temp justify-end mr-7 secondary--text"
+                v-if="!editMode"
+                @click="editMode = true"
+              >
+                EDIT ROUTINE
               </v-btn>
             </v-col>
           </v-row>
 
           <v-row>
-            <v-text-field
+<!--            Caso 1 -> Vista de edicion-->
+            <v-textarea
               class="descripcion"
               label="DESCRIPTION"
               color="primary"
               v-model="routineDetail"
               max-
               dark
-            ></v-text-field>
+              v-if="editMode"
+            ></v-textarea>
+<!--            Caso 2 -> Vista normal-->
+            <p
+              v-else
+              class="text-justify"
+              style="margin: 40px; color: white; margin-bottom: 20px"
+            >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </v-row>
         </v-sheet>
 
@@ -64,7 +89,9 @@
                 :id="card.indexId"
                 type="warmUp"
                 :exerciseName="card.name"
+                :edit-mode="editMode"
               ></exerciseCard>
+
             </v-slide-item>
             <v-slide-item>
               <button @click="addRoutine(0); dialogSelectExercise = true">
@@ -74,8 +101,8 @@
           </v-slide-group>
         </div>
 
-
 <!--        _______________________________________________________________________________________-->
+
         <div class="slider">
           <h1 class="textSlider">MAIN SETS</h1>
           <v-slide-group class="pa-4" active-class="success" show-arrows dark>
@@ -85,6 +112,7 @@
                 :id="card.indexId"
                 type="mainSet"
                 :exerciseName="card.name"
+                :edit-mode="editMode"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -106,6 +134,7 @@
                 :id="card.indexId"
                 type="coolDown"
                 :exerciseName="card.name"
+                :edit-mode="editMode"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
@@ -118,7 +147,6 @@
         </div>
       </v-main>
     </v-app>
-
 
 <!--    ____________________________________________________________________________-->
     <v-dialog
@@ -234,7 +262,6 @@
       </v-card>
     </v-dialog>
 <!--    ____________________________________________________________________________-->
-
     <v-dialog
       v-model="dialogCreateExercise"
       persistent
@@ -290,8 +317,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
 <!--    ____________________________________________________________________________-->
+
   </div>
 </template>
 
@@ -322,7 +349,7 @@ export default {
       selectedName: null,
       cycleSelect:0,
       maxId:0,
-
+      editMode: false
     };
    },
    methods: {
@@ -332,18 +359,16 @@ export default {
      ...mapActions(useCreateRoutine,['createRoutine']),
 
      discard() {
-     router.push("/myRoutines");
-
+      this.editMode = false;
     },
      async save(){
+       this.editMode = false;
        try {
        await this.createRoutine(this.routineName,this.routineDetail);
-        router.push("/myRoutines");
-     }catch (error){
-       this.error = true;
-       this.errorText = error.name;
-     }
-
+       }catch (error){
+         this.error = true;
+         this.errorText = error.name;
+       }
      },
       addRoutine(type){
         this.dialogSelectExercise = true;

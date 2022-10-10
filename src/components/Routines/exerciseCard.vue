@@ -30,10 +30,11 @@
           </v-menu>
         </v-card-title>
         <v-card-actions class="mt-0">
-            <v-text-field class="ml-" prepend-icon="mdi-alarm" label="Mins" @keypress="filter" v-model="time" @blur="update_time" dark color="primary"></v-text-field>
-            <v-text-field class="textField" prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter" v-model="weight" @blur="update_weight" dark color="primary"></v-text-field>
-            <v-text-field class="textField" label="SETS" @keypress="filter" v-model="sets" @blur="update_sets" dark color="primary"></v-text-field>
-            <v-text-field class="textField" label="REPS" @keypress="filter" v-model="reps" @blur="update_reps" dark color="primary"></v-text-field>
+          <v-text-field class="ml-" prepend-icon="mdi-alarm" label="Mins" @keypress="filter" v-model="time" @blur="update_time" dark color="primary" v-if="editMode"                   ></v-text-field>
+          <v-text-field class="textField" prepend-icon="mdi-dumbbell" label="Kg" @keypress="filter" v-model="weight" @blur="update_weight" dark color="primary" v-if="editMode"        ></v-text-field>
+          <v-text-field class="textField" label="SETS" @keypress="filter" v-model="sets" @blur="update_sets" dark color="primary" v-if="editMode"                                      ></v-text-field>
+          <v-text-field class="textField" label="REPS" @keypress="filter" v-model="reps" @blur="update_reps" dark color="primary" v-if="editMode"                                      ></v-text-field>
+          <v-card-text v-if="!editMode">Hola</v-card-text>
       </v-card-actions>
     </v-card>
   </div>
@@ -59,6 +60,7 @@
       id: undefined,
       type:String,
       exerciseName:String,
+      editMode: undefined
     },
     methods: {
       filter: function (evt) {
