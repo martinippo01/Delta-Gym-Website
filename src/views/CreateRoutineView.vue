@@ -58,7 +58,7 @@
         <div class="slider">
           <h1 class="textSlider">WARM UP</h1>
           <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-            <v-slide-item v-for="card in getWarmUpExercises" :key="card.id">
+            <v-slide-item v-for="card in getWarmUpExercises" :key="card.indexId">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
                 :id="card.indexId"
@@ -79,7 +79,7 @@
         <div class="slider">
           <h1 class="textSlider">MAIN SETS</h1>
           <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-            <v-slide-item v-for="card in getMainSetExercises" :key="card.id">
+            <v-slide-item v-for="card in getMainSetExercises" :key="card.indexId">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
                 :id="card.indexId"
@@ -100,7 +100,7 @@
         <div class="slider">
           <h1 class="textSlider">COOL DOWN</h1>
           <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-            <v-slide-item v-for="card in getCoolDownExercise" :key="card.id">
+            <v-slide-item v-for="card in getCoolDownExercise" :key="card.indexId">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
                 :id="card.indexId"
@@ -182,7 +182,7 @@
                   height="300"
                 >
                   <template v-slot:default="{ item }">
-                    <v-list-item :key="item">
+                    <v-list-item :key="item.name">
 
                       <v-list-item-content>
                         <v-list-item-title>
@@ -349,10 +349,10 @@ export default {
         this.dialogSelectExercise = true;
         this.cycleSelect = type;
      },
-     saveExercise(){
+    async saveExercise(){
        this.dialogSelectExercise = false;
        this.selectedName = null;
-       this.uploadExercises({
+      await this.uploadExercises({
          name: this.title,
          detail:this.detail,
          type:'exercise',
