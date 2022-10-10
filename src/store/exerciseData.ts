@@ -85,7 +85,8 @@ export const useExerciseStore = defineStore('exercises', {
         async uploadExercises(exercise : ExerciseAPiType,cicleId : number,indexId:number){
             const order = this.exerciseIndex[cicleId];
             this.exerciseIndex[cicleId] = order + 1;
-            const index =this.createdExercise.findIndex(ex => ex.name = exercise.name)
+            const index =this.createdExercise.findIndex(ex => ex.name === exercise.name);
+            console.log(this.createdExercise);
             if (index === -1) {
                 const idAux = await exerciseApi.uploadExercises(exercise);
                 this.exercisArray.push({ name: exercise.name, id: idAux, cycleId: cicleId,  weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
