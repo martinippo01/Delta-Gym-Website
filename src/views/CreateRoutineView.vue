@@ -93,7 +93,7 @@
               ></exerciseCard>
 
             </v-slide-item>
-            <v-slide-item>
+            <v-slide-item v-if="editMode">
               <button @click="addRoutine(0); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
@@ -115,7 +115,7 @@
                 :edit-mode="editMode"
               ></exerciseCard>
             </v-slide-item>
-            <v-slide-item>
+            <v-slide-item v-if="editMode">
               <button @click="addRoutine(1); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
@@ -137,7 +137,7 @@
                 :edit-mode="editMode"
               ></exerciseCard>
             </v-slide-item>
-            <v-slide-item>
+            <v-slide-item v-if="editMode">
               <button @click="addRoutine(2); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
