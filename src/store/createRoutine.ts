@@ -15,6 +15,7 @@ export const useCreateRoutine = defineStore('createRoutine', {
            this.id = response.id;
            await this.createCycles();
            await this.addExercises();
+           this.cycles = [];
 
        },
        async createCycles(){
