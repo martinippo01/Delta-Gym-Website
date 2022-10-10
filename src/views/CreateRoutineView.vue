@@ -19,8 +19,7 @@
                 height="50"
                 color="primary"
               ></v-text-field>
-              <!--   <v-icon class="ml-4" color="#D9D9D9">mdi-alarm</v-icon>
-            <h4 > TIEMPO</h4> -->
+
             </v-col>
             <v-col class="justify-end d-flex" md="2" offset-md="3">
               <v-btn
@@ -46,6 +45,7 @@
               class="descripcion"
               label="DESCRIPTION"
               color="primary"
+              v-model="routineDetail"
               max-
               dark
             ></v-text-field>
@@ -61,12 +61,13 @@
             <v-slide-item v-for="card in getWarmUpExercises" :key="card.id">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.id"
+                :id="card.indexId"
                 type="warmUp"
+                :exerciseName="card.name"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('warmUp'); dialog = true">
+              <button @click="addRoutine(0); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -81,12 +82,13 @@
             <v-slide-item v-for="card in getMainSetExercises" :key="card.id">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.id"
+                :id="card.indexId"
                 type="mainSet"
+                :exerciseName="card.name"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('mainSet'); dialog = true">
+              <button @click="addRoutine(1); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -101,12 +103,13 @@
             <v-slide-item v-for="card in getCoolDownExercise" :key="card.id">
               <exerciseCard
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.id"
+                :id="card.indexId"
                 type="coolDown"
+                :exerciseName="card.name"
               ></exerciseCard>
             </v-slide-item>
             <v-slide-item>
-              <button @click="addRoutine('coolDown'); dialog = true">
+              <button @click="addRoutine(2); dialogSelectExercise = true">
                 <addButtom></addButtom>
               </button>
             </v-slide-item>
@@ -119,12 +122,12 @@
 
 <!--    ____________________________________________________________________________-->
     <v-dialog
-      v-model="dialog"
+      v-model="dialogSelectExercise"
       persistent
       max-width="600px"
     >
       <v-card
-        color="secondary"
+        color="background"
       >
         <v-card-title>
           <span class="text-h5" style="color: #CFFFB3">Add exercise</span>
@@ -151,6 +154,7 @@
               >
                 <v-btn
                   color="primary"
+                  @click="dialogSelectExercise = false; dialogCreateExercise = true"
                 >
                   <span style="color: #1e1e1e">Create New</span>
                 </v-btn>
@@ -169,6 +173,8 @@
                   background-color="secondary"
                 ></v-autocomplete>
               </v-col>
+            </v-row>
+              <v-row>
               <v-col>
                 <v-virtual-scroll
                   :items="createdExercise"
@@ -176,8 +182,26 @@
                   height="300"
                 >
                   <template v-slot:default="{ item }">
-                    <v-list-item>
-                      {{item.name}}
+                    <v-list-item :key="item">
+
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          <span style="color: white">{{ item.name }}</span>
+                        </v-list-item-title>
+                      </v-list-item-content>
+
+                      <v-list-item-action>
+                        <v-btn
+                          fab
+                          small
+                          depressed
+                          color="primary"
+                          @click="selectedName = item"
+                        >
+                          <v-icon color="#1e1e1e" v-if="selectedName === item">mdi-check</v-icon>
+                          <v-icon color="#1e1e1e" v-else>mdi-plus</v-icon>
+                        </v-btn>
+                      </v-list-item-action>
                     </v-list-item>
                   </template>
                 </v-virtual-scroll>
@@ -186,18 +210,79 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
+
           <v-spacer></v-spacer>
           <v-btn
             color="primary"
             outlined
-            @click="dialog = false"
+            @click="dialogSelectExercise = false; selectedName = null"
           >
             Discard
           </v-btn>
           <v-btn
             color="primary"
             filled
-            @click="dialog = false"
+            :disabled="selectedName === null"
+            @click="saveExercise"
+          >
+            <span style="color: #1e1e1e">
+              Save
+            </span>
+          </v-btn>
+
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+<!--    ____________________________________________________________________________-->
+
+    <v-dialog
+      v-model="dialogCreateExercise"
+      persistent
+      max-width="600px"
+    >
+      <v-card
+        color="background"
+      >
+        <v-card-title>
+          <span class="text-h5" style="color: #CFFFB3">Create new exercise</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-text-field dark color="primary" label="Name" v-model="title"></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-textarea
+                  v-model="detail"
+                  label="Description"
+                  counter
+                  maxlength="120"
+                  full-width
+                  single-line
+                  dark
+                  color="primary"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            outlined
+            @click="dialogCreateExercise = false; selectedName = null"
+          >
+            Discard
+          </v-btn>
+          <v-btn
+            color="primary"
+            filled
+            @click="saveExercise"
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
@@ -205,6 +290,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
 <!--    ____________________________________________________________________________-->
   </div>
 </template>
@@ -216,7 +302,7 @@ import router from "@/router";
 import addButtom from "@/components/Routines/add";
 import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
-import { RoutinesApi, Routine } from "@/api/routines";
+import {useCreateRoutine} from "@/store/createRoutine";
 
 export default {
   name: "CreateRoutuneView",
@@ -224,39 +310,55 @@ export default {
   data() {
     return {
       routineName: "",
-      maxId:1,
+      routineDetail:"",
       error:false,
       errorText:"",
       detail: "none",
+      title:"none",
       difficulty: "medium",
       isPublic: true,
-      dialog: false,
+      dialogSelectExercise: false,
+      dialogCreateExercise: false,
+      selectedName: null,
+      cycleSelect:0,
+      maxId:0,
+
     };
    },
    methods: {
     ...mapActions(useExerciseStore,['addExercise']),
-     ...mapActions(useExerciseStore,['upLoadExercises']),
+     ...mapActions(useExerciseStore,['uploadExercises']),
       ...mapActions(useExerciseStore,['getCreatedExercises']),
+     ...mapActions(useCreateRoutine,['createRoutine']),
+
      discard() {
      router.push("/myRoutines");
 
     },
      async save(){
        try {
-       await this.upLoadExercises();
-       router.push("/myRoutines");
+       await this.createRoutine(this.routineName,this.routineDetail);
+        router.push("/myRoutines");
      }catch (error){
        this.error = true;
        this.errorText = error.name;
      }
 
      },
-      addRoutine( type){
-        this.dialog = true;
-       //this.addExercise(this.maxId, type);
-        //this.getExercises();
-       this.maxId++;
+      addRoutine(type){
+        this.dialogSelectExercise = true;
+        this.cycleSelect = type;
      },
+     saveExercise(){
+       this.dialogSelectExercise = false;
+       this.selectedName = null;
+       this.uploadExercises({
+         name: this.title,
+         detail:this.detail,
+         type:'exercise',
+         metadata:null },this.cycleSelect,this.maxId);
+       this.maxId++;
+     }
 
    },
   computed:{

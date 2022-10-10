@@ -2,9 +2,7 @@
   <div class="card">
     <v-card  height="100%" color="secondary"  rounded="xl">
         <v-card-title >
-          <v-text-field
-              label="Insert Name" v-model="exerciseName" @blur="update_name" dark color="primary">
-          </v-text-field>
+          <span>{{this.exerciseName}}</span>
 
           <v-menu
               ffset-y
@@ -51,7 +49,6 @@
     data(){
       return{
         items:[{title:'editar'},{title:'eliminar'}],
-        exerciseName:'',
         time:'',
         weight:'',
         sets:'',
@@ -60,7 +57,8 @@
     },
     props:{
       id: undefined,
-      type:String
+      type:String,
+      exerciseName:String,
     },
     methods: {
       filter: function (evt) {
