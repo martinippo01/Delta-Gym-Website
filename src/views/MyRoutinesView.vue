@@ -23,22 +23,18 @@
             elevation="0"
           >
             <v-row class="routines-group">
-              <router-link
-                to="/createRoutine"
-                style="text-decoration: none; color: inherit; padding: 10px"
-              >
-                <Add />
-              </router-link>
 
+                <Add class="routine-card" @click.native="toRoutine(true)" />
               <RoutineButton
                 v-for="routine in routines"
-                @click="handleClickRoutine()"
+                @click.native="toRoutine(false)"
                 :key="routine.id"
                 style="text-decoration: none; color: inherit; padding: 10px"
                 class="routine-card"
                 :routineName="routine.name"
               ></RoutineButton>
             </v-row>
+
           </v-container>
           <v-btn
             color="primary"
@@ -67,6 +63,7 @@ export default {
   name: "MyRoutines",
   components: { NavBar, RoutineButton, Add },
   async created() {
+
     try {
       this.resetStore();
       await this.setRoutines();
@@ -77,7 +74,15 @@ export default {
   methods: {
     ...mapActions(useRoutinesStore, ["setRoutines"]),
     ...mapActions(useRoutinesStore,["nextPage"]),
-    ...mapActions(useRoutinesStore,["resetStore"])
+    ...mapActions(useRoutinesStore,["resetStore"]),
+    toRoutine(mode){
+      this.$router.push({
+        name:'createRoutine',
+        params:{
+          editMode : mode
+        }
+      })
+    }
 
   },
   computed: {
@@ -104,5 +109,7 @@ h1 {
 
 .routine-card {
   padding: 10px;
+  cursor: pointer ;
+
 }
 </style>

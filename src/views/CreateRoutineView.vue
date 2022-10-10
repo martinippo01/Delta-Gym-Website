@@ -394,6 +394,8 @@ export default {
     ...mapState(useExerciseStore,['createdExercise']),
   },
   created() {
+
+    this.editMode = this.$route.params.editMode;
     this.getCreatedExercises();
   }
 
