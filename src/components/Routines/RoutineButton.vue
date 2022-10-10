@@ -33,7 +33,7 @@ export default {
   name: "RoutineButton",
   components: {},
   props: {
-    routineName: {type: String},
+    routineName: {type: String, required: true},
   },
   data(){
     return{
