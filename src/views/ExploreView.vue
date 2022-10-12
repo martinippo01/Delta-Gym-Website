@@ -96,12 +96,16 @@ export default {
       });
     },
     previousPage() {
-      this.routines = [];
-      if (this.page > 0) this.updatePage(this.page--);
+      if (this.page > 1) {
+        this.routines = [];
+        this.updatePage(this.page--);
+      }
     },
     nextPage() {
-      this.routines = [];
-      if (this.page < this.maxPage) this.updatePage(this.page++);
+      if (this.page < this.maxPage) {
+        this.routines = [];
+        this.updatePage(this.page++);
+      }
     },
     async updatePage(page) {
       try {
