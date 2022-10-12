@@ -30,7 +30,8 @@
                 :key="routine.id"
                 style="margin: 10px"
                 :routineName="routine.name"
-              ></RoutineButton>
+              >
+              </RoutineButton>
             </v-row>
           </v-container>
         </v-sheet>
@@ -46,16 +47,20 @@ import RoutineButton from "@/components/Routines/RoutineButton";
 import { useRoutinesStore } from "@/store/routinesStore";
 import router from "@/router";
 import { mapActions, mapState } from "pinia";
-import { UserApi, UsersSearch} from "@/api/user";
+import { UserApi, UsersSearch } from "@/api/user";
 import { RoutinesApi } from "@/api/routines";
 
 export default {
   name: "ExploreView",
   components: { NavBar, RoutineButton },
+  data() {
+    return {
+      routines: {},
+    };
+  },
   async created() {
-    
     try {
-      this.routines = await RoutinesApi.getAllUsersRoutines(0)
+      this.routines = await RoutinesApi.getAllUsersRoutines(0);
     } catch (error) {
       router.push("/errorPage");
     }
