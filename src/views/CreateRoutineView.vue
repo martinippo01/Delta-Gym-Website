@@ -330,6 +330,7 @@ import addButtom from "@/components/Routines/add";
 import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
 import {useCreateRoutine} from "@/store/createRoutine";
+import {useEditeRoutine} from "@/store/editRoutine";
 
 export default {
   name: "CreateRoutuneView",
@@ -357,14 +358,14 @@ export default {
      ...mapActions(useExerciseStore,['uploadExercises']),
       ...mapActions(useExerciseStore,['getCreatedExercises']),
      ...mapActions(useCreateRoutine,['createRoutine']),
-
+     ...mapActions(useEditeRoutine,['getRoutineData']),
      discard() {
       this.editMode = false;
     },
      async save(){
        this.editMode = false;
        try {
-       await this.createRoutine(this.routineName,this.routineDetail);
+        await this.createRoutine(this.routineName,this.routineDetail);
        }catch (error){
          this.error = true;
          this.errorText = error.name;
@@ -394,7 +395,7 @@ export default {
     ...mapState(useExerciseStore,['createdExercise']),
   },
   created() {
-
+   // this.getRoutineData(this.$route.params.id)
     this.editMode = this.$route.params.editMode;
     this.getCreatedExercises();
   }
