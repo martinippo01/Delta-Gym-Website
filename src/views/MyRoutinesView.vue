@@ -36,14 +36,34 @@
               ></RoutineButton>
             </v-row>
           </v-container>
-          <v-btn
-            color="primary"
-            plain
-            class="temp justify-end mr-7"
-            @click="nextPage"
+          <v-row
+            justify="center"
+            style="margin: 10px;"
           >
-            nextPage
-          </v-btn>
+            <v-btn
+              fab
+              small
+              depressed
+              color="primary"
+              icon
+              @click="previousPage"
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+
+            <p style="color: #CFFFB3; padding: 6px 0px">{{this.page + 1}} / {{this.maxPage + 1}}</p>
+
+            <v-btn
+              fab
+              small
+              depressed
+              color="primary"
+              icon
+              @click="nextPage"
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-row>
         </v-sheet>
       </v-main>
     </v-app>
@@ -74,6 +94,7 @@ export default {
   methods: {
     ...mapActions(useRoutinesStore, ["setRoutines"]),
     ...mapActions(useRoutinesStore, ["nextPage"]),
+    ...mapActions(useRoutinesStore, ["previousPage"]),
     ...mapActions(useRoutinesStore, ["resetStore"]),
     toRoutine(mode,id) {
       this.$router.push({
@@ -87,6 +108,9 @@ export default {
   },
   computed: {
     ...mapState(useRoutinesStore, ["routines"]),
+    ...mapState(useRoutinesStore, ["page"]),
+    ...mapState(useRoutinesStore, ["minPage"]),
+    ...mapState(useRoutinesStore, ["maxPage"]),
   },
 };
 </script>
