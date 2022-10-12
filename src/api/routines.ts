@@ -45,10 +45,6 @@ class RoutinesApi {
       null
     );
   }
-}
-  static async addCycle(rutineId:number,name:string,detail:string,type:string,order:number,repetitions:number){
-    return await Api.post(this.getUrl(`${rutineId.toString()}/cycles`),true,new Cycle(name,detail,type,order,repetitions),null)
-  }
   static async getCycle(rutineId : number){
     const aux = await Api.get(this.getUrl(`${rutineId.toString()}/cycles`),true,null);
     return aux.content;
