@@ -1,4 +1,5 @@
 export {
+  UsersSearch,
   UserApi,
   Credentials,
   Registration,
@@ -48,8 +49,27 @@ class UserApi {
   static async get() {
     return Api.get(UserApi.getUrl("current"), true, null);
   }
+
+  static async getAllUsers(params: UsersSearch) {
+    return Api.get(UserApi.getUrl(""), true, params);
+  }
+
+  static async getUserRoutines(userId: number) {
+    return Api.get(UserApi.getUrl(userId + "/routines"), true, null);
+  }
 }
 
+class UsersSearch {
+
+  constructor(page: number, size: number) {
+    this.page = page;
+    this.size = size;
+  }
+
+  page: number;
+  size: number;
+
+}
 class Confirmation {
   constructor(email: string, code: string) {
     this.email = email;

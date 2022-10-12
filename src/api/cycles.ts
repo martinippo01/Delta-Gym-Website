@@ -10,5 +10,8 @@ class CyclesApi{
     static async addExercise(cycleId:number,exId:number,exercise:exerciseApi){
         await Api.post(this.getUrl(cycleId,exId),true,exercise,null);
     }
+    static async getExercisesCycle(cycleId:number){
+        return await Api.get(this.getUrl(cycleId),true,null);
+    }
 
 }

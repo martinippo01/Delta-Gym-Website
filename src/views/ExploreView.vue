@@ -6,6 +6,7 @@
       <v-main class="background">
         <v-sheet
           class="mx-auto"
+          style="margin-top: 20px; justify-content: center"
           color="secondary"
           max-height="1000"
           min-height="100"
@@ -17,29 +18,17 @@
             <h1>EXPLORE</h1>
           </v-row>
 
-          <v-autocomplete
-            dense
-            solo
-            :items="routines"
-            rounded
-            backgroundColor="#cccccc"
-            label="Search"
-            style="margin-left: 4%; margin-right: 4%; padding: 10px"
-          ></v-autocomplete>
-
           <v-container
             color="secondary"
             style="justify-content: center"
             rounded="xl"
-            elevation="0"
           >
             <v-row>
               <RoutineButton
                 v-for="routine in routines"
                 @click.native="toRoutine(false)"
                 :key="routine.id"
-                style="text-decoration: none; color: inherit; padding: 10px"
-                class="routine-card"
+                style="margin: 10px"
                 :routineName="routine.name"
               ></RoutineButton>
             </v-row>
@@ -55,36 +44,21 @@ import NavBar from "@/components/NavBar";
 import RoutineButton from "@/components/Routines/RoutineButton";
 
 import { useRoutinesStore } from "@/store/routinesStore";
-import { RoutinesApi } from "@/api/routines";
 import router from "@/router";
 import { mapActions, mapState } from "pinia";
+import { UserApi, UsersSearch} from "@/api/user";
+import { RoutinesApi } from "@/api/routines";
 
 export default {
   name: "ExploreView",
   components: { NavBar, RoutineButton },
   async created() {
+    
     try {
-      this.resetStore();
-      await this.setRoutines();
+      this.routines = await RoutinesApi.getAllUsersRoutines(0)
     } catch (error) {
       router.push("/errorPage");
     }
-  },
-  methods: {
-    ...mapActions(useRoutinesStore, ["setRoutines"]),
-    ...mapActions(useRoutinesStore, ["nextPage"]),
-    ...mapActions(useRoutinesStore, ["resetStore"]),
-    toRoutine(mode) {
-      this.$router.push({
-        name: "createRoutine",
-        params: {
-          editMode: mode,
-        },
-      });
-    },
-  },
-  computed: {
-    ...mapState(useRoutinesStore, ["routines"]),
   },
 };
 </script>
@@ -93,10 +67,5 @@ export default {
 h1 {
   color: #cfffb3;
   font-family: "Bebas Neue";
-}
-
-.routines-group {
-  padding: 20px;
-  justify-content: center;
 }
 </style>

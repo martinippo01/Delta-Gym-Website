@@ -23,25 +23,47 @@
             elevation="0"
           >
             <v-row class="routines-group">
-              <Add class="routine-card" @click.native="toRoutine(true)" />
+              <Add
+                @click.native="toRoutine(true)"
+                style="text-decoration: none; color: inherit; margin: 10px"
+              />
               <RoutineButton
                 v-for="routine in routines"
-                @click.native="toRoutine(false)"
+                @click.native="toRoutine(false,routine.id)"
                 :key="routine.id"
-                style="text-decoration: none; color: inherit; padding: 10px"
-                class="routine-card"
+                style="text-decoration: none; color: inherit; margin: 10px"
                 :routineName="routine.name"
               ></RoutineButton>
             </v-row>
           </v-container>
-          <v-btn
-            color="primary"
-            plain
-            class="temp justify-end mr-7"
-            @click="nextPage"
+          <v-row
+            justify="center"
+            style="margin: 10px;"
           >
-            nextPage
-          </v-btn>
+            <v-btn
+              fab
+              small
+              depressed
+              color="primary"
+              icon
+              @click="previousPage"
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+
+            <p style="color: #CFFFB3; padding: 6px 0px">{{this.page + 1}} / {{this.maxPage + 1}}</p>
+
+            <v-btn
+              fab
+              small
+              depressed
+              color="primary"
+              icon
+              @click="nextPage"
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-row>
         </v-sheet>
       </v-main>
     </v-app>
@@ -72,18 +94,23 @@ export default {
   methods: {
     ...mapActions(useRoutinesStore, ["setRoutines"]),
     ...mapActions(useRoutinesStore, ["nextPage"]),
+    ...mapActions(useRoutinesStore, ["previousPage"]),
     ...mapActions(useRoutinesStore, ["resetStore"]),
-    toRoutine(mode) {
+    toRoutine(mode,id) {
       this.$router.push({
         name: "createRoutine",
         params: {
           editMode: mode,
+          id: id
         },
       });
     },
   },
   computed: {
     ...mapState(useRoutinesStore, ["routines"]),
+    ...mapState(useRoutinesStore, ["page"]),
+    ...mapState(useRoutinesStore, ["minPage"]),
+    ...mapState(useRoutinesStore, ["maxPage"]),
   },
 };
 </script>
