@@ -26,7 +26,7 @@
             <v-row>
               <RoutineButton
                 v-for="routine in routines"
-                @click.native="toRoutine(false)"
+                @click.native="toRoutine(false, routine.id)"
                 :key="routine.id"
                 style="margin: 10px"
                 :routineName="routine.name"
@@ -34,6 +34,26 @@
               </RoutineButton>
             </v-row>
           </v-container>
+          <v-row justify="center" style="margin: 10px">
+            <v-btn
+              fab
+              small
+              depressed
+              color="primary"
+              icon
+              @click="previousPage"
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+
+            <p style="color: #cfffb3; padding: 6px 0px">
+              {{ this.page + 1 }} / {{ this.maxPage + 1 }}
+            </p>
+
+            <v-btn fab small depressed color="primary" icon @click="nextPage">
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-row>
         </v-sheet>
       </v-main>
     </v-app>
@@ -55,15 +75,44 @@ export default {
   components: { NavBar, RoutineButton },
   data() {
     return {
-      routines: {},
+      routines: [],
+      maxPage: 0,
+      page: 0,
     };
   },
   async created() {
-    try {
-      this.routines = await RoutinesApi.getAllUsersRoutines(0);
-    } catch (error) {
-      router.push("/errorPage");
-    }
+    this.updatePage(this.page);
+    console.log(this.routines.content);
+    console.log(this.maxPage);
+  },
+  methods: {
+    toRoutine(mode, id) {
+      this.$router.push({
+        name: "createRoutine",
+        params: {
+          editMode: mode,
+          id: id,
+        },
+      });
+    },
+    previousPage() {
+      this.routines = [];
+      if (this.page > 0) this.updatePage(this.page--);
+    },
+    nextPage() {
+      this.routines = [];
+      if (this.page < this.maxPage) this.updatePage(this.page++);
+    },
+    async updatePage(page) {
+      try {
+        const res = await RoutinesApi.getAllUsersRoutines(page);
+        this.routines = res.content;
+        if (page == 0) this.maxPage = Math.ceil(res.totalCount / 11);
+        console.log(this.routines);
+      } catch (error) {
+        router.push("/errorPage");
+      }
+    },
   },
 };
 </script>
