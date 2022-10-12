@@ -5,6 +5,7 @@ export const useUserStore = defineStore("user", {
    state: () => {
     return {
       email: "" as string,
+      allUsersRoutines: [],
     }
   },
   getters: {

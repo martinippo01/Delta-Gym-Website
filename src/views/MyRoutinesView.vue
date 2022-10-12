@@ -23,13 +23,15 @@
             elevation="0"
           >
             <v-row class="routines-group">
-              <Add class="routine-card" @click.native="toRoutine(true)" />
+              <Add
+                @click.native="toRoutine(true)"
+                style="text-decoration: none; color: inherit; margin: 10px"
+              />
               <RoutineButton
                 v-for="routine in routines"
                 @click.native="toRoutine(false)"
                 :key="routine.id"
-                style="text-decoration: none; color: inherit; padding: 10px"
-                class="routine-card"
+                style="text-decoration: none; color: inherit; margin: 10px"
                 :routineName="routine.name"
               ></RoutineButton>
             </v-row>
