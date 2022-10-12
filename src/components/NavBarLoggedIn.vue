@@ -9,27 +9,29 @@
       ></v-img>
     </router-link>
     <v-spacer></v-spacer>
-    <v-btn
-      class="ma-3 position-absolute top-0 start-100 translate-middle"
-      :color="select === 'explore' ? 'primary' : 'topBar'"
-      plain
-    >
-      <router-link style="text-decoration: none; color: inherit" to="/explore">
-        EXPLORE
-      </router-link>
-    </v-btn>
-    <v-btn
-      class="ma-3 position-absolute top-0 start-100 translate-middle"
-      :color="select === 'myRoutines' ? 'primary' : 'topBar'"
-      plain
-    >
-      <router-link
-        style="text-decoration: none; color: inherit"
-        to="/myRoutines"
+    <router-link style="text-decoration: none; color: inherit" to="/explore">
+      <v-btn
+        class="ma-3 position-absolute top-0 start-100 translate-middle"
+        :color="select === 'explore' ? 'primary' : 'topBar'"
+        plain
       >
-        MY ROUTINES
-      </router-link>
-    </v-btn>
+          EXPLORE
+      </v-btn>
+    </router-link>
+
+    <router-link
+      style="text-decoration: none; color: inherit"
+      to="/myRoutines"
+    >
+      <v-btn
+        class="ma-3 position-absolute top-0 start-100 translate-middle"
+        :color="select === 'myRoutines' ? 'primary' : 'topBar'"
+        plain
+      >
+          MY ROUTINES
+
+      </v-btn>
+    </router-link>
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
       :color="select === 'profile' ? 'primary' : 'topBar'"

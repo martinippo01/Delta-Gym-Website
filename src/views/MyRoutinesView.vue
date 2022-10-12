@@ -5,10 +5,11 @@
       <v-main class="background">
         <v-sheet
           class="mx-auto"
+          style="margin-top: 20px; justify-content: center"
           color="secondary"
           min-height="100"
           rounded="xl"
-          max-width="1450"
+          max-width="1400"
           min-width="100"
         >
           <v-row justify="center" style="padding: 10px">
@@ -50,7 +51,7 @@
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
 
-            <p style="color: #CFFFB3; padding: 6px 0px">{{this.page + 1}} / {{this.maxPage + 1}}</p>
+            <p style="color: #CFFFB3; padding: 7px 0px">{{this.page + 1}} / {{this.maxPage + 1}}</p>
 
             <v-btn
               fab

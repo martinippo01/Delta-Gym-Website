@@ -2,13 +2,11 @@
   <div id="app">
     <v-app>
       <NavBar select="explore"></NavBar>
-
       <v-main class="background">
         <v-sheet
           class="mx-auto"
           style="margin-top: 20px; justify-content: center"
           color="secondary"
-          max-height="1000"
           min-height="100"
           rounded="xl"
           max-width="1400"
@@ -41,16 +39,24 @@
               depressed
               color="primary"
               icon
+              :disabled="this.page === this.minPage"
               @click="previousPage"
             >
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
 
-            <p style="color: #cfffb3; padding: 6px 0px">
+            <p style="color: #cfffb3; padding: 7px 0px">
               {{ this.page + 1 }} / {{ this.maxPage + 1 }}
             </p>
 
-            <v-btn fab small depressed color="primary" icon @click="nextPage">
+            <v-btn fab
+                   small
+                   depressed
+                   color="primary"
+                   icon
+                   :disabled="this.page === this.maxPage"
+                   @click="nextPage"
+            >
               <v-icon>mdi-chevron-right</v-icon>
             </v-btn>
           </v-row>
@@ -77,6 +83,7 @@ export default {
     return {
       routines: [],
       maxPage: 0,
+      minPage: 0,
       page: 0,
     };
   },
@@ -96,22 +103,22 @@ export default {
       });
     },
     previousPage() {
-      if (this.page > 1) {
+      if (this.page > 0) {
         this.routines = [];
-        this.updatePage(this.page--);
+        this.updatePage(--this.page);
       }
     },
     nextPage() {
       if (this.page < this.maxPage) {
         this.routines = [];
-        this.updatePage(this.page++);
+        this.updatePage(++this.page);
       }
     },
     async updatePage(page) {
       try {
-        const res = await RoutinesApi.getAllUsersRoutines(page);
+        const res = await RoutinesApi.getAllRoutines(page);
         this.routines = res.content;
-        if (page == 0) this.maxPage = Math.ceil(res.totalCount / 11);
+        if (page == 0) this.maxPage = Math.floor(res.totalCount / 12);
         console.log(this.routines);
       } catch (error) {
         router.push("/errorPage");
