@@ -7,7 +7,8 @@ export const useRoutinesStore = defineStore("routines", {
     return {
       routines: [],
       page:0,
-      maxPage:0
+      maxPage:0,
+      minPage: 0
     };
   },
   getters: {
@@ -19,13 +20,20 @@ export const useRoutinesStore = defineStore("routines", {
     async setRoutines() {
       const res = await RoutinesApi.getAllRoutines(this.page);
       this.routines = res.content;
-      this.maxPage = Math.floor(res.totalCount / 11) ;
+      this.maxPage = Math.floor(res.totalCount / 11);
     },
     async nextPage(){
         if (this.page < this.maxPage){
           this.page++;
           await this.setRoutines();
         }
+    },
+    async previousPage(){
+      if (this.page > this.minPage){
+        console.log("HOLA")
+        this.page--;
+        await this.setRoutines();
+      }
     },
     resetStore(){
       this.page = 0;
