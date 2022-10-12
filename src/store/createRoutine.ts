@@ -25,6 +25,8 @@ export const useCreateRoutine = defineStore('createRoutine', {
            this.cycles.push(response.id);
            response =  await RoutinesApi.addCycle(this.id,"cooldown","cooldown","cooldown",3,1 );
            this.cycles.push(response.id);
+
+           console.log(this.cycles);
         },
         async addExercises(){
            const store = useExerciseStore();

@@ -26,7 +26,7 @@
               <Add class="routine-card" @click.native="toRoutine(true)" />
               <RoutineButton
                 v-for="routine in routines"
-                @click.native="toRoutine(false)"
+                @click.native="toRoutine(false,routine.id)"
                 :key="routine.id"
                 style="text-decoration: none; color: inherit; padding: 10px"
                 class="routine-card"
@@ -73,11 +73,12 @@ export default {
     ...mapActions(useRoutinesStore, ["setRoutines"]),
     ...mapActions(useRoutinesStore, ["nextPage"]),
     ...mapActions(useRoutinesStore, ["resetStore"]),
-    toRoutine(mode) {
+    toRoutine(mode,id) {
       this.$router.push({
         name: "createRoutine",
         params: {
           editMode: mode,
+          id: id
         },
       });
     },

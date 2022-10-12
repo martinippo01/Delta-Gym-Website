@@ -86,7 +86,7 @@ export default {
       username: "johnDoe1",
       password: "1234",
       snackbar: false,
-      rememberMe: false,
+      rememberMe: true,
       text: "Invalid username/password",
     };
   },
