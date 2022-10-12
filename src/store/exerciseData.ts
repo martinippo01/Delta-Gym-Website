@@ -18,7 +18,7 @@ interface ExerciseAPiType{
     id:number;
     metadata: any;
 }
-export {ExerciseAPiType}
+export {ExerciseAPiType,Exercise}
 export const useExerciseStore = defineStore('exercises', {
 
     state: () => ({
@@ -89,9 +89,9 @@ export const useExerciseStore = defineStore('exercises', {
             console.log(this.createdExercise);
             if (index === -1) {
                 const idAux = await exerciseApi.uploadExercises(exercise);
-                this.exercisArray.push({ name: exercise.name, id: idAux, cycleId: cicleId,  weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
+                this.exercisArray.push({ name: exercise.name, id: idAux.id, cycleId: cicleId,  weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
                 //Cuando pusheo un ejercicio lo que hago es obtener los ejercicios devuelta.
-                this.createdExercise = await exerciseApi.getExercises();
+                await this.getCreatedExercises();
             }else{
                 this.exercisArray.push({ name: this.createdExercise[index].name, id: this.createdExercise[index].id, cycleId: cicleId, weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
             }

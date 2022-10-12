@@ -29,7 +29,7 @@
               />
               <RoutineButton
                 v-for="routine in routines"
-                @click.native="toRoutine(false)"
+                @click.native="toRoutine(false,routine.id)"
                 :key="routine.id"
                 style="text-decoration: none; color: inherit; margin: 10px"
                 :routineName="routine.name"
@@ -75,11 +75,12 @@ export default {
     ...mapActions(useRoutinesStore, ["setRoutines"]),
     ...mapActions(useRoutinesStore, ["nextPage"]),
     ...mapActions(useRoutinesStore, ["resetStore"]),
-    toRoutine(mode) {
+    toRoutine(mode,id) {
       this.$router.push({
         name: "createRoutine",
         params: {
           editMode: mode,
+          id: id
         },
       });
     },
