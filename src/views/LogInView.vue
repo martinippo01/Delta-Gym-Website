@@ -15,7 +15,7 @@
           >
             <v-sheet
               color="secondary"
-              height="250"
+
               width="500"
               rounded="xl"
               style="align-items: center"
@@ -41,6 +41,14 @@
                   />
                 </v-row>
                 <v-row justify="center">
+                  <v-checkbox
+                    dark
+                    color="primary"
+                    v-model="rememberMe"
+                    label="Remember me"
+                  ></v-checkbox>
+                </v-row>
+                <v-row justify="center">
                   <v-btn
                     @click="loginHandler()"
                     color="primary"
@@ -51,7 +59,7 @@
                   </v-btn>
                 </v-row>
 
-                <v-row justify="center" class="mt-4">
+                <v-row justify="center" class="mt-5" style="margin-bottom: 5px">
                   <router-link to="/signUp">
                     <a justify="center"> Don't have an account? </a>
                   </router-link>
