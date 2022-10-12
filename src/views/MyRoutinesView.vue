@@ -4,9 +4,8 @@
       <NavBar select="myRoutines" />
       <v-main class="background">
         <v-sheet
-          class="mx-auto"
+          class="mx-auto ma-10px"
           color="secondary"
-          max-height="1000"
           min-height="100"
           rounded="xl"
           max-width="1450"
@@ -43,22 +42,22 @@
             <v-btn
               fab
               small
-              depressed
               color="primary"
               icon
+              :disabled="this.page === this.minPage"
               @click="previousPage"
             >
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
 
-            <p style="color: #CFFFB3; padding: 6px 0px">{{this.page + 1}} / {{this.maxPage + 1}}</p>
+            <p style="color: #CFFFB3; padding: 7px">{{this.page + 1}} / {{this.maxPage + 1}}</p>
 
             <v-btn
               fab
               small
-              depressed
               color="primary"
               icon
+              :disabled="this.page === this.maxPage"
               @click="nextPage"
             >
               <v-icon>mdi-chevron-right</v-icon>

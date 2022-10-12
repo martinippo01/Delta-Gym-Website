@@ -3,8 +3,7 @@
     <v-card  height="100%" color="secondary"  rounded="xl">
         <v-card-title >
 
-          <v-text-field class="textField" label="Title" @keypress="filter" v-model="reps" @blur="update_reps" dark color="primary" v-if="editMode" :value="this.exerciseName"></v-text-field>
-          <span v-if="!editMode">{{this.exerciseName}}</span>
+          <span >{{this.exerciseName}}</span>
 
           <v-menu
               ffset-y
