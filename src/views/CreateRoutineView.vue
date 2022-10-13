@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div id="app">
     <v-app>
       <NavBar select="myRoutines"></NavBar>
@@ -216,6 +217,7 @@
                         <v-list-item-title>
                           <span style="color: white">{{ item.name }}</span>
                         </v-list-item-title>
+                        <v-list-item-subtitle style="color: darkgray">{{ item.detail }}</v-list-item-subtitle>
                       </v-list-item-content>
 
                       <v-list-item-action>
@@ -224,7 +226,7 @@
                           small
                           depressed
                           color="primary"
-                          @click="selectedName = item"
+                          @click="selectExercise(item)"
                         >
                           <v-icon color="#1e1e1e" v-if="selectedName === item">mdi-check</v-icon>
                           <v-icon color="#1e1e1e" v-else>mdi-plus</v-icon>
@@ -318,8 +320,15 @@
       </v-card>
     </v-dialog>
 <!--    ____________________________________________________________________________-->
-
   </div>
+    <v-snackbar v-model="error" color="error">
+      {{ errorText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn v-bind="attrs" @click="error = false" outlined> Close </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
+
 </template>
 
 <script>
@@ -341,8 +350,8 @@ export default {
       routineDetail:"",
       error:false,
       errorText:"",
-      detail: "none",
-      title:"none",
+      detail: "",
+      title:"",
       difficulty: "medium",
       isPublic: true,
       dialogSelectExercise: false,
@@ -379,12 +388,33 @@ export default {
        this.dialogSelectExercise = false;
        this.dialogCreateExercise = false;
        this.selectedName = null;
-      await this.uploadExercises({
-         name: this.title,
-         detail:this.detail,
-         type:'exercise',
-         metadata:null },this.cycleSelect,this.maxId);
+       try {
+
+
+         await this.uploadExercises({
+           name: this.title,
+           detail: this.detail,
+           type: 'exercise',
+           metadata: null
+         }, this.cycleSelect, this.maxId);
+       }catch (error){
+         if (error.code === 99)
+         {
+           this.error = true;
+           this.errorText = "Connection error"
+         }else{
+           this.error = true;
+           this.errorText = error.errorText;
+         }
+
+       }
        this.maxId++;
+     },
+
+     selectExercise(item){
+       this.selectedName = item ;
+       this.title = item.name;
+       this.detail = item.detail
      }
 
    },
@@ -394,10 +424,15 @@ export default {
     ...mapState(useExerciseStore,['getWarmUpExercises']),
     ...mapState(useExerciseStore,['createdExercise']),
   },
-  created() {
+  mounted() {
    // this.getRoutineData(this.$route.params.id)
     this.editMode = this.$route.params.editMode;
-    this.getCreatedExercises();
+    try {
+      this.getCreatedExercises();
+    }catch (error){
+      this.error = true;
+      this.errorText = error.errorText;
+    }
   }
 
 

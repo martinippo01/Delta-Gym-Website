@@ -24,7 +24,6 @@ export const useExerciseStore = defineStore('exercises', {
     state: () => ({
         exercisArray: [] as Exercise [],
         createdExercise:[] as ExerciseAPiType[],
-        exerciseIndex:[1,1,1]
     }),
     getters: {
 
@@ -83,22 +82,23 @@ export const useExerciseStore = defineStore('exercises', {
             this.exercisArray[aux].sets = sets;
         },
         async uploadExercises(exercise : ExerciseAPiType,cicleId : number,indexId:number){
-            const order = this.exerciseIndex[cicleId];
-            this.exerciseIndex[cicleId] = order + 1;
             const index =this.createdExercise.findIndex(ex => ex.name === exercise.name);
             console.log(this.createdExercise);
             if (index === -1) {
                 const idAux = await exerciseApi.uploadExercises(exercise);
-                this.exercisArray.push({ name: exercise.name, id: idAux.id, cycleId: cicleId,  weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
+                this.exercisArray.push({ name: exercise.name, id: idAux.id, cycleId: cicleId,  weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(0,0,0) ,indexId:indexId});
                 //Cuando pusheo un ejercicio lo que hago es obtener los ejercicios devuelta.
                 await this.getCreatedExercises();
             }else{
-                this.exercisArray.push({ name: this.createdExercise[index].name, id: this.createdExercise[index].id, cycleId: cicleId, weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(order,0,0) ,indexId:indexId});
+                this.exercisArray.push({ name: this.createdExercise[index].name, id: this.createdExercise[index].id, cycleId: cicleId, weight: 0, sets: 0, exerciseCycle:new ExerciseCycle(0,0,0) ,indexId:indexId});
             }
 
         },
         async getCreatedExercises(){
             this.createdExercise = await exerciseApi.getExercises();
+        },
+        setOrder(index:any,order:number){
+            this.exercisArray[index].exerciseCycle.order = order;
         }
     },
 })
