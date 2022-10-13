@@ -78,7 +78,7 @@
               <v-col>
                 <v-btn
                   @click="saveHandler()"
-                  color="primary"
+                  :color="saveColor"
                   outlined
                   class="temp"
                   justify="center"
@@ -106,6 +106,7 @@ export default {
   components: { NavBar },
   data() {
     return {
+      saveColor: "primary",
       image: "",
       username: "",
       firstName: "",
@@ -145,10 +146,9 @@ export default {
       );
       try {
         await UserApi.updateUser(newInformation);
+        this.saveColor = "green";
       } catch (error) {
-        this.snackbar = true;
-        this.snackbarText = "Couldn't update the user ";
-        router.push("/erroPage");
+        this.saveColor = "red";
       }
     },
   },
