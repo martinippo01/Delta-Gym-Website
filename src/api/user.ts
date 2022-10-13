@@ -60,7 +60,6 @@ class UserApi {
 }
 
 class UsersSearch {
-
   constructor(page: number, size: number) {
     this.page = page;
     this.size = size;
@@ -68,7 +67,6 @@ class UsersSearch {
 
   page: number;
   size: number;
-
 }
 class Confirmation {
   constructor(email: string, code: string) {
@@ -103,17 +101,13 @@ class Credentials {
 }
 
 class UpdatableCredentials {
-  constructor(
-    firstName: string,
-    lastName: string,
-    avatar: string
-  ) {
+  constructor(firstName: string, lastName: string, metadata: object) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.avatarUrl = avatar;
+    this.metadata = metadata;
   }
 
-  avatarUrl: string;
+  metadata: object;
   firstName: string;
   lastName: string;
 }

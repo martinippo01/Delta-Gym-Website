@@ -87,22 +87,6 @@
         </v-sheet>
       </v-col>
     </v-main>
-    <!---->
-    <!-- <v-snackbar v-model="error" color="error"> -->
-    <!--   {{ errorText }} -->
-    <!--   <template v-slot:action="{ attrs }"> -->
-    <!--     <v-btn v-bind="attrs" @click="error = false" outlined> Close </v-btn> -->
-    <!--   </template> -->
-    <!-- </v-snackbar> -->
-    <!-- <v-snackbar v-model="snackbar"> -->
-    <!--   {{ text }} -->
-    <!---->
-    <!--   <template v-slot:action="{ attrs }"> -->
-    <!--     <v-btn color="pink" text v-bind="attrs" @click="snackbar = false"> -->
-    <!--       Close -->
-    <!--     </v-btn> -->
-    <!--   </template> -->
-    <!-- </v-snackbar> -->
   </v-app>
 </template>
 
@@ -130,7 +114,7 @@ export default {
       const res = await UserApi.get();
       this.username = res.username;
       this.email = res.email;
-      this.image = res.metadata;
+      this.image = res.metadata.img;
     } catch (error) {
       this.snackbar = true;
       this.snackbarText = "Couldn't load the user information";
@@ -149,14 +133,14 @@ export default {
       reader.readAsDataURL(fileObject);
     },
     async saveHandler() {
+      const metadata = { img: this.image };
       const newInformation = new UpdatableCredentials(
         this.firstName,
         this.lastName,
-        ""
+        metadata
       );
       try {
         await UserApi.updateUser(newInformation);
-        console.log("saved!");
       } catch (error) {
         this.snackbar = true;
         this.snackbarText = "Couldn't update the user ";
