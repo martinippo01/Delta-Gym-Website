@@ -24,7 +24,7 @@
           >
             <v-row class="routines-group">
               <Add
-                @click.native="toRoutine(true)"
+                @click.native="dialog = true"
                 style="text-decoration: none; color: inherit; margin: 10px"
               />
               <RoutineButton
@@ -68,6 +68,58 @@
         </v-sheet>
       </v-main>
     </v-app>
+
+    <v-dialog
+      v-model="dialog"
+      persistent
+      width="600px"
+    >
+      <v-card color="background">
+        <v-card-title>
+          <span class="text-h5" style="color: #cfffb3">New Routine</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  label="Name"
+                  dark
+                  color="primary"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea
+                  label="Description"
+                  color="primary"
+                  v-model="routineDetail"
+                  dark
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            outlined
+            @click="dialog = false"
+          >
+            Discard
+          </v-btn>
+          <v-btn
+            color="primary"
+            fill
+            @click="toRoutine(true);dialog = false"
+          >
+            <span style="color: #1e1e1e">Save</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </div>
 </template>
 
@@ -83,6 +135,13 @@ import { mapActions, mapState } from "pinia";
 export default {
   name: "MyRoutines",
   components: { NavBar, RoutineButton, Add },
+
+  data(){
+    return {
+      dialog: false,
+    }
+  },
+
   async created() {
     try {
       this.resetStore();
@@ -97,12 +156,14 @@ export default {
     ...mapActions(useRoutinesStore, ["nextPage"]),
     ...mapActions(useRoutinesStore, ["previousPage"]),
     ...mapActions(useRoutinesStore, ["resetStore"]),
+
     toRoutine(mode,id) {
       this.$router.push({
         name: "createRoutine",
         params: {
           editMode: mode,
-          id: id
+          id: id,
+          from: 'myRoutinesNew',
         },
       });
     },
