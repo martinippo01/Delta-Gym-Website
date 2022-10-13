@@ -385,17 +385,8 @@ export default {
       editMode: false,
     };
    },
-   methods: {
-    ...mapActions(useExerciseStore,['addExercise']),
-     ...mapActions(useExerciseStore,['uploadExercises']),
-      ...mapActions(useExerciseStore,['getCreatedExercises']),
-     ...mapActions(useExerciseStore,['getRoutineData']),
-     ...mapActions(useExerciseStore,['deleteAll']),
-     ...mapActions(useCreateRoutine,['createRoutine']),
-
-     discard() {
-  },
   methods: {
+    ...mapActions(useExerciseStore,['deleteAll']),
     ...mapActions(useExerciseStore, ["addExercise"]),
     ...mapActions(useExerciseStore, ["uploadExercises"]),
     ...mapActions(useExerciseStore, ["updateExercises"]),
@@ -494,6 +485,9 @@ export default {
       }
       this.getCreatedExercises();
     },
+    destroyed(){
+      this.deleteAll();
+    }
   },
   computed: {
     ...mapState(useExerciseStore, ["getCoolDownExercise"]),
@@ -515,12 +509,6 @@ export default {
       this.error = true;
       this.errorText = error.errorText;
     }
-  },
-  destroyed(){
-    this.deleteAll();
-  }
-
-
   },
 };
 </script>
