@@ -497,15 +497,11 @@ export default {
     },
     async deleteExercisesHandler(item) {
       try {
-        this.error = true;
         await this.deleteExercises(item.id);
-        this.errorText = "waiting";
-
       } catch(error) {
           this.error = true;
           this.errorText = "Couldn't delete exercise"; 
       }
-      this.error = false;
       this.getCreatedExercises();
     },
   },
