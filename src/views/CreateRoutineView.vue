@@ -240,7 +240,7 @@
                             small
                             depressed
                             color="primary"
-                            @click="deleteExercise(item)"
+                            @click="deleteExercisesHandler(item)"
                           >
                             <v-icon color="#1e1e1e"> mdi-delete</v-icon>
                           </v-btn>
@@ -495,14 +495,18 @@ export default {
       this.descripcion = item.descripcion;
       this.modifiedExerciseId = item.id;
     },
-    async deleteExercise(item) {
+    async deleteExercisesHandler(item) {
       try {
-        await this.deleteExercise(item.id);
-        console.log("deleted exercise");
+        this.error = true;
+        await this.deleteExercises(item.id);
+        this.errorText = "waiting";
+
       } catch(error) {
           this.error = true;
           this.errorText = "Couldn't delete exercise"; 
       }
+      this.error = false;
+      this.getCreatedExercises();
     },
   },
   computed: {
