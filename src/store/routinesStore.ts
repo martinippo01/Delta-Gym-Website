@@ -18,7 +18,7 @@ export const useRoutinesStore = defineStore("routines", {
   },
   actions: {
     async setRoutines() {
-      const res = await RoutinesApi.getAllRoutines(this.page, 11);
+      const res = await RoutinesApi.getAllUsersRoutines(this.page, 11);
       this.routines = res.content;
       this.maxPage = Math.floor(res.totalCount / 11);
     },
