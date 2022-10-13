@@ -57,7 +57,7 @@ export const useExerciseStore = defineStore('exercises', {
 
             if(aux === undefined)
                 return;
-            this.exercisArray[aux].name = ex_name;
+            //his.exercisArray[aux].exercise.name = ex_name;
         },
         updateTime(id:number,time:number){
             const aux= this.exercisArray.findIndex(ex => ex.indexId === id);
