@@ -52,7 +52,13 @@ export const useExerciseStore = defineStore('exercises', {
              this.exercisArray.splice(aux,1);
             console.log(this.exercisArray.length)
         },
+        updateName(id:number,ex_name:string){
+            const aux= this.exercisArray.findIndex(ex => ex.indexId === id);
 
+            if(aux === undefined)
+                return;
+            this.exercisArray[aux].name = ex_name;
+        },
         updateTime(id:number,time:number){
             const aux= this.exercisArray.findIndex(ex => ex.indexId === id);
 
@@ -103,6 +109,14 @@ export const useExerciseStore = defineStore('exercises', {
             }
             console.log(this.exercisArray)
          },
+
+
+        async updateExercises(exercise: ExerciseAPiType, exerciseId: number) {
+            exerciseApi.updateExercises(exerciseId, exercise);
+        },
+        async deleteExercises(exerciseId: number) {
+            exerciseApi.deleteExercises(exerciseId);
+        },
         async getCreatedExercises(){
             this.createdExercise = await exerciseApi.getExercises();
         },
@@ -116,7 +130,8 @@ export const useExerciseStore = defineStore('exercises', {
             this.cycleIds =[];
             this.createdExercise = [];
         }
-    },
+    }
+
 })
 class editExerciseObj{
     exercise: any;

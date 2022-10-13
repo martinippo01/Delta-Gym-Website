@@ -28,6 +28,7 @@
                 :key="routine.id"
                 style="margin: 10px"
                 :routineName="routine.name"
+                :routine-id="routine.id"
               >
               </RoutineButton>
             </v-row>
@@ -104,19 +105,17 @@ export default {
     },
     previousPage() {
       if (this.page > 0) {
-        this.routines = [];
         this.updatePage(--this.page);
       }
     },
     nextPage() {
       if (this.page < this.maxPage) {
-        this.routines = [];
         this.updatePage(++this.page);
       }
     },
     async updatePage(page) {
       try {
-        const res = await RoutinesApi.getAllRoutines(page);
+        const res = await RoutinesApi.getAllRoutines(page, 12);
         this.routines = res.content;
         if (page == 0) this.maxPage = Math.floor(res.totalCount / 12);
         console.log(this.routines);

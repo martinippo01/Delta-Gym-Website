@@ -14,20 +14,25 @@ class RoutinesApi {
     return await Api.post(RoutinesApi.getUrl(), true, routine, null);
   }
 
-  static async getAllRoutines(page: number) {
+  static async getAllRoutines(page: number, size: number) {
     return await Api.get(
-      RoutinesApi.getUrlParameters(`size=11&page=${page}`),
+      RoutinesApi.getUrlParameters(`size=${size}&page=${page}`),
       true,
       {}
     );
   }
 
-  static async getAllUsersRoutines(page: number) {
+  static async getAllUsersRoutines(page: number, size: number) {
     return await Api.get(
-      RoutinesApi.getUrlParameters(`size=11&page=${page}`),
+      RoutinesApi.getUrlParameters(`size=${size}&page=${page}`),
       false,
       {}
     );
+  }
+
+  static async deleteRoutines(routineId: number){
+    return await Api.delete(RoutinesApi.getUrl(`${routineId}`),
+      true,{});
   }
 
   static async addCycle(

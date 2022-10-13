@@ -18,7 +18,7 @@ export const useRoutinesStore = defineStore("routines", {
   },
   actions: {
     async setRoutines() {
-      const res = await RoutinesApi.getAllRoutines(this.page);
+      const res = await RoutinesApi.getAllUsersRoutines(this.page, 11);
       this.routines = res.content;
       this.maxPage = Math.floor(res.totalCount / 11);
     },
@@ -30,7 +30,6 @@ export const useRoutinesStore = defineStore("routines", {
     },
     async previousPage(){
       if (this.page > this.minPage){
-        console.log("HOLA")
         this.page--;
         await this.setRoutines();
       }
@@ -39,6 +38,10 @@ export const useRoutinesStore = defineStore("routines", {
       this.page = 0;
       this.maxPage = 0;
       this.routines = [];
+    },
+    async deleteRoutine(routineId: number){
+      const res = await RoutinesApi.deleteRoutines(routineId);
+      console.log(res);
     }
   },
 });
