@@ -11,7 +11,11 @@
 
       <v-col class="d-flex justify-center align-center background">
         <input
-          style="background-color: #cfffb3"
+          style="
+            font-family: Bebas Neue;
+            background-color: #cfffb3;
+            padding: 10px;
+          "
           @change="handleImage"
           type="file"
           accept="image/*"
