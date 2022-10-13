@@ -106,17 +106,14 @@ class UpdatableCredentials {
   constructor(
     firstName: string,
     lastName: string,
-    birthdate: number,
     avatar: string
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.avatar = avatar;
-    this.birthdate = birthdate;
+    this.avatarUrl = avatar;
   }
 
-  avatar: string;
+  avatarUrl: string;
   firstName: string;
   lastName: string;
-  birthdate: number;
 }
