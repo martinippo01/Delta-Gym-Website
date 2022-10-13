@@ -91,16 +91,16 @@
         this.updateName(this.id,this.exerciseName);
       },
       update_time(){
-        this.updateTime(this.id,this.time);
+        this.updateTime(this.id,parseInt(this.time));
       },
       update_weight(){
-        this.updateWeight(this.id,this.weight);
+        this.updateWeight(this.id,parseInt(this.weight));
       },
       update_reps(){
-        this.updateReps(this.id,this.reps);
+        this.updateReps(this.id,parseInt(this.reps));
       },
       update_sets(){
-        this.updateSets(this.id,this.sets);
+        this.updateSets(this.id,parseInt(this.sets));
       }
     },
 
