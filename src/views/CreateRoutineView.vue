@@ -89,7 +89,7 @@
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
                 :id="card.indexId"
                 type="warmUp"
-                :exerciseName="card.name"
+                :exerciseName="card.exercise.name"
                 :edit-mode="editMode"
               ></exerciseCard>
 
@@ -112,7 +112,7 @@
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
                 :id="card.indexId"
                 type="mainSet"
-                :exerciseName="card.name"
+                :exerciseName="card.exercise.name"
                 :edit-mode="editMode"
               ></exerciseCard>
             </v-slide-item>
@@ -134,7 +134,7 @@
                 class="ma-3 position-absolute top-0 start-100 translate-middle"
                 :id="card.indexId"
                 type="coolDown"
-                :exerciseName="card.name"
+                :exerciseName="card.exercise.name"
                 :edit-mode="editMode"
               ></exerciseCard>
             </v-slide-item>
@@ -366,8 +366,10 @@ export default {
     ...mapActions(useExerciseStore,['addExercise']),
      ...mapActions(useExerciseStore,['uploadExercises']),
       ...mapActions(useExerciseStore,['getCreatedExercises']),
+     ...mapActions(useExerciseStore,['getRoutineData']),
+     ...mapActions(useExerciseStore,['deleteAll']),
      ...mapActions(useCreateRoutine,['createRoutine']),
-     ...mapActions(useEditeRoutine,['getRoutineData']),
+
      discard() {
       this.editMode = false;
     },
@@ -427,12 +429,20 @@ export default {
   mounted() {
    // this.getRoutineData(this.$route.params.id)
     this.editMode = this.$route.params.editMode;
+    const aux = this.$route.params.from;
+    if(aux === "myRoutine") {
+      const routineID = this.$route.params.id;
+      this.getRoutineData(parseInt(routineID));
+    }
     try {
       this.getCreatedExercises();
     }catch (error){
       this.error = true;
       this.errorText = error.errorText;
     }
+  },
+  destroyed(){
+    this.deleteAll();
   }
 
 
