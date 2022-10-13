@@ -94,6 +94,12 @@ export const useExerciseStore = defineStore('exercises', {
             }
 
         },
+        async updateExercises(exercise: ExerciseAPiType, exerciseId: number) {
+            exerciseApi.updateExercises(exerciseId, exercise);
+        },
+        async deleteExercises(exerciseId: number) {
+            exerciseApi.deleteExercises(exerciseId);
+        },
         async getCreatedExercises(){
             this.createdExercise = await exerciseApi.getExercises();
         },
