@@ -4,6 +4,7 @@
         rounded="xl"
         outlined="outlined"
         color="primary"
+        class="hover-click"
       >
         <v-hover v-slot="{ hover }">
           <v-card
@@ -39,5 +40,9 @@ h1 {
   margin: auto;
   width: 50%;
   height: 100%;
+}
+
+.hover-click{
+  cursor: pointer;
 }
 </style>

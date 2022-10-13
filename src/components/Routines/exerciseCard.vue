@@ -15,6 +15,7 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  v-if="editMode"
               >
                 <v-icon color=" primary">mdi-dots-horizontal</v-icon>
               </v-btn>
