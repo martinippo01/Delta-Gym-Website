@@ -84,94 +84,73 @@
 
           <!--        _______________________________________________________________________________________-->
 
-          <div class="slider">
-            <h1 class="textSlider">WARM UP</h1>
-            <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-              <v-slide-item
-                v-for="card in getWarmUpExercises"
-                :key="card.indexId"
-              >
-                <exerciseCard
-                  class="ma-3 position-absolute top-0 start-100 translate-middle"
-                  :id="card.indexId"
-                  type="warmUp"
-                  :exerciseName="card.name"
-                  :edit-mode="editMode"
-                ></exerciseCard>
-              </v-slide-item>
-              <v-slide-item v-if="editMode">
-                <button
-                  @click="
-                    addRoutine(0);
-                    dialogSelectExercise = true;
-                  "
-                >
-                  <addButtom></addButtom>
-                </button>
-              </v-slide-item>
-            </v-slide-group>
-          </div>
+        <div class="slider">
+          <h1 class="textSlider">WARM UP</h1>
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+            <v-slide-item v-for="card in getWarmUpExercises" :key="card.indexId">
+              <exerciseCard
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.indexId"
+                type="warmUp"
+                :exerciseName="card.exercise.name"
+                :edit-mode="editMode"
+              ></exerciseCard>
 
-          <!--        _______________________________________________________________________________________-->
+            </v-slide-item>
+            <v-slide-item v-if="editMode">
+              <button @click="addRoutine(0); dialogSelectExercise = true">
+                <addButtom></addButtom>
+              </button>
+            </v-slide-item>
+          </v-slide-group>
+        </div>
 
-          <div class="slider">
-            <h1 class="textSlider">MAIN SETS</h1>
-            <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-              <v-slide-item
-                v-for="card in getMainSetExercises"
-                :key="card.indexId"
-              >
-                <exerciseCard
-                  class="ma-3 position-absolute top-0 start-100 translate-middle"
-                  :id="card.indexId"
-                  type="mainSet"
-                  :exerciseName="card.name"
-                  :edit-mode="editMode"
-                ></exerciseCard>
-              </v-slide-item>
-              <v-slide-item v-if="editMode">
-                <button
-                  @click="
-                    addRoutine(1);
-                    dialogSelectExercise = true;
-                  "
-                >
-                  <addButtom></addButtom>
-                </button>
-              </v-slide-item>
-            </v-slide-group>
-          </div>
+<!--        _______________________________________________________________________________________-->
 
-          <!--        _______________________________________________________________________________________-->
-          <div class="slider">
-            <h1 class="textSlider">COOL DOWN</h1>
-            <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-              <v-slide-item
-                v-for="card in getCoolDownExercise"
-                :key="card.indexId"
-              >
-                <exerciseCard
-                  class="ma-3 position-absolute top-0 start-100 translate-middle"
-                  :id="card.indexId"
-                  type="coolDown"
-                  :exerciseName="card.name"
-                  :edit-mode="editMode"
-                ></exerciseCard>
-              </v-slide-item>
-              <v-slide-item v-if="editMode">
-                <button
-                  @click="
-                    addRoutine(2);
-                    dialogSelectExercise = true;
-                  "
-                >
-                  <addButtom></addButtom>
-                </button>
-              </v-slide-item>
-            </v-slide-group>
-          </div>
-        </v-main>
-      </v-app>
+        <div class="slider">
+          <h1 class="textSlider">MAIN SETS</h1>
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+            <v-slide-item v-for="card in getMainSetExercises" :key="card.indexId">
+              <exerciseCard
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.indexId"
+                type="mainSet"
+                :exerciseName="card.exercise.name"
+                :edit-mode="editMode"
+              ></exerciseCard>
+            </v-slide-item>
+            <v-slide-item v-if="editMode">
+              <button @click="addRoutine(1); dialogSelectExercise = true">
+                <addButtom></addButtom>
+              </button>
+            </v-slide-item>
+          </v-slide-group>
+        </div>
+
+
+<!--        _______________________________________________________________________________________-->
+        <div class="slider">
+          <h1 class="textSlider">COOL DOWN</h1>
+          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+            <v-slide-item v-for="card in getCoolDownExercise" :key="card.indexId">
+              <exerciseCard
+                class="ma-3 position-absolute top-0 start-100 translate-middle"
+                :id="card.indexId"
+                type="coolDown"
+                :exerciseName="card.exercise.name"
+                :edit-mode="editMode"
+              ></exerciseCard>
+            </v-slide-item>
+            <v-slide-item v-if="editMode">
+              <button @click="addRoutine(2); dialogSelectExercise = true">
+                <addButtom></addButtom>
+              </button>
+            </v-slide-item>
+          </v-slide-group>
+
+        </div>
+      </v-main>
+    </v-app>
 
       <!--    ____________________________________________________________________________-->
       <v-dialog v-model="dialogSelectExercise" persistent max-width="600px">
@@ -370,6 +349,7 @@
       </template>
     </v-snackbar>
   </div>
+
 </template>
 
 <script>
@@ -404,6 +384,16 @@ export default {
       maxId: 0,
       editMode: false,
     };
+   },
+   methods: {
+    ...mapActions(useExerciseStore,['addExercise']),
+     ...mapActions(useExerciseStore,['uploadExercises']),
+      ...mapActions(useExerciseStore,['getCreatedExercises']),
+     ...mapActions(useExerciseStore,['getRoutineData']),
+     ...mapActions(useExerciseStore,['deleteAll']),
+     ...mapActions(useCreateRoutine,['createRoutine']),
+
+     discard() {
   },
   methods: {
     ...mapActions(useExerciseStore, ["addExercise"]),
@@ -500,7 +490,7 @@ export default {
         await this.deleteExercises(item.id);
       } catch(error) {
           this.error = true;
-          this.errorText = "Couldn't delete exercise"; 
+          this.errorText = "Couldn't delete exercise";
       }
       this.getCreatedExercises();
     },
@@ -514,12 +504,23 @@ export default {
   mounted() {
     // this.getRoutineData(this.$route.params.id)
     this.editMode = this.$route.params.editMode;
+    const aux = this.$route.params.from;
+    if(aux === "myRoutine") {
+      const routineID = this.$route.params.id;
+      this.getRoutineData(parseInt(routineID));
+    }
     try {
       this.getCreatedExercises();
     } catch (error) {
       this.error = true;
       this.errorText = error.errorText;
     }
+  },
+  destroyed(){
+    this.deleteAll();
+  }
+
+
   },
 };
 </script>

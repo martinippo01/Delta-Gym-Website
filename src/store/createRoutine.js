@@ -7,15 +7,16 @@ export const useCreateRoutine = defineStore('createRoutine', {
     state: () =>({
         id:0,
         name:undefined,
-        cycles:[] as any[],
+        cycles:[] ,
        cyclesCounter:[1,1,1]
     }),
     actions:{
-       async createRoutine(name:string,detail:string){
-           const response = await RoutinesApi.addRoutine(new Routine(name,detail,"rookie",true));
-           this.id = response.id;
-           await this.createCycles();
+       async createRoutine(name,detail){
+          // const response = await RoutinesApi.addRoutine(new Routine(name,detail,"rookie",true));
+           //this.id = response.id;
+           //await this.createCycles();
            await this.addExercises();
+
            this.cycles = [];
 
        },
@@ -32,19 +33,24 @@ export const useCreateRoutine = defineStore('createRoutine', {
         async addExercises(){
            const store = useExerciseStore();
            for (const ex in store.exercisArray){
-              store.setOrder(ex,this.cyclesCounter[store.exercisArray[ex].cycleId]++);
-              await CyclesApi.addExercise(this.cycles[store.exercisArray[ex].cycleId],store.exercisArray[ex].id,store.exercisArray[ex].exerciseCycle)
+              store.setOrder(ex);
+              if (store.exercisArray[ex].newExercise)
+                await CyclesApi.changeExercise(store.exercisArray[ex].cycleId, store.exercisArray[ex].exercise.id, store.exercisArray[ex].exerciseInCycle);
+              else
+                await CyclesApi.addExercise(store.exercisArray[ex].cycleId, store.exercisArray[ex].exercise.id, store.exercisArray[ex].exerciseInCycle);
+
            }
 
 
-        }
+        },
+
     }
 })
 class ExerciseCycle{
-  order:number;
-  duration:number;
-  repetitions:number;
-  constructor(order:number,duration:number,repetitions:number) {
+  order;
+  duration;
+  repetitions;
+  constructor(order,duration,repetitions) {
     this.order = order;
     this.duration = duration;
     this.repetitions = repetitions;

@@ -24,7 +24,7 @@
           >
             <v-row class="routines-group">
               <Add
-                @click.native="dialog = true"
+                @click.native="addRoutine(true);dialog = true"
                 style="text-decoration: none; color: inherit; margin: 10px"
               />
               <RoutineButton
@@ -163,10 +163,20 @@ export default {
         params: {
           editMode: mode,
           id: id,
-          from: 'myRoutinesNew',
+          from:'myRoutine'
         },
       });
     },
+    addRoutine(mode){
+      this.$router.push({
+        name: "createRoutine",
+        params: {
+          editMode: mode,
+
+          from: 'myRoutinesNew',
+        },
+      });
+    }
   },
   computed: {
     ...mapState(useRoutinesStore, ["routines"]),
