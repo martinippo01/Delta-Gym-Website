@@ -29,6 +29,9 @@ class RoutinesApi {
       {}
     );
   }
+  static async getRoutine(routineId:number){
+    return await Api.get(this.getUrl(`${routineId}`),true,{});
+  }
 
   static async deleteRoutines(routineId: number){
     return await Api.delete(RoutinesApi.getUrl(`${routineId}`),
