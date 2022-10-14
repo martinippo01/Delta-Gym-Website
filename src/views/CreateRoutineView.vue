@@ -175,7 +175,7 @@
 
             <v-btn
               color="primary"
-              style="margin-left: 70%: margin-top: 0px"
+              style="margin-left: 70%; margin-top: 0px"
               @click="
                 dialogSelectExercise = false;
                 dialogCreateExercise = true;
@@ -207,7 +207,7 @@
                 <v-col>
                   <v-virtual-scroll
                     :items="createdExercise"
-                    :item-height="50"
+                    :item-height="70"
                     height="300"
                   >
                     <template v-slot:default="{ item }">
@@ -226,11 +226,11 @@
                             fab
                             style="margin-right: 15px"
                             small
-                            depressed
+                            outlined
                             color="primary"
                             @click="deleteExercisesHandler(item)"
                           >
-                            <v-icon color="#1e1e1e"> mdi-delete</v-icon>
+                            <v-icon color="primary"> mdi-delete</v-icon>
                           </v-btn>
                         </v-list-item-action>
 
@@ -238,11 +238,11 @@
                           <v-btn
                             fab
                             small
-                            depressed
+                            outlined
                             color="primary"
                             @click="modifyExercise(item)"
                           >
-                            <v-icon color="#1e1e1e"> mdi-wrench</v-icon>
+                            <v-icon color="primary"> mdi-pencil</v-icon>
                           </v-btn>
                         </v-list-item-action>
 
@@ -358,16 +358,35 @@
       </template>
     </v-snackbar>
 
-    <v-dialog style="margin: auto; width: 400px" v-model="exitVerify">
-      <h1>Are you sure you wanna exit?</h1>
-      <v-row>
-        <v-btn color="primary" filled @click="exitAndSaveHandler">
-          <span style="color: #1e1e1e">Exit and Save</span>
-        </v-btn>
-        <v-btn color="primary" filled @click="stayHandler">
-          <span style="color: #1e1e1e">Stay</span>
-        </v-btn>
-      </v-row>
+    <v-dialog v-model="exitVerify" persistent width="610">
+      <v-sheet
+        color="error"
+        outlined="outlined"
+        width="600"
+        rounded="xl"
+      >
+        <v-card
+          color="background"
+          width="600"
+          height="120"
+          class="box center"
+          rounded="xl"
+        >
+          <v-card-title style="color: #CFFFB3">Are you sure you wanna exit?</v-card-title>
+          <v-card-actions>
+            <v-row
+              justify="center"
+            >
+              <v-btn color="primary" outlined @click="exitAndSaveHandler" style="margin: 7px">
+                <span style="color: #CFFFB3">Exit and Save</span>
+              </v-btn>
+              <v-btn color="primary" filled @click="stayHandler" style="margin: 7px">
+                <span style="color: #1e1e1e">Stay</span>
+              </v-btn>
+            </v-row>
+          </v-card-actions>
+        </v-card>
+      </v-sheet>
     </v-dialog>
   </div>
 </template>
