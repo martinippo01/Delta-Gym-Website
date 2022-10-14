@@ -2,7 +2,7 @@
   <div>
     <div id="app">
       <v-app>
-        <NavBar select="myRoutines"></NavBar>
+        <NavBar select="Explore"></NavBar>
         <v-main class="background">
 
           <!--        _______________________________________________________________________________________-->
@@ -127,6 +127,8 @@ export default {
 
     ...mapActions(useExerciseStore,['getRoutineData']),
     ...mapActions(useExerciseStore,['setId']),
+    ...mapActions(useExerciseStore,['deleteAll']),
+
 
   },
   computed:{
@@ -147,6 +149,9 @@ export default {
     }
     this.getRoutineData();
   },
+  destroyed() {
+    this.deleteAll();
+  }
 
 };
 </script>
