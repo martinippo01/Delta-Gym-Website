@@ -269,14 +269,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              outlined
-              @click="
-                dialogSelectExercise = false;
-                selectedName = null;
-              "
-            >
+            <v-btn color="primary" outlined @click="discardExerciseHandler()">
               Discard
             </v-btn>
             <v-btn
@@ -425,8 +418,13 @@ export default {
     ...mapActions(useCreateRoutine, ["addExercisesToRoutine"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
 
+    discardExerciseHandler() {
+      this.dialogSelectExercise = false;
+      this.selectedName = null;
+    },
     discard() {
       this.editMode = false;
+      router.push("/myRoutines");
     },
     async save() {
       this.editMode = false;
