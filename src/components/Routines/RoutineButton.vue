@@ -76,7 +76,7 @@ export default {
       this.$router.push({
         name: "createRoutine",
         params: {
-          editMode: true,
+          editMode: false,
           id: this.routineId,
           from: "myRoutine",
         },
