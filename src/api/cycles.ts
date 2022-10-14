@@ -15,10 +15,9 @@ class CyclesApi{
         return await Api.get(this.getUrl(cycleId),true,null);
     }
     static async changeExercise(cycleId:number,exId:number,exercise:exerciseApi){
-        try {
-             await Api.put(this.getUrl(cycleId, exId), true, exercise);
-        }catch (error){
-            console.log( error);
-        }
+        return await Api.put(this.getUrl(cycleId, exId), true, exercise);
+    }
+    static async deleteExerciseFromCycle(cycleId:number,exId:number){
+        return await Api.delete(this.getUrl(cycleId,exId),true,null);
     }
 }
