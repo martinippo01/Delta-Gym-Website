@@ -33,7 +33,8 @@
                 style="text-decoration: none; color: inherit; margin: 10px"
                 :routineName="routine.name"
                 :routine-id="routine.id"
-                :exploreMode="false"
+                exploreMode="false"
+                directionName="createRoutine"
               ></RoutineButton>
             </v-row>
           </v-container>

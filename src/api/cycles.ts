@@ -11,8 +11,8 @@ class CyclesApi{
         console.log(exercise);
         await Api.post(this.getUrl(cycleId,exId),true,exercise,null);
     }
-    static async getExercisesCycle(cycleId:number){
-        return await Api.get(this.getUrl(cycleId),true,null);
+    static async getExercisesCycle(cycleId:number,page:number){
+        return await Api.get(this.getUrl(cycleId)+`?page=${page}`,true,null);
     }
     static async changeExercise(cycleId:number,exId:number,exercise:exerciseApi){
         try {

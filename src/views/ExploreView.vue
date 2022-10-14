@@ -24,11 +24,11 @@
             <v-row class="justify-center" style="padding: 10px">
               <RoutineButton
                 v-for="routine in routines"
-                @click.native="toRoutine(false, routine.id)"
                 :key="routine.id"
                 style="margin: 10px"
                 :routineName="routine.name"
                 :routine-id="routine.id"
+                directionName="ViewRoutine"
                 :exploreMode="true"
               >
               </RoutineButton>
@@ -97,7 +97,7 @@ export default {
   methods: {
     toRoutine(mode, id) {
       this.$router.push({
-        name: "createRoutine",
+        name: "ViewRoutine",
         params: {
           editMode: mode,
           id: id,
