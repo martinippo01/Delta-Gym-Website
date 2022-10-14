@@ -6,7 +6,7 @@
 
         <v-menu ffset-y :close-on-click="true">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn light icon v-bind="attrs" v-on="on" v-if="editMode">
+            <v-btn light icon v-bind="attrs" v-on="on" :disabled="!editmode">
               <v-icon color=" primary">mdi-dots-horizontal</v-icon>
             </v-btn>
           </template>
@@ -32,7 +32,7 @@
           @blur="update_time"
           dark
           color="primary"
-          v-if="editMode"
+          :disabled="!editmode"
         ></v-text-field>
         <v-text-field
           class="textField"
@@ -42,7 +42,7 @@
           @blur="update_reps"
           dark
           color="primary"
-          v-if="editMode"
+          :disabled="!editmode"
         ></v-text-field>
       </v-card-actions>
       <v-card-actions class="mt-0 pt-0">
@@ -54,7 +54,7 @@
           @blur="update_rest"
           dark
           color="primary"
-          v-if="editMode"
+          :disabled="!editmode"
         ></v-text-field>
         <v-text-field
           class="textField"
@@ -65,7 +65,7 @@
           @blur="update_weight"
           dark
           color="primary"
-          v-if="editMode"
+          :disabled="!editmode"
         ></v-text-field>
         <v-text-field
           class="textField"
@@ -75,12 +75,8 @@
           @blur="update_sets"
           dark
           color="primary"
-          v-if="editMode"
+          :disabled="!editmode"
         ></v-text-field>
-        <v-card-text v-if="!editMode">{{ this.time }}</v-card-text>
-        <v-card-text v-if="!editMode">{{ this.sets }}</v-card-text>
-        <v-card-text v-if="!editMode">{{ this.sets }}</v-card-text>
-        <v-card-text v-if="!editMode">{{ this.reps }}</v-card-text>
       </v-card-actions>
     </v-card>
   </div>
@@ -106,7 +102,7 @@ export default {
     id: undefined,
     type: String,
     exerciseName: String,
-    editMode: undefined,
+    editmode: Boolean,
   },
   methods: {
     filter: function (evt) {
@@ -147,19 +143,19 @@ export default {
     update_sets() {
       this.updateSets(this.id, parseInt(this.sets));
     },
-    update_rest(){
-      this.updateRest(this.id,parseInt(this.rest))
-    }
+    update_rest() {
+      this.updateRest(this.id, parseInt(this.rest));
+    },
   },
   mounted() {
-    const aux = this.exercisArray().filter(ex => ex.indexId === this.id);
+    const aux = this.exercisArray().filter((ex) => ex.indexId === this.id);
     console.log(aux);
     this.sets = aux[0].sets;
     this.reps = aux[0].exerciseInCycle.repetitions;
     this.time = aux[0].exerciseInCycle.duration;
     this.weight = aux[0].weight;
     this.rest = aux[0].rest;
-  }
+  },
 };
 </script>
 

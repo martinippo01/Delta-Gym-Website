@@ -90,7 +90,7 @@
                   :id="card.indexId"
                   type="warmUp"
                   :exerciseName="card.exercise.name"
-                  :edit-mode="editMode"
+                  :editmode="editMode"
                 ></exerciseCard>
               </v-slide-item>
               <v-slide-item v-if="editMode">
@@ -120,7 +120,7 @@
                   :id="card.indexId"
                   type="mainSet"
                   :exerciseName="card.exercise.name"
-                  :edit-mode="editMode"
+                  :editmode="editMode"
                 ></exerciseCard>
               </v-slide-item>
               <v-slide-item v-if="editMode">
@@ -149,7 +149,7 @@
                   :id="card.indexId"
                   type="coolDown"
                   :exerciseName="card.exercise.name"
-                  :edit-mode="editMode"
+                  :editmode="editMode"
                 ></exerciseCard>
               </v-slide-item>
               <v-slide-item v-if="editMode">
@@ -352,12 +352,7 @@
     </v-snackbar>
 
     <v-dialog v-model="exitVerify" persistent width="610">
-      <v-sheet
-        color="error"
-        outlined="outlined"
-        width="600"
-        rounded="xl"
-      >
+      <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
         <v-card
           color="background"
           width="600"
@@ -365,15 +360,25 @@
           class="box center"
           rounded="xl"
         >
-          <v-card-title style="color: #CFFFB3">Are you sure you wanna exit?</v-card-title>
+          <v-card-title style="color: #cfffb3"
+            >Are you sure you wanna exit?</v-card-title
+          >
           <v-card-actions>
-            <v-row
-              justify="center"
-            >
-              <v-btn color="primary" outlined @click="exitAndSaveHandler" style="margin: 7px">
-                <span style="color: #CFFFB3">Exit and Save</span>
+            <v-row justify="center">
+              <v-btn
+                color="primary"
+                outlined
+                @click="exitAndSaveHandler"
+                style="margin: 7px"
+              >
+                <span style="color: #cfffb3">Exit and Save</span>
               </v-btn>
-              <v-btn color="primary" filled @click="stayHandler" style="margin: 7px">
+              <v-btn
+                color="primary"
+                filled
+                @click="stayHandler"
+                style="margin: 7px"
+              >
                 <span style="color: #1e1e1e">Stay</span>
               </v-btn>
             </v-row>
@@ -557,13 +562,13 @@ export default {
   mounted() {
     this.editMode = this.$route.params.editMode;
     const aux = this.$route.params.from;
-    if(aux === "myRoutinesNew") {
+    if (aux === "myRoutinesNew") {
       this.createRoutine();
-    }else if(aux=== "myRoutine"){
+    } else if (aux === "myRoutine") {
       const routineID = this.$route.params.id;
       this.setId(parseInt(routineID));
       this.getRoutineData();
-    }else{
+    } else {
       this.getRoutineData();
     }
     try {
