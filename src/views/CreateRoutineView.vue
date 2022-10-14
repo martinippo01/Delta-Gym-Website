@@ -9,7 +9,7 @@
             <v-row class="d-flex">
               <v-col class="d-flex ml-7">
                 <!--              Caso 1 ->  Vista de edicion-->
-<!--                <v-text-field
+                <!--                <v-text-field
                   label="ROUTINE NAME"
                   :rules="[() => !!routineName || 'This field is required']"
                   class="textField"
@@ -21,7 +21,7 @@
                 ></v-text-field>-->
 
                 <!--              Caso 2 -> Vista normal-->
-                <h1 >{{this.routineName}}</h1>
+                <h1>{{ this.routineName }}</h1>
               </v-col>
               <v-col class="justify-end d-flex" md="2" offset-md="3">
                 <!--              CASO 1 -> Edit mode-->
@@ -57,7 +57,7 @@
 
             <v-row>
               <!--            Caso 1 -> Vista de edicion-->
-<!--              <v-textarea
+              <!--              <v-textarea
                 class="descripcion"
                 label="DESCRIPTION"
                 color="primary"
@@ -68,11 +68,10 @@
               ></v-textarea>-->
               <!--            Caso 2 -> Vista normal-->
               <p
-
                 class="text-justify"
                 style="margin: 40px; color: white; margin-bottom: 20px"
               >
-                {{this.routineDetail}}
+                {{ this.routineDetail }}
               </p>
             </v-row>
           </v-sheet>
@@ -365,7 +364,7 @@
       </template>
     </v-snackbar>
 
-    <v-dialog style="margin: auto; width: 400" v-model="exitVerify">
+    <v-dialog style="margin: auto; width: 400px" v-model="exitVerify">
       <h1>Are you sure you wanna exit?</h1>
       <v-row>
         <v-btn color="primary" filled @click="exitAndSaveHandler">
@@ -377,7 +376,6 @@
       </v-row>
     </v-dialog>
   </div>
-
 </template>
 
 <script>
@@ -427,7 +425,6 @@ export default {
     ...mapActions(useExerciseStore, ["getRoutineData"]),
     ...mapActions(useCreateRoutine, ["addExercisesToRoutine"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
-
 
     discard() {
       this.editMode = false;
