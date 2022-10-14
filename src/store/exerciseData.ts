@@ -104,6 +104,10 @@ export const useExerciseStore = defineStore('exercises', {
             }
         },
          async getRoutineData(id : number){
+            const routine = await RoutinesApi.getRoutine(id);
+            this.routineName = routine.name;
+            this.routineDetail = routine.detail;
+            console.log(this.routineDetail);
             const cycles = await RoutinesApi.getCycle(id);
             for(let y = 0; y <cycles.length; y++){
                 this.cycleIds[y] = (cycles[y].id);

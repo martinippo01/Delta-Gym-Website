@@ -206,6 +206,7 @@ export default {
     ...mapState(useRoutinesStore, ["minPage"]),
     ...mapState(useRoutinesStore, ["maxPage"]),
   },
+
 };
 </script>
 

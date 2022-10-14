@@ -9,7 +9,7 @@
             <v-row class="d-flex">
               <v-col class="d-flex ml-7">
                 <!--              Caso 1 ->  Vista de edicion-->
-                <v-text-field
+<!--                <v-text-field
                   label="ROUTINE NAME"
                   :rules="[() => !!routineName || 'This field is required']"
                   class="textField"
@@ -18,9 +18,10 @@
                   height="50"
                   color="primary"
                   v-if="editMode"
-                ></v-text-field>
+                ></v-text-field>-->
+
                 <!--              Caso 2 -> Vista normal-->
-                <h1 v-else>CAMBIAR NOMBRE RUTINA</h1>
+                <h1 >{{this.routineName}}</h1>
               </v-col>
               <v-col class="justify-end d-flex" md="2" offset-md="3">
                 <!--              CASO 1 -> Edit mode-->
@@ -56,7 +57,7 @@
 
             <v-row>
               <!--            Caso 1 -> Vista de edicion-->
-              <v-textarea
+<!--              <v-textarea
                 class="descripcion"
                 label="DESCRIPTION"
                 color="primary"
@@ -64,16 +65,14 @@
                 max-
                 dark
                 v-if="editMode"
-              ></v-textarea>
+              ></v-textarea>-->
               <!--            Caso 2 -> Vista normal-->
               <p
-                v-else
+
                 class="text-justify"
                 style="margin: 40px; color: white; margin-bottom: 20px"
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                {{this.routineDetail}}
               </p>
             </v-row>
           </v-sheet>
@@ -364,8 +363,6 @@ export default {
   data() {
     return {
       modifiedExerciseId: 0,
-      routineName: "",
-      routineDetail: "",
       error: false,
       errorText: "",
       detail: "",
@@ -501,6 +498,8 @@ export default {
     ...mapState(useExerciseStore, ["getMainSetExercises"]),
     ...mapState(useExerciseStore, ["getWarmUpExercises"]),
     ...mapState(useExerciseStore, ["createdExercise"]),
+    ...mapState(useExerciseStore, ["routineName"]),
+    ...mapState(useExerciseStore, ["routineDetail"]),
   },
   mounted() {
     // this.getRoutineData(this.$route.params.id)
