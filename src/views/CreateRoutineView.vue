@@ -392,20 +392,23 @@ export default {
     ...mapActions(useExerciseStore, ["getCreatedExercises"]),
     ...mapActions(useExerciseStore, ["createRoutine"]),
     ...mapActions(useExerciseStore, ["getRoutineData"]),
-    ...mapActions(useCreateRoutine,['addExercisesToRoutine']),
+    ...mapActions(useExerciseStore,['addExercisesToRoutine']),
     ...mapActions(useExerciseStore, ["deleteAll"]),
+    ...mapActions(useExerciseStore, ["setId"]),
 
 
     discard() {
       this.editMode = false;
     },
     async save() {
-      this.editMode = false;
       try {
         await this.addExercisesToRoutine();
+        this.editMode = false;
       } catch (error) {
+
         this.error = true;
-        this.errorText = error.name;
+        if (error.code === 2)
+          this.errorText = "ERROR REPEATED EXERCISE IN CYCLE";
       }
     },
     addRoutine(type) {
@@ -505,11 +508,14 @@ export default {
     // this.getRoutineData(this.$route.params.id)
     this.editMode = this.$route.params.editMode;
     const aux = this.$route.params.from;
-    if(aux === "myRoutine") {
-      const routineID = this.$route.params.id;
-      this.getRoutineData(parseInt(routineID));
-    }else {
+    if(aux === "myRoutinesNew") {
       this.createRoutine();
+    }else if(aux=== "myRoutine"){
+      const routineID = this.$route.params.id;
+      this.setId(parseInt(routineID));
+      this.getRoutineData();
+    }else{
+      this.getRoutineData();
     }
     try {
       this.getCreatedExercises();

@@ -5,6 +5,7 @@ import { RoutinesApi } from "@/api/routines";
 import { CyclesApi } from "@/api/cycles";
 import {Routine} from "@/api/routines";
 
+const ROUTINE_ID ='ROUTINE-ID';
 interface Exercise {
      name: string | undefined;
      cycleId: number ;
@@ -103,7 +104,12 @@ export const useExerciseStore = defineStore('exercises', {
                 this.exercisArray.push(new editExerciseObj(this.id++,this.cycleIds[cicleId],this.createdExercise[index],new ExerciseCycle(0,0,0),false));
             }
         },
-         async getRoutineData(id : number){
+         async getRoutineData(){
+            let id;
+            if ((id = localStorage.getItem(ROUTINE_ID)) != null)
+                 id = parseInt(id);
+            else
+                id = 0;
             const routine = await RoutinesApi.getRoutine(id);
             this.routineName = routine.name;
             this.routineDetail = routine.detail;
@@ -116,7 +122,6 @@ export const useExerciseStore = defineStore('exercises', {
                     this.exercisArray.push(new editExerciseObj(this.id++,this.cycleIds[y],aux.content[x].exercise,new ExerciseCycle(aux.content[x].order,aux.content[x].duration,aux.content[x].repetitions),true));
                 }
             }
-            console.log(this.exercisArray)
          },
 
 
@@ -146,6 +151,7 @@ export const useExerciseStore = defineStore('exercises', {
        async createRoutine(){
             const response = await RoutinesApi.addRoutine(new Routine(this.routineName,this.routineDetail,"rookie",true));
             this.routineId = response.id;
+            this.setId(this.routineId);
             let response2 =  await RoutinesApi.addCycle(this.routineId,"warmup","warmup","warmup",1,1 );
             this.cycleIds[0] = (response2.id);
             response2 =  await RoutinesApi.addCycle(this.routineId,"mainset","exercise","exercise",2,1 );
@@ -153,7 +159,22 @@ export const useExerciseStore = defineStore('exercises', {
             response2 =  await RoutinesApi.addCycle(this.routineId,"cooldown","cooldown","cooldown",3,1 );
             this.cycleIds[2]=(response2.id);
 
+        },
+        setId(id:number){
+            localStorage.setItem(ROUTINE_ID,id.toString());
+        },
+      async addExercisesToRoutine(){
+        for (const ex in this.exercisArray){
+          this.setOrder(ex);
+          if (this.exercisArray[ex].newExercise) {
+            await CyclesApi.changeExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id, this.exercisArray[ex].exerciseInCycle);
+          }
+          else {
+            await CyclesApi.addExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id, this.exercisArray[ex].exerciseInCycle);
+            this.exercisArray[ex].newExercise = true;
+          }
         }
+      }
     }
 
 })
