@@ -150,6 +150,7 @@ export default {
     this.getRoutineData();
   },
   destroyed() {
+    console.log('HOLA');
     this.deleteAll();
   }
 
