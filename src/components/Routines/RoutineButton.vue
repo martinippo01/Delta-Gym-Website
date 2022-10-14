@@ -21,8 +21,6 @@
             icon
             v-on:click.stop="deleteMe()"
             fill
-            v-bind="attrs"
-            v-on="on"
             style="position: absolute; top: 10px; right: 10px"
             @click="deleteMe"
           >
@@ -68,7 +66,7 @@ export default {
       this.$router.push({
         name: "createRoutine",
         params: {
-          editMode: true,
+          editMode: false,
           id: this.routineId,
         },
       });
@@ -78,7 +76,7 @@ export default {
       this.$router.push({
         name: "createRoutine",
         params: {
-          editMode: true,
+          editMode: false,
           id: this.routineId,
           from: "myRoutine",
         },

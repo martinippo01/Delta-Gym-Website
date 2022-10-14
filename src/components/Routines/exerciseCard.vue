@@ -4,24 +4,10 @@
       <v-card-title>
         <span>{{ this.exerciseName }}</span>
 
-          <v-menu
-            v-if="editMode"
-              ffset-y
-              :close-on-click="true"
-          >
-            <template  v-slot:activator="{on ,attrs}">
-              <v-btn
-                  light
-                  icon
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                <v-icon color=" primary">mdi-dots-horizontal</v-icon>
-              </v-btn>
-            </template>
-        <v-menu ffset-y :close-on-click="true">
+
+        <v-menu ffset-y :close-on-click="true" v-if="editMode">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn light icon v-bind="attrs" v-on="on" v-if="editMode">
+            <v-btn light icon v-bind="attrs" v-on="on" >
               <v-icon color=" primary">mdi-dots-horizontal</v-icon>
             </v-btn>
           </template>
