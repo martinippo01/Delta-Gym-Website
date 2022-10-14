@@ -175,7 +175,7 @@
 
             <v-btn
               color="primary"
-              style="margin-left: 70%: margin-top: 0px"
+              style="margin-left: 70%; margin-top: 0px"
               @click="
                 dialogSelectExercise = false;
                 dialogCreateExercise = true;
