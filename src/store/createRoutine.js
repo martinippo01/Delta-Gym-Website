@@ -22,20 +22,7 @@ export const useCreateRoutine = defineStore('createRoutine', {
 
            console.log(this.cycles);
         },
-        async addExercisesToRoutine(){
-           const store = useExerciseStore();
-           for (const ex in store.exercisArray){
-              store.setOrder(ex);
-              if (store.exercisArray[ex].newExercise) {
-                await CyclesApi.changeExercise(store.exercisArray[ex].cycleId, store.exercisArray[ex].exercise.id, store.exercisArray[ex].exerciseInCycle);
-              }
-              else {
 
-                await CyclesApi.addExercise(store.exercisArray[ex].cycleId, store.exercisArray[ex].exercise.id, store.exercisArray[ex].exerciseInCycle);
-              }
-           }
-          this.cycles = [];
-        },
     }
 })
 class ExerciseCycle{

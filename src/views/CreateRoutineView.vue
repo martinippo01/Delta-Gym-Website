@@ -395,8 +395,6 @@ export default {
       pendingRoute: "",
       modifiedExerciseId: 0,
       exitVerify: false,
-      routineName: "",
-      routineDetail: "",
       error: false,
       errorText: "",
       detail: "",
@@ -422,7 +420,7 @@ export default {
     ...mapActions(useExerciseStore, ["getCreatedExercises"]),
     ...mapActions(useExerciseStore, ["createRoutine"]),
     ...mapActions(useExerciseStore, ["getRoutineData"]),
-    ...mapActions(useCreateRoutine, ["addExercisesToRoutine"]),
+    ...mapActions(useExerciseStore, ["addExercisesToRoutine"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
 
     discard() {

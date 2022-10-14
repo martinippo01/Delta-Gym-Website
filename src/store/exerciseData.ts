@@ -38,13 +38,13 @@ export const useExerciseStore = defineStore('exercises', {
     getters: {
 
         getCoolDownExercise(state){
-            return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[2]);
+            return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[2] && !ex.deleted);
         },
         getMainSetExercises(state){
-            return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[1]);
+            return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[1]&& !ex.deleted);
         },
         getWarmUpExercises(state){
-            return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[0]);
+            return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[0]&& !ex.deleted);
         },
 
 
@@ -52,8 +52,10 @@ export const useExerciseStore = defineStore('exercises', {
     actions: {
         deleteExercise(id:number){
             const aux= this.exercisArray.findIndex(ex => ex.indexId === id);
-            if(aux !== undefined)
+            if(aux !== undefined && !this.exercisArray[aux].newExercise)
              this.exercisArray.splice(aux,1);
+            else
+              this.exercisArray[aux].delete();
             console.log(this.exercisArray.length)
         },
         updateName(id:number,ex_name:string){
@@ -92,9 +94,11 @@ export const useExerciseStore = defineStore('exercises', {
             this.exercisArray[aux].exerciseInCycle.repetitions = sets;
         },
         async uploadExercises(exercise : ExerciseAPiType,cicleId : number,indexId:number){
-            const index =this.createdExercise.findIndex(ex => ex.name === exercise.name);
-            console.log(this.createdExercise);
-            if (index === -1) {
+          const duplicateExercise = this.exercisArray.findIndex(ex => ex.exercise.name === exercise.name && ex.cycleId === this.cycleIds[cicleId]);
+          if (duplicateExercise != -1)
+            throw {code:69,errorText:"cannot add duplicate exercise"};
+          const index =this.createdExercise.findIndex(ex => ex.name === exercise.name);
+          if (index === -1) {
                 const idAux = await exerciseApi.uploadExercises(exercise);
                 this.exercisArray.push(new editExerciseObj(this.id++,this.cycleIds[cicleId],idAux,new ExerciseCycle(0,0,0),false));
                 await this.getCreatedExercises();
@@ -152,8 +156,19 @@ export const useExerciseStore = defineStore('exercises', {
             this.cycleIds[1]=(response2.id);
             response2 =  await RoutinesApi.addCycle(this.routineId,"cooldown","cooldown","cooldown",3,1 );
             this.cycleIds[2]=(response2.id);
+        },
+      async addExercisesToRoutine(){
+        for (const ex in this.exercisArray){
+          this.setOrder(ex);
+          if (this.exercisArray[ex].newExercise) {
+            await CyclesApi.changeExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id, this.exercisArray[ex].exerciseInCycle);
+          }
+          else {
 
+            await CyclesApi.addExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id, this.exercisArray[ex].exerciseInCycle);
+          }
         }
+      },
     }
 
 })
@@ -162,13 +177,17 @@ class editExerciseObj{
     indexId:number;
     cycleId:number;
     newExercise:boolean;
-    exerciseInCycle:ExerciseCycle
+    exerciseInCycle:ExerciseCycle;
+    deleted:boolean;
     constructor(indexId:number,cycleId:number,exercise:any,exerciseInCycle:ExerciseCycle,newExercise:boolean) {
         this.cycleId=cycleId;
         this.indexId=indexId;
         this.exercise = exercise;
         this.exerciseInCycle = exerciseInCycle;
         this.newExercise = newExercise;
+        this.deleted = false;
     }
-
+    delete(){
+      this.deleted = true;
+    }
 }
