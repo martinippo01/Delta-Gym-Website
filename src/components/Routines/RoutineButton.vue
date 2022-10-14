@@ -44,6 +44,7 @@ export default {
     routineName: { type: String, required: true },
     routineId: { type: Number, required: true },
     exploreMode: { type: Boolean, required: true },
+    directionName:{type:String,required:true}
   },
   data() {
     return {
@@ -74,7 +75,7 @@ export default {
 
     toRoutine() {
       this.$router.push({
-        name: "createRoutine",
+        name: `${this.directionName}`,
         params: {
           editMode: false,
           id: this.routineId,
