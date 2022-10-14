@@ -384,9 +384,8 @@ export default {
 
 
 
-   /*  discard() {
-  },*/
-  methods: {
+
+
   methods: {
     ...mapActions(useExerciseStore,['deleteAll']),
     ...mapActions(useExerciseStore, ["addExercise"]),
@@ -495,9 +494,7 @@ export default {
       this.error = false;
       this.getCreatedExercises();
     },
-    destroyed(){
-      this.deleteAll();
-    }
+
   },
   computed: {
     ...mapState(useExerciseStore, ["getCoolDownExercise"]),
@@ -522,9 +519,11 @@ export default {
       this.errorText = error.errorText;
     }
   },
+  destroyed(){
+    this.deleteAll();
+  }
 
 
-  },
 };
 </script>
 
