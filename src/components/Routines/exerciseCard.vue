@@ -51,7 +51,7 @@
           label="Rest"
           @keypress="filter"
           v-model="rest"
-          @blur="update_time"
+          @blur="update_rest"
           dark
           color="primary"
           v-if="editMode"
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
 export default {
   name: "exerciseCard",
@@ -126,6 +126,9 @@ export default {
     ...mapActions(useExerciseStore, ["updateWeight"]),
     ...mapActions(useExerciseStore, ["updateReps"]),
     ...mapActions(useExerciseStore, ["updateSets"]),
+    ...mapActions(useExerciseStore, ["updateRest"]),
+    ...mapState(useExerciseStore, ["exercisArray"]),
+
     deleteMe() {
       this.deleteExercise(this.id);
     },
@@ -144,9 +147,19 @@ export default {
     update_sets() {
       this.updateSets(this.id, parseInt(this.sets));
     },
+    update_rest(){
+      this.updateRest(this.id,parseInt(this.rest))
+    }
   },
-
-  watch: {},
+  mounted() {
+    const aux = this.exercisArray().filter(ex => ex.indexId === this.id);
+    console.log(aux);
+    this.sets = aux[0].sets;
+    this.reps = aux[0].exerciseInCycle.repetitions;
+    this.time = aux[0].exerciseInCycle.duration;
+    this.weight = aux[0].weight;
+    this.rest = aux[0].rest;
+  }
 };
 </script>
 

@@ -21,4 +21,5 @@ class CyclesApi{
             console.log( error);
         }
     }
+
 }

@@ -21,8 +21,6 @@
             icon
             v-on:click.stop="deleteMe()"
             fill
-            v-bind="attrs"
-            v-on="on"
             style="position: absolute; top: 10px; right: 10px"
             @click="deleteMe"
           >
