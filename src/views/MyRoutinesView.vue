@@ -114,7 +114,7 @@
           <v-btn
             color="primary"
             fill
-            @click="toRoutine(true);dialog = false"
+            @click="addRoutine(true)"
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
@@ -178,6 +178,7 @@ export default {
     },
 
     toRoutine(mode,id) {
+      this.dialog = false;
       this.$router.push({
         name: "createRoutine",
         params: {
