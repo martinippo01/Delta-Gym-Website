@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: "LandingTwo",
+  name: "LandingScreen",
   components: {},
 };
 </script>
