@@ -358,16 +358,35 @@
       </template>
     </v-snackbar>
 
-    <v-dialog style="margin: auto; width: 400px" v-model="exitVerify">
-      <h1>Are you sure you wanna exit?</h1>
-      <v-row>
-        <v-btn color="primary" filled @click="exitAndSaveHandler">
-          <span style="color: #1e1e1e">Exit and Save</span>
-        </v-btn>
-        <v-btn color="primary" filled @click="stayHandler">
-          <span style="color: #1e1e1e">Stay</span>
-        </v-btn>
-      </v-row>
+    <v-dialog v-model="exitVerify" persistent width="610">
+      <v-sheet
+        color="error"
+        outlined="outlined"
+        width="600"
+        rounded="xl"
+      >
+        <v-card
+          color="background"
+          width="600"
+          height="120"
+          class="box center"
+          rounded="xl"
+        >
+          <v-card-title style="color: #CFFFB3">Are you sure you wanna exit?</v-card-title>
+          <v-card-actions>
+            <v-row
+              justify="center"
+            >
+              <v-btn color="primary" outlined @click="exitAndSaveHandler" style="margin: 7px">
+                <span style="color: #CFFFB3">Exit and Save</span>
+              </v-btn>
+              <v-btn color="primary" filled @click="stayHandler" style="margin: 7px">
+                <span style="color: #1e1e1e">Stay</span>
+              </v-btn>
+            </v-row>
+          </v-card-actions>
+        </v-card>
+      </v-sheet>
     </v-dialog>
   </div>
 </template>
