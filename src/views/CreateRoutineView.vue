@@ -538,7 +538,8 @@ export default {
       this.error = false;
       this.getCreatedExercises();
     },
-    exitAndSaveHandler() {
+    async exitAndSaveHandler() {
+      await this.addExercisesToRoutine();
       this.exitVerify = false;
       this.pendingRoute();
     },
