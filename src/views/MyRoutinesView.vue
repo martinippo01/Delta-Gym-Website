@@ -24,7 +24,7 @@
           >
             <v-row class="routines-group">
               <Add
-                @click.native="addRoutine(true);dialog = true"
+                @click.native="dialog = true"
                 style="text-decoration: none; color: inherit; margin: 10px"
               />
               <RoutineButton
@@ -83,6 +83,7 @@
             <v-row>
               <v-col cols="12">
                 <v-text-field
+                  v-model="routineTitle"
                   label="Name"
                   dark
                   color="primary"
@@ -112,7 +113,7 @@
           <v-btn
             color="primary"
             fill
-            @click="toRoutine(true);dialog = false"
+            @click="addRoutine(true)"
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
@@ -131,6 +132,7 @@ import router from "@/router";
 import Add from "@/components/Routines/add.vue";
 import { useRoutinesStore } from "@/store/routinesStore";
 import { mapActions, mapState } from "pinia";
+import {useExerciseStore} from "@/store/exerciseData";
 
 export default {
   name: "MyRoutines",
@@ -139,6 +141,8 @@ export default {
   data(){
     return {
       dialog: false,
+      routineTitle: "",
+      routineDetail:""
     }
   },
 
@@ -156,6 +160,7 @@ export default {
     ...mapActions(useRoutinesStore, ["nextPage"]),
     ...mapActions(useRoutinesStore, ["previousPage"]),
     ...mapActions(useRoutinesStore, ["resetStore"]),
+    ...mapActions(useExerciseStore, ["setRoutine"]),
 
     toRoutine(mode,id) {
       this.$router.push({
@@ -168,11 +173,12 @@ export default {
       });
     },
     addRoutine(mode){
+      this.dialog = false;
+      this.setRoutine(this.routineTitle,this.routineDetail);
       this.$router.push({
         name: "createRoutine",
         params: {
           editMode: mode,
-
           from: 'myRoutinesNew',
         },
       });

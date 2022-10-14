@@ -74,10 +74,6 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </v-row>
           </v-sheet>
@@ -385,31 +381,30 @@ export default {
       editMode: false,
     };
    },
-   methods: {
-    ...mapActions(useExerciseStore,['addExercise']),
-     ...mapActions(useExerciseStore,['uploadExercises']),
-      ...mapActions(useExerciseStore,['getCreatedExercises']),
-     ...mapActions(useExerciseStore,['getRoutineData']),
-     ...mapActions(useExerciseStore,['deleteAll']),
-     ...mapActions(useCreateRoutine,['createRoutine']),
 
-     discard() {
-  },
+
+
+   /*  discard() {
+  },*/
   methods: {
     ...mapActions(useExerciseStore, ["addExercise"]),
     ...mapActions(useExerciseStore, ["uploadExercises"]),
     ...mapActions(useExerciseStore, ["updateExercises"]),
     ...mapActions(useExerciseStore, ["deleteExercises"]),
     ...mapActions(useExerciseStore, ["getCreatedExercises"]),
-    ...mapActions(useCreateRoutine, ["createRoutine"]),
-    ...mapActions(useEditeRoutine, ["getRoutineData"]),
+    ...mapActions(useExerciseStore, ["createRoutine"]),
+    ...mapActions(useExerciseStore, ["getRoutineData"]),
+    ...mapActions(useCreateRoutine,['addExercisesToRoutine']),
+    ...mapActions(useExerciseStore, ["deleteAll"]),
+
+
     discard() {
       this.editMode = false;
     },
     async save() {
       this.editMode = false;
       try {
-        await this.createRoutine(this.routineName, this.routineDetail);
+        await this.addExercisesToRoutine();
       } catch (error) {
         this.error = true;
         this.errorText = error.name;
@@ -512,6 +507,8 @@ export default {
     if(aux === "myRoutine") {
       const routineID = this.$route.params.id;
       this.getRoutineData(parseInt(routineID));
+    }else {
+      this.createRoutine();
     }
     try {
       this.getCreatedExercises();
@@ -525,7 +522,6 @@ export default {
   }
 
 
-  },
 };
 </script>
 

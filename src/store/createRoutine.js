@@ -15,35 +15,27 @@ export const useCreateRoutine = defineStore('createRoutine', {
           // const response = await RoutinesApi.addRoutine(new Routine(name,detail,"rookie",true));
            //this.id = response.id;
            //await this.createCycles();
-           await this.addExercises();
 
-           this.cycles = [];
 
        },
        async createCycles(){
-            let response =  await RoutinesApi.addCycle(this.id,"warmup","warmup","warmup",1,1 );
-            this.cycles.push(response.id);
-            response =  await RoutinesApi.addCycle(this.id,"mainset","exercise","exercise",2,1 );
-           this.cycles.push(response.id);
-           response =  await RoutinesApi.addCycle(this.id,"cooldown","cooldown","cooldown",3,1 );
-           this.cycles.push(response.id);
 
            console.log(this.cycles);
         },
-        async addExercises(){
+        async addExercisesToRoutine(){
            const store = useExerciseStore();
            for (const ex in store.exercisArray){
               store.setOrder(ex);
-              if (store.exercisArray[ex].newExercise)
+              if (store.exercisArray[ex].newExercise) {
                 await CyclesApi.changeExercise(store.exercisArray[ex].cycleId, store.exercisArray[ex].exercise.id, store.exercisArray[ex].exerciseInCycle);
-              else
+              }
+              else {
+
                 await CyclesApi.addExercise(store.exercisArray[ex].cycleId, store.exercisArray[ex].exercise.id, store.exercisArray[ex].exerciseInCycle);
-
+              }
            }
-
-
+          this.cycles = [];
         },
-
     }
 })
 class ExerciseCycle{
