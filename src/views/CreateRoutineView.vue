@@ -207,7 +207,7 @@
                 <v-col>
                   <v-virtual-scroll
                     :items="createdExercise"
-                    :item-height="50"
+                    :item-height="70"
                     height="300"
                   >
                     <template v-slot:default="{ item }">
@@ -226,11 +226,11 @@
                             fab
                             style="margin-right: 15px"
                             small
-                            depressed
+                            outlined
                             color="primary"
                             @click="deleteExercisesHandler(item)"
                           >
-                            <v-icon color="#1e1e1e"> mdi-delete</v-icon>
+                            <v-icon color="primary"> mdi-delete</v-icon>
                           </v-btn>
                         </v-list-item-action>
 
@@ -238,11 +238,11 @@
                           <v-btn
                             fab
                             small
-                            depressed
+                            outlined
                             color="primary"
                             @click="modifyExercise(item)"
                           >
-                            <v-icon color="#1e1e1e"> mdi-wrench</v-icon>
+                            <v-icon color="primary"> mdi-pencil</v-icon>
                           </v-btn>
                         </v-list-item-action>
 
