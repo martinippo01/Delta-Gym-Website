@@ -57,6 +57,10 @@ class RoutinesApi {
     const aux = await Api.get(this.getUrl(`${rutineId.toString()}/cycles`),true,null);
     return aux.content;
   }
+  static async changeCycle(rutineId:number,cycleId : number,object:any){
+    return await Api.put(this.getUrl(`${rutineId}/cycles/ ${cycleId}`),true,object)
+  }
+
 }
 
 class FetchRoutines {

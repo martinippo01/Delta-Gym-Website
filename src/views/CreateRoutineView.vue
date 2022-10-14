@@ -422,6 +422,7 @@ export default {
     ...mapActions(useExerciseStore, ["getRoutineData"]),
     ...mapActions(useExerciseStore, ["addExercisesToRoutine"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
+    ...mapActions(useExerciseStore, ["setId"]),
 
     discard() {
       this.editMode = false;
@@ -538,11 +539,14 @@ export default {
   mounted() {
     this.editMode = this.$route.params.editMode;
     const aux = this.$route.params.from;
-    if (aux === "myRoutine") {
-      const routineID = this.$route.params.id;
-      this.getRoutineData(parseInt(routineID));
-    } else {
+    if(aux === "myRoutinesNew") {
       this.createRoutine();
+    }else if(aux=== "myRoutine"){
+      const routineID = this.$route.params.id;
+      this.setId(parseInt(routineID));
+      this.getRoutineData();
+    }else{
+      this.getRoutineData();
     }
     try {
       this.getCreatedExercises();
