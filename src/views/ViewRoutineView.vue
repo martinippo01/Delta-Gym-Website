@@ -58,7 +58,7 @@
                   class="ma-3 position-absolute top-0 start-100 translate-middle"
                   :id="card.indexId"
                   type="mainSet"
-                  :exerciseName="card.name"
+                  :exerciseName="card.exercise.name"
                   :edit-mode="false"
                 ></exerciseCard>
               </v-slide-item>
@@ -70,7 +70,7 @@
           <div class="slider">
             <h1 class="textSlider">COOL DOWN</h1>
             <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-              <v-slide-item v-for="card in getCoolDownExercises" :key="card.exercise.id">
+              <v-slide-item v-for="card in getCoolDownExercise" :key="card.exercise.id">
                 <exerciseCard
                   class="ma-3 position-absolute top-0 start-100 translate-middle"
                   :id="card.exercise.id"
@@ -132,7 +132,7 @@ export default {
 
   },
   computed:{
-    ...mapState(useExerciseStore,['getCoolDownExercises']),
+    ...mapState(useExerciseStore,['getCoolDownExercise']),
     ...mapState(useExerciseStore,['getMainSetExercises']),
     ...mapState(useExerciseStore,['getWarmUpExercises']),
     ...mapState(useExerciseStore,['createdExercise']),
