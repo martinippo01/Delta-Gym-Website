@@ -44,9 +44,7 @@ export const useRoutinesStore = defineStore("routines", {
       const res = await RoutinesApi.deleteRoutines(routineId);
       console.log(res);
     },
-    methods:{
-      ...mapActions(useUserStore, ["getUserId"])
-    }
+
   },
 
 });

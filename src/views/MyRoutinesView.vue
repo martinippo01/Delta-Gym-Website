@@ -48,7 +48,7 @@
               color="primary"
               icon
               :disabled="this.page === this.minPage"
-              @click="previousPage"
+              @click="previousPageAux"
             >
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
@@ -61,7 +61,7 @@
               color="primary"
               icon
               :disabled="this.page === this.maxPage"
-              @click="nextPage"
+              @click="nextPageAux"
             >
               <v-icon>mdi-chevron-right</v-icon>
             </v-btn>
@@ -149,10 +149,13 @@ export default {
     }
   },
 
+
   async created() {
     try {
       this.resetStore();
-      await this.setRoutines();
+      this.userId = await this.getUserId();
+      console.log(this.userId);
+      await this.setRoutines(this.userId);
     } catch (error) {
       router.push("/errorPage");
     }

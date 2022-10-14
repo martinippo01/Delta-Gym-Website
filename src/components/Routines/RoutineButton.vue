@@ -59,6 +59,8 @@ export default {
   props: {
     routineName: {type: String, required: true},
     routineId: {type: Number, required: true},
+    exploreMode: {type: Boolean, required: true},
+
   },
   data(){
     return{
