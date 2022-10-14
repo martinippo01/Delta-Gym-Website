@@ -172,44 +172,37 @@
         <v-card color="background">
           <v-card-title>
             <span class="text-h5" style="color: #cfffb3">Add exercise</span>
+
+            <v-btn
+              color="primary"
+              style="margin-left: 70%: margin-top: 0px"
+              @click="
+                dialogSelectExercise = false;
+                dialogCreateExercise = true;
+              "
+            >
+              <span style="color: #1e1e1e">Create New</span>
+            </v-btn>
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-row>
-                <v-col cols="12" sm="10" md="8">
-                  <v-autocomplete
-                    label="Search"
-                    required
-                    color="primary"
-                    dark
-                  ></v-autocomplete>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-btn
-                    color="primary"
-                    @click="
-                      dialogSelectExercise = false;
-                      dialogCreateExercise = true;
-                    "
-                  >
-                    <span style="color: #1e1e1e">Create New</span>
-                  </v-btn>
-                </v-col>
-                <v-col>
-                  <v-autocomplete
-                    :items="createdExercise"
-                    item-text="name"
-                    dense
-                    chips
-                    small-chips
-                    label="Tags"
-                    multiple
-                    solo
-                    color="secondary"
-                    background-color="secondary"
-                  ></v-autocomplete>
-                </v-col>
-              </v-row>
+              <!-- <v-row> -->
+              <!-- <v-col cols="12" sm="10" md="8"> -->
+              <!--   <v-autocomplete -->
+              <!--     :items="createdExercise" -->
+              <!--     item-text="name" -->
+              <!--     dense -->
+              <!--     chips -->
+              <!--     small-chips -->
+              <!--     label="Search" -->
+              <!--     solo -->
+              <!--     color="secondary" -->
+              <!--     return-object -->
+              <!--     v-model="selectedExercise" -->
+              <!--     background-color="secondary" -->
+              <!--   ></v-autocomplete> -->
+              <!-- </v-col> -->
+              <!-- </v-row> -->
               <v-row>
                 <v-col>
                   <v-virtual-scroll
@@ -231,6 +224,7 @@
                         <v-list-item-action>
                           <v-btn
                             fab
+                            style="margin-right: 15px"
                             small
                             depressed
                             color="primary"
@@ -387,12 +381,17 @@ import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
 import { useCreateRoutine } from "@/store/createRoutine";
 import { useEditeRoutine } from "@/store/editRoutine";
+import { watchEffect } from "vue";
 
+watchEffect(() => {
+  console.log(this.selectedExercise);
+});
 export default {
   name: "CreateRoutuneView",
   components: { NavBar, exerciseCard, addButtom },
   data() {
     return {
+      selectedExercise: {},
       pendingRoute: "",
       modifiedExerciseId: 0,
       exitVerify: false,
@@ -437,6 +436,7 @@ export default {
         this.error = true;
         this.errorText = error.name;
       }
+      router.push("/myRoutines");
     },
     addRoutine(type) {
       this.dialogSelectExercise = true;
