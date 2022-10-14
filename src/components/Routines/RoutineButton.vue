@@ -10,37 +10,21 @@
               class=""
               height="200px"
               src="@/assets/routine_photo.jpg"
+              @click="toRoutine"
           >
             <v-container>
               <v-row class="justify-center">
                 <h1 style="justify-self: center; margin-top: 6px">{{this.routineName}}</h1>
-
-                <v-menu
-                  ffset-y
-                  :close-on-click="true"
-                  v-if="!exploreMode"
+                <v-btn
+                  icon
+                  fill
+                  v-bind="attrs"
+                  v-on="on"
+                  style="position: absolute; top: 10px; right: 10px"
+                  @click="deleteMe"
                 >
-                  <template v-slot:activator="{on ,attrs}">
-                    <v-btn
-                      light
-                      icon
-                      v-bind="attrs"
-                      v-on="on"
-                      style="position: absolute; top: 10px; right: 10px"
-                    >
-                      <v-icon color="white">mdi-dots-vertical</v-icon>
-                    </v-btn>
-                  </template>
-
-                  <v-list >
-                    <v-list-item
-                      v-for="(item, i) in items"
-                      :key="i"
-                    >
-                      <v-list-item-title><v-btn @click="item.action">{{ item.title }}</v-btn></v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
+                  <v-icon color="white">mdi-close</v-icon>
+                </v-btn>
               </v-row>
             </v-container>
           </v-img>
@@ -67,10 +51,12 @@ export default {
       items:[{title:'Edit', action: this.editMe},{title:'Delete', action: this.deleteMe}],
       photo:'@/assets/routine_photo.jpg',
       name:'',
+      deleted: false,
     }
   },
   methods: {
     async deleteMe(){
+      this.deleted = true;
       await this.deleteRoutine(this.routineId);
       await this.setRoutines(this.userId);
     },
@@ -83,6 +69,18 @@ export default {
         },
       });
     },
+
+    toRoutine() {
+      this.$router.push({
+        name: "createRoutine",
+        params: {
+          editMode: true,
+          id: this.routineId,
+          from: "myRoutine"
+        }
+      });
+    },
+
     ...mapActions(useRoutinesStore, ['deleteRoutine']),
     ...mapActions(useRoutinesStore, ['setRoutines'])
   },

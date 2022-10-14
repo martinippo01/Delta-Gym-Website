@@ -29,7 +29,6 @@
               />
               <RoutineButton
                 v-for="routine in routines"
-                @click.native="toRoutine(false,routine.id)"
                 :key="routine.id"
                 style="text-decoration: none; color: inherit; margin: 10px"
                 :routineName="routine.name"
