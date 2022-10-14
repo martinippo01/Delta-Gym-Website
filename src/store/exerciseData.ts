@@ -124,14 +124,19 @@ export const useExerciseStore = defineStore('exercises', {
             this.routineName = routine.name;
             this.routineDetail = routine.detail;
             this.routineId = id;
-            console.log(this.routineDetail);
             const cycles = await RoutinesApi.getCycle(id);
             for(let y = 0; y <cycles.length; y++){
                 this.cycleIds[y] = (cycles[y].id);
-                const aux= await CyclesApi.getExercisesCycle(cycles[y].id);
-                for (let x = 0; x < aux.content.length ; x++){
-                    this.exercisArray.push(new editExerciseObj(this.id++,this.cycleIds[y],aux.content[x].exercise,new ExerciseCycle(aux.content[x].order,aux.content[x].duration,aux.content[x].repetitions),true,cycles[y].metadata[x].sets,cycles[y].metadata[x].weight,cycles[y].metadata[x].rest));
+                let cortar = false;
+                let page = 0;
+                while(!cortar)
+               {
+                const aux = await CyclesApi.getExercisesCycle(cycles[y].id,page++);
+                cortar = aux.isLastPage;
+                for (let x = 0; x < aux.content.length; x++) {
+                  this.exercisArray.push(new editExerciseObj(this.id++, this.cycleIds[y], aux.content[x].exercise, new ExerciseCycle(aux.content[x].order, aux.content[x].duration, aux.content[x].repetitions), true, cycles[y].metadata[x].sets, cycles[y].metadata[x].weight, cycles[y].metadata[x].rest));
                 }
+              }
             }
          },
 
