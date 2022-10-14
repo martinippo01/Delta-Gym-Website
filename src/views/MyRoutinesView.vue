@@ -34,6 +34,7 @@
                 style="text-decoration: none; color: inherit; margin: 10px"
                 :routineName="routine.name"
                 :routine-id="routine.id"
+                :exploreMode="false"
               ></RoutineButton>
             </v-row>
           </v-container>
@@ -113,7 +114,7 @@
           <v-btn
             color="primary"
             fill
-            @click="addRoutine(true)"
+            @click="toRoutine(true);dialog = false"
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
@@ -132,6 +133,7 @@ import router from "@/router";
 import Add from "@/components/Routines/add.vue";
 import { useRoutinesStore } from "@/store/routinesStore";
 import { mapActions, mapState } from "pinia";
+import { useUserStore } from "@/store/user";
 import {useExerciseStore} from "@/store/exerciseData";
 
 export default {
@@ -142,7 +144,8 @@ export default {
     return {
       dialog: false,
       routineTitle: "",
-      routineDetail:""
+      routineDetail:"",
+      userId: -1
     }
   },
 
@@ -161,6 +164,15 @@ export default {
     ...mapActions(useRoutinesStore, ["previousPage"]),
     ...mapActions(useRoutinesStore, ["resetStore"]),
     ...mapActions(useExerciseStore, ["setRoutine"]),
+    ...mapActions(useUserStore, ['getUserId']),
+
+    nextPageAux(){
+      this.nextPage(this.userId);
+    },
+
+    previousPageAux(){
+      this.previousPage(this.userId);
+    },
 
     toRoutine(mode,id) {
       this.$router.push({
@@ -182,7 +194,7 @@ export default {
           from: 'myRoutinesNew',
         },
       });
-    }
+    },
   },
   computed: {
     ...mapState(useRoutinesStore, ["routines"]),

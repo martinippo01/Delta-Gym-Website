@@ -13,11 +13,12 @@
           >
             <v-container>
               <v-row class="justify-center">
-                <h1 style="justify-self: center">{{this.routineName}}</h1>
+                <h1 style="justify-self: center; margin-top: 6px">{{this.routineName}}</h1>
 
                 <v-menu
                   ffset-y
                   :close-on-click="true"
+                  v-if="!exploreMode"
                 >
                   <template v-slot:activator="{on ,attrs}">
                     <v-btn
@@ -47,8 +48,9 @@
 </template>
 
 <script>
-import {mapActions} from "pinia";
+import { mapActions, mapState } from "pinia";
 import {useRoutinesStore} from "@/store/routinesStore";
+import { useUserStore } from "@/store/user";
 
 
 export default {
@@ -56,19 +58,19 @@ export default {
   components: {},
   props: {
     routineName: {type: String, required: true},
-    routineId: {type: Number, required: true}
+    routineId: {type: Number, required: true},
   },
   data(){
     return{
       items:[{title:'Edit', action: this.editMe},{title:'Delete', action: this.deleteMe}],
       photo:'@/assets/routine_photo.jpg',
-      name:''
+      name:'',
     }
   },
   methods: {
     async deleteMe(){
       await this.deleteRoutine(this.routineId);
-      await this.setRoutines();
+      await this.setRoutines(this.userId);
     },
     editMe(){
       this.$router.push({
@@ -81,21 +83,14 @@ export default {
     },
     ...mapActions(useRoutinesStore, ['deleteRoutine']),
     ...mapActions(useRoutinesStore, ['setRoutines'])
+  },
+  computed:{
+    ...mapState(useUserStore, ['userId'])
   }
 }
 </script>
 
 <style scoped>
-.card-title{
-  color: white;
-  position: absolute;
-  top: 0;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100px;
-  height: 100px;
-  z-index: 2;
-}
 
 h1{
   font-family: "Bebas Neue";

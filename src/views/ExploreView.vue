@@ -21,7 +21,7 @@
             style="justify-content: center"
             rounded="xl"
           >
-            <v-row>
+            <v-row class="justify-center" style="padding: 10px">
               <RoutineButton
                 v-for="routine in routines"
                 @click.native="toRoutine(false, routine.id)"
@@ -29,6 +29,7 @@
                 style="margin: 10px"
                 :routineName="routine.name"
                 :routine-id="routine.id"
+                :exploreMode="true"
               >
               </RoutineButton>
             </v-row>
@@ -46,7 +47,7 @@
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
 
-            <p style="color: #cfffb3; padding: 7px 0px">
+            <p style="color: #cfffb3; padding: 7px 0">
               {{ this.page + 1 }} / {{ this.maxPage + 1 }}
             </p>
 

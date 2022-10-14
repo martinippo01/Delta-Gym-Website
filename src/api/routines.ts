@@ -22,9 +22,9 @@ class RoutinesApi {
     );
   }
 
-  static async getAllUsersRoutines(page: number, size: number) {
+  static async getAllUsersRoutines(userId: number, page: number, size: number) {
     return await Api.get(
-      RoutinesApi.getUrlParameters(`size=${size}&page=${page}`),
+      RoutinesApi.getUrlParameters(`userId=${userId}&size=${size}&page=${page}`),
       false,
       {}
     );
