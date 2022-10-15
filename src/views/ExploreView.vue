@@ -22,6 +22,8 @@
             class="justify-center" style="padding: 10px; margin-right: 7px; margin-left: 15px"
             counter
             dark
+            clearable
+            solo
             color="primary"
             append-icon="mdi-cloud-search"
             @click:append="search"
