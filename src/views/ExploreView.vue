@@ -20,7 +20,7 @@
               v-model="searchPattern"
               label="Title"
               class="justify-center"
-              style="padding: 40px"
+              style="padding: 20px;margin-left: 20px"
               counter
               dark
               clearable
@@ -31,12 +31,14 @@
               @click:append="search"
             ></v-text-field>
             <v-btn
-              style="padding: 10px; margin-top: 45px"
-              outlined
-              color="primary"
+              style="padding: 20px; margin-top: 20px; margin-right: 40px"
+              height="48"
+              width="20"
+              filled
+              color="background"
               @click="clearSearch"
             >
-              <v-icon>mdi-restart</v-icon>
+              <v-icon color="primary">mdi-restart</v-icon>
             </v-btn>
           </v-row>
           <v-container
