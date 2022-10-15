@@ -32,7 +32,7 @@
           @blur="update_time"
           dark
           color="primary"
-          disabled="!editmode"
+          :disabled="!editmode"
         ></v-text-field>
         <v-text-field
           class="textField"

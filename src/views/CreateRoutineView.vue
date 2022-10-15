@@ -450,7 +450,7 @@ export default {
 
         try {
 
-
+          if (this.image != "")
           await RoutinesApi.updateRoutine(
             new Routine(this.routineName, this.routineDetail, "rookie",this.publicRoutine, {
               img: this.image,
