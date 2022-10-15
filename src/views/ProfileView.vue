@@ -95,7 +95,6 @@ export default {
     return {
       saveColor: "primary",
       image: "",
-      username: "",
       firstName: "",
       lastName: "",
       readImg: "",
@@ -104,10 +103,8 @@ export default {
   async created() {
     try {
       const res = await UserApi.get();
-      this.username = res.username;
       this.firstName = res.firstName;
       this.lastName = res.lastName;
-      this.email = res.email;
       this.image = res.metadata.img;
     } catch (error) {
       this.snackbar = true;
