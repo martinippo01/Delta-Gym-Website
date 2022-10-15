@@ -54,6 +54,9 @@ class RoutinesApi {
   static async changeCycle(rutineId:number,cycleId : number,object:any){
     return await Api.put(this.getUrl(`${rutineId}/cycles/ ${cycleId}`),true,object)
   }
+  static async updateRoutine(routine: Routine, routineId: number) {
+    return await Api.put(RoutinesApi.getUrl(routineId.toString()), true, routine);
+  }
 
 }
 
@@ -84,13 +87,14 @@ class Routine {
     name: string,
     detail: string,
     difficulty: string,
-    isPublic: boolean
+    isPublic: boolean,
+    metadata:object={}
   ) {
     this.isPublic = isPublic;
     this.difficulty = difficulty;
     this.name = name;
     this.detail = detail;
-    this.metadata = null;
+    this.metadata = metadata;
     this.category = {
       id: 1,
     };
@@ -101,7 +105,7 @@ class Routine {
   isPublic: boolean;
   difficulty: string;
   category: any;
-  metadata: any;
+  metadata: object;
 }
 class Cycle {
   constructor(

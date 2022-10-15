@@ -34,7 +34,8 @@ export const useExerciseStore = defineStore('exercises', {
         routineDetail:'',
         routineId:0,
         id:0,
-        publicRoutine:false
+        publicRoutine:false,
+
     }),
     getters: {
 
@@ -200,6 +201,9 @@ export const useExerciseStore = defineStore('exercises', {
           await  RoutinesApi.changeCycle(this.routineId,this.exercisArray[ex].cycleId,cycles[aux]);
         }
       },
+       getRoutineId(){
+        return   localStorage.getItem(ROUTINE_ID);
+      }
     }
 
 })

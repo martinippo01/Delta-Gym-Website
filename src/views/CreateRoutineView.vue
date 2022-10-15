@@ -73,6 +73,21 @@
               >
                 {{ this.routineDetail }}
               </p>
+              <v-col class="justify-end d-flex" md="2" offset-md="3">
+                <img :src="image" />
+                <v-file-input
+                  v-if="editMode"
+                  class="temp justify-end mr-15"
+                  style="
+                    width: 400px;
+                    font-family: Bebas Neue;
+                    background-color: #cfffb3;
+                  "
+                  @change="handleImage"
+                  v-model="readImg"
+                  accept="image/*"
+                />
+              </v-col>
             </v-row>
           </v-sheet>
 
@@ -399,6 +414,7 @@ import { useExerciseStore } from "@/store/exerciseData";
 import { useCreateRoutine } from "@/store/createRoutine";
 import { useEditeRoutine } from "@/store/editRoutine";
 import { watchEffect } from "vue";
+import {RoutinesApi,Routine} from "@/api/routines";
 
 watchEffect(() => {
   console.log(this.selectedExercise);
@@ -425,6 +441,8 @@ export default {
       cycleSelect: 0,
       maxId: 0,
       editMode: false,
+      image: "",
+      readImg: "",
     };
   },
 
@@ -440,6 +458,8 @@ export default {
     ...mapActions(useExerciseStore, ["addExercisesToRoutine"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useExerciseStore, ["setId"]),
+    ...mapActions(useExerciseStore, ["getRoutineId"]),
+
 
     discardExerciseHandler() {
       this.dialogSelectExercise = false;
@@ -451,8 +471,16 @@ export default {
     },
     async save() {
       this.editMode = false;
+
       try {
         await this.addExercisesToRoutine();
+        await RoutinesApi.updateRoutine(
+          new Routine(this.routineName, this.routineDetail, "rookie", this.isPublic, {
+            img: this.image,
+          }),
+          parseInt(this.getRoutineId())
+        );
+
       } catch (error) {
         this.error = true;
         this.errorText = error.name;
@@ -490,7 +518,6 @@ export default {
     },
     async saveNewExercise() {
       this.dialogSelectExercise = false;
-
       this.dialogSelectExercise = false;
       this.dialogCreateExercise = false;
       this.selectedName = null;
@@ -516,7 +543,17 @@ export default {
       }
       this.maxId++;
     },
-
+    handleImage() {
+      this.createBase64Image(this.readImg);
+    },
+    createBase64Image(fileObject) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.image = e.target.result;
+      };
+      reader.readAsDataURL(fileObject);
+      console.log("wrote image");
+    },
     selectExercise(item) {
       this.selectedName = item;
       this.title = item.name;

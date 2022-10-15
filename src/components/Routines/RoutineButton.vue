@@ -9,7 +9,7 @@
     <v-img
       class=""
       height="250px"
-      src="@/assets/routine_photo.jpg"
+      :src="this.image"
       @click="toRoutine"
     >
       <v-container>
@@ -51,6 +51,7 @@
 import { mapActions, mapState } from "pinia";
 import { useRoutinesStore } from "@/store/routinesStore";
 import { useUserStore } from "@/store/user";
+import {RoutinesApi} from "@/api/routines";
 
 export default {
   name: "RoutineButton",
@@ -71,6 +72,7 @@ export default {
       ],
       name: "",
       deleted: false,
+      image:''
     };
   },
   methods: {
@@ -104,6 +106,16 @@ export default {
 
     ...mapActions(useRoutinesStore, ["deleteRoutine"]),
     ...mapActions(useRoutinesStore, ["setRoutines"]),
+  },
+  async created() {
+    try {
+      const res = await RoutinesApi.getRoutine(this.routineId);
+      this.image = res.metadata.img;
+      console.log(res);
+      console.log("got image");
+    } catch (error) {
+      this.image = "@/assets/imgs/routine_photo.jpg";
+    }
   },
   computed: {
     ...mapState(useUserStore, ["userId"]),
