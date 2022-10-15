@@ -52,6 +52,8 @@
                 :routine-id="routine.id"
                 directionName="ViewRoutine"
                 :exploreMode="true"
+                :routine-user-name="routine.user.username"
+                :routine-user-id="routine.user.id"
               >
               </RoutineButton>
             </v-row>

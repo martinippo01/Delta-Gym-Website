@@ -30,13 +30,16 @@
         </v-row>
       </v-container>
 
-      <v-row style="position: absolute; margin-top: 150px; margin-left: 20px">
+      <v-row
+        style="position: absolute; margin-top: 150px; margin-left: 20px"
+        v-if="exploreMode"
+      >
         <v-avatar size="32">
           <img
             alt="user"
             src="@/assets/DSC_0154.png">
         </v-avatar>
-        <p style="font-family: 'Roboto Light'; color: white; margin-left: 10px; margin-top: 7px">@user-name</p>
+        <p style="font-family: 'Roboto Light'; color: white; margin-left: 10px; margin-top: 7px">{{ this.routineUserName }}</p>
       </v-row>
 
 
@@ -56,7 +59,9 @@ export default {
     routineName: { type: String, required: true },
     routineId: { type: Number, required: true },
     exploreMode: { type: Boolean, required: true },
-    directionName:{type:String,required:true}
+    directionName:{type:String,required:true},
+    routineUserName:{type: String, required: true},
+    routineUserId:{type: Number, required: true},
   },
   data() {
     return {
