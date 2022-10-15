@@ -28,14 +28,20 @@
         />
       </v-col>
 
-      <v-col class="d-flex justify-center align-center background">
+      <v-col class="d-flex justify-center align-center background"
+          style=" border-radius: 25px;"
+
+      >
         <v-sheet
-          rounded="xl"
+          style=" border-radius: 25px;"
           color="secondary"
           max-height="1000"
           max-width="500"
         >
-          <v-container>
+          <v-container 
+
+          style=" border-radius: 25px;"
+          >
             <v-row justify="end">
               <v-text-field
                 class="pt-10 pr-10 pl-10"
