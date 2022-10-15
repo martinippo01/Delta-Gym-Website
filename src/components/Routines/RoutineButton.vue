@@ -33,7 +33,7 @@
         <v-avatar size="32">
           <img
             alt="user"
-            src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg">
+            src="@/assets/DSC_0154.png">
         </v-avatar>
         <p style="font-family: 'Roboto Light'; color: white; margin-left: 10px; margin-top: 7px">@user-name</p>
       </v-row>
