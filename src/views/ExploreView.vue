@@ -51,13 +51,14 @@
               {{ this.page + 1 }} / {{ this.maxPage + 1 }}
             </p>
 
-            <v-btn fab
-                   small
-                   depressed
-                   color="primary"
-                   icon
-                   :disabled="this.page === this.maxPage"
-                   @click="nextPage"
+            <v-btn
+              fab
+              small
+              depressed
+              color="primary"
+              icon
+              :disabled="this.page === this.maxPage"
+              @click="nextPage"
             >
               <v-icon>mdi-chevron-right</v-icon>
             </v-btn>
@@ -91,8 +92,6 @@ export default {
   },
   async created() {
     this.updatePage(this.page);
-    console.log(this.routines.content);
-    console.log(this.maxPage);
   },
   methods: {
     toRoutine(mode, id) {

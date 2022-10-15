@@ -15,7 +15,6 @@
           >
             <v-sheet
               color="secondary"
-
               width="500"
               rounded="xl"
               style="align-items: center"
@@ -71,8 +70,8 @@
       </v-container>
     </v-main>
     <!--    Esto es para el snackbar. Es como un pop up-->
-    <v-snackbar v-model="snackbar" color="error">
-      {{ text }}
+    <v-snackbar v-model="snackbar" :color="snackbarColor">
+      {{ snackbarText }}
       <template v-slot:action="{ attrs }">
         <v-btn v-bind="attrs" @click="snackbar = false" outlined> Close </v-btn>
       </template>
@@ -94,8 +93,9 @@ export default {
       username: "johnDoe1",
       password: "1234",
       snackbar: false,
-      rememberMe: true,
-      text: "Invalid username/password",
+      snackbarColor: "",
+      rememberMe: false,
+      snackbarText: "",
     };
   },
   methods: {
@@ -107,10 +107,13 @@ export default {
         await store.login(credentials, this.rememberMe);
         router.push("/myRoutines");
       } catch (error) {
+        this.snackbarText = "Invalid username/password";
+        this.snackbarColor = "error";
         this.snackbar = true;
       }
     },
   },
+
 };
 </script>
 

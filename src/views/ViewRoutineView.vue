@@ -2,9 +2,8 @@
   <div>
     <div id="app">
       <v-app>
-        <NavBar select="Explore"></NavBar>
+        <NavBar select="explore"></NavBar>
         <v-main class="background">
-
           <!--        _______________________________________________________________________________________-->
           <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
             <v-row class="d-flex">
@@ -12,8 +11,7 @@
                 <!--              Caso 1 ->  Vista de edicion-->
 
                 <!--              Caso 2 -> Vista normal-->
-                <h1>{{this.routineName}}</h1>
-
+                <h1>{{ this.routineName }}</h1>
               </v-col>
             </v-row>
 
@@ -22,20 +20,23 @@
 
               <!--            Caso 2 -> Vista normal-->
               <p
-
                 class="text-justify"
                 style="margin: 40px; color: white; margin-bottom: 20px"
-              >{{this.routineDetail}}</p>
+              >
+                {{ this.routineDetail }}
+              </p>
             </v-row>
           </v-sheet>
-
 
           <!--        _______________________________________________________________________________________-->
 
           <div class="slider">
             <h1 class="textSlider">WARM UP</h1>
             <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-              <v-slide-item v-for="card in getWarmUpExercises" :key="card.indexId">
+              <v-slide-item
+                v-for="card in getWarmUpExercises"
+                :key="card.indexId"
+              >
                 <exerciseCard
                   class="ma-3 position-absolute top-0 start-100 translate-middle"
                   :id="card.indexId"
@@ -43,7 +44,6 @@
                   :exerciseName="card.exercise.name"
                   :edit-mode="false"
                 ></exerciseCard>
-
               </v-slide-item>
             </v-slide-group>
           </div>
@@ -53,7 +53,10 @@
           <div class="slider">
             <h1 class="textSlider">MAIN SETS</h1>
             <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-              <v-slide-item v-for="card in getMainSetExercises" :key="card.indexId">
+              <v-slide-item
+                v-for="card in getMainSetExercises"
+                :key="card.indexId"
+              >
                 <exerciseCard
                   class="ma-3 position-absolute top-0 start-100 translate-middle"
                   :id="card.indexId"
@@ -65,12 +68,14 @@
             </v-slide-group>
           </div>
 
-
           <!--        _______________________________________________________________________________________-->
           <div class="slider">
             <h1 class="textSlider">COOL DOWN</h1>
             <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-              <v-slide-item v-for="card in getCoolDownExercise" :key="card.exercise.id">
+              <v-slide-item
+                v-for="card in getCoolDownExercise"
+                :key="card.exercise.id"
+              >
                 <exerciseCard
                   class="ma-3 position-absolute top-0 start-100 translate-middle"
                   :id="card.exercise.id"
@@ -80,20 +85,19 @@
                 ></exerciseCard>
               </v-slide-item>
             </v-slide-group>
-
           </div>
         </v-main>
       </v-app>
 
       <!--    ____________________________________________________________________________-->
 
-    <v-snackbar v-model="error" color="error">
-      {{ errorText }}
-      <template v-slot:action="{ attrs }">
-        <v-btn v-bind="attrs" @click="error = false" outlined> Close </v-btn>
-      </template>
-    </v-snackbar>
-  </div>
+      <v-snackbar v-model="error" color="error">
+        {{ errorText }}
+        <template v-slot:action="{ attrs }">
+          <v-btn v-bind="attrs" @click="error = false" outlined> Close </v-btn>
+        </template>
+      </v-snackbar>
+    </div>
   </div>
 </template>
 
@@ -104,18 +108,16 @@ import router from "@/router";
 import addButtom from "@/components/Routines/add";
 import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
-import {useCreateRoutine} from "@/store/createRoutine";
-import {useEditeRoutine} from "@/store/editRoutine";
-
+import { useCreateRoutine } from "@/store/createRoutine";
+import { useEditeRoutine } from "@/store/editRoutine";
 
 export default {
   name: "CreateRoutuneView",
   components: { NavBar, exerciseCard },
   data() {
     return {
-
-      error:false,
-      errorText:"",
+      error: false,
+      errorText: "",
       difficulty: "medium",
       isPublic: true,
       dialogSelectExercise: false,
@@ -124,36 +126,30 @@ export default {
     };
   },
   methods: {
-
-    ...mapActions(useExerciseStore,['getRoutineData']),
-    ...mapActions(useExerciseStore,['setId']),
-    ...mapActions(useExerciseStore,['deleteAll']),
-
-
+    ...mapActions(useExerciseStore, ["getRoutineData"]),
+    ...mapActions(useExerciseStore, ["setId"]),
+    ...mapActions(useExerciseStore, ["deleteAll"]),
   },
-  computed:{
-    ...mapState(useExerciseStore,['getCoolDownExercise']),
-    ...mapState(useExerciseStore,['getMainSetExercises']),
-    ...mapState(useExerciseStore,['getWarmUpExercises']),
-    ...mapState(useExerciseStore,['createdExercise']),
-    ...mapState(useExerciseStore,['routineId']),
-    ...mapState(useExerciseStore,['routineName']),
-    ...mapState(useExerciseStore,['routineDetail']),
-
-
+  computed: {
+    ...mapState(useExerciseStore, ["getCoolDownExercise"]),
+    ...mapState(useExerciseStore, ["getMainSetExercises"]),
+    ...mapState(useExerciseStore, ["getWarmUpExercises"]),
+    ...mapState(useExerciseStore, ["createdExercise"]),
+    ...mapState(useExerciseStore, ["routineId"]),
+    ...mapState(useExerciseStore, ["routineName"]),
+    ...mapState(useExerciseStore, ["routineDetail"]),
   },
   mounted() {
     const routineID = this.$route.params.id;
-    if(routineID != null) {
+    if (routineID != null) {
       this.setId(parseInt(routineID));
     }
     this.getRoutineData();
   },
   destroyed() {
-    console.log('HOLA');
+    console.log("HOLA");
     this.deleteAll();
-  }
-
+  },
 };
 </script>
 

@@ -123,7 +123,7 @@ export default {
         const res = await UserApi.confirmUser(confirmation);
         console.log(res);
         this.loading = false;
-        router.push("/login");
+        router.push("/verifiedEmailSuccessfully");
       } catch (error) {
         this.snackbarColor = "warning";
         this.text = `Processed OTP with "${rsp}" (${this.snackbarColor})`;
