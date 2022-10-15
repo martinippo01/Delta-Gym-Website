@@ -23,11 +23,18 @@
                 justify="center"
                 style="padding: 10px; font-family: 'Bebas Neue'; color: #cfffb3"
               >
-                <h1>Successfully verified email!</h1>
+                <v-row justify="center" style="margin-top: 10px; margin-bottom: 5px">
+                  <h1 style="font-size: 40px">Successfully verified email!</h1>
+                </v-row>
 
-                <router-link to="/login">
-                  <h2 >Continue to login</h2>
-                </router-link>
+                <v-row justify="center" style="margin-top: 5px; margin-bottom: 10px">
+                  <router-link to="/login" style="text-decoration: none; color: inherit;">
+                    <v-btn
+                      color="primary"
+                      style="font-family: 'Roboto Light'"
+                    >Continue to login</v-btn>
+                  </router-link>
+                </v-row>
               </v-container>
             </v-sheet>
           </v-col>

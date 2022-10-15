@@ -35,9 +35,9 @@
         v-if="exploreMode"
       >
         <v-avatar size="32">
-          <img
+          <v-img
             alt="user"
-            src="@/assets/DSC_0154.png">
+            :src="this.getProfilePic()"></v-img>
         </v-avatar>
         <p style="font-family: 'Roboto Light'; color: white; margin-left: 10px; margin-top: 7px">{{ this.routineUserName }}</p>
       </v-row>
@@ -69,7 +69,6 @@ export default {
         { title: "Edit", action: this.editMe },
         { title: "Delete", action: this.deleteMe },
       ],
-      photo: "@/assets/routine_photo.jpg",
       name: "",
       deleted: false,
     };
@@ -80,6 +79,9 @@ export default {
       await this.deleteRoutine(this.routineId);
       await this.setRoutines(this.userId);
     },
+    getProfilePic(){
+      return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+    },
     editMe() {
       this.$router.push({
         name: "createRoutine",
@@ -89,7 +91,6 @@ export default {
         },
       });
     },
-
     toRoutine() {
       this.$router.push({
         name: `${this.directionName}`,
