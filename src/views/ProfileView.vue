@@ -9,15 +9,21 @@
         </v-avatar>
       </v-col>
 
-      <v-col class="d-flex justify-center align-center background">
-        <input
+      <v-col
+        class="d-flex justify-center align-center background"
+        style="width: 200px; margin: auto"
+      >
+        <v-file-input
           style="
+            width: 600px;
             font-family: Bebas Neue;
             background-color: #cfffb3;
-            padding: 10px;
+            padding-top: 10%;
+            padding-left: 10%;
           "
+          rounded="xl"
           @change="handleImage"
-          type="file"
+          v-model="readImg"
           accept="image/*"
         />
       </v-col>
@@ -112,6 +118,7 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
+      readImg: "",
     };
   },
   async created() {
@@ -126,9 +133,8 @@ export default {
     }
   },
   methods: {
-    handleImage(e) {
-      const selectedImage = e.target.files[0]; // get first file
-      this.createBase64Image(selectedImage);
+    handleImage() {
+      this.createBase64Image(this.readImg);
     },
     createBase64Image(fileObject) {
       const reader = new FileReader();
@@ -164,3 +170,4 @@ h1 {
   font-family: "Bebas Neue";
 }
 </style>
+
