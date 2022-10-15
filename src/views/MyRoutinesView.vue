@@ -103,6 +103,12 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
+          <v-checkbox
+            dark
+            color="primary"
+            v-model="public"
+            label="PUBLIC"
+          ></v-checkbox>
           <v-spacer></v-spacer>
           <v-btn
             color="primary"
@@ -118,6 +124,7 @@
           >
             <span style="color: #1e1e1e">Save</span>
           </v-btn>
+
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -145,14 +152,15 @@ export default {
       dialog: false,
       routineTitle: "",
       routineDetail:"",
-      userId: -1
+      userId: -1,
+      public:false
     }
   },
 
 
   async created() {
     try {
-      this.resetStore();
+      await this.resetStore();
       this.userId = await this.getUserId();
       console.log(this.userId);
       await this.setRoutines(this.userId);
@@ -190,7 +198,7 @@ export default {
     },
     addRoutine(mode){
       this.dialog = false;
-      this.setRoutine(this.routineTitle,this.routineDetail);
+      this.setRoutine(this.routineTitle,this.routineDetail,(this.public === 'true'));
       this.$router.push({
         name: "createRoutine",
         params: {

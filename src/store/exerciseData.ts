@@ -33,7 +33,8 @@ export const useExerciseStore = defineStore('exercises', {
         routineName:'',
         routineDetail:'',
         routineId:0,
-        id:0
+        id:0,
+        publicRoutine:false
     }),
     getters: {
 
@@ -160,12 +161,13 @@ export const useExerciseStore = defineStore('exercises', {
             this.cycleIds =[];
             this.createdExercise = [];
         },
-        setRoutine(name:string,detail:string){
+        setRoutine(name:string,detail:string,publicRoutine:boolean){
             this.routineName = name;
             this.routineDetail = detail;
+            this.publicRoutine = publicRoutine;
         },
        async createRoutine(){
-            const response = await RoutinesApi.addRoutine(new Routine(this.routineName,this.routineDetail,"rookie",true));
+            const response = await RoutinesApi.addRoutine(new Routine(this.routineName,this.routineDetail,"rookie",this.publicRoutine));
             this.routineId = response.id;
 
             let response2 =  await RoutinesApi.addCycle(this.routineId,"warmup","warmup","warmup",1,1 );

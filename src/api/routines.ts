@@ -17,18 +17,11 @@ class RoutinesApi {
   static async getAllRoutines(page: number, size: number) {
     return await Api.get(
       RoutinesApi.getUrlParameters(`size=${size}&page=${page}`),
-      true,
-      {}
-    );
-  }
-
-  static async getAllUsersRoutines(userId: number, page: number, size: number) {
-    return await Api.get(
-      RoutinesApi.getUrlParameters(`userId=${userId}&size=${size}&page=${page}`),
       false,
       {}
     );
   }
+
   static async getRoutine(routineId:number){
     return await Api.get(this.getUrl(`${routineId}`),true,{});
   }
