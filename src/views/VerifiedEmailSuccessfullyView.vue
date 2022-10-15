@@ -30,6 +30,7 @@
                 <v-row justify="center" style="margin-top: 5px; margin-bottom: 10px">
                   <router-link to="/login" style="text-decoration: none; color: inherit;">
                     <v-btn
+                      outlined
                       color="primary"
                       style="font-family: 'Roboto Light'"
                     >Continue to login</v-btn>
