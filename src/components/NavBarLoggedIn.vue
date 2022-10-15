@@ -32,15 +32,15 @@
 
       </v-btn>
     </router-link>
+    <router-link style="text-decoration: none; color: inherit" to="/profile">
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
       :color="select === 'profile' ? 'primary' : 'topBar'"
       plain
     >
-      <router-link style="text-decoration: none; color: inherit" to="/profile">
-        <v-icon>mdi-account-circle-outline</v-icon>
-      </router-link>
+      <v-icon>mdi-account-circle-outline</v-icon>
     </v-btn>
+    </router-link>
 
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
