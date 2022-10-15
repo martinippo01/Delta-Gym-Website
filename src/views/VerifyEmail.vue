@@ -36,8 +36,7 @@
                   style="padding: 10px; font-family: 'Roboto'; color: white"
                 >
                   <p>
-                    Please check your inbox at
-                    <span style="font-family: 'Roboto Black'">email</span>. Use
+                    Please check your inbox. Use
                     the code found in the email to verify your account.
                     <br /><span style="font-family: 'Roboto Black'">Note:</span>
                     Do not share or type the code outside of this website
@@ -110,6 +109,7 @@ export default {
       text: `Error: The verification code typed does not match`,
       loading: false,
       snackbarColor: "default",
+      email : "",
     };
   },
   methods: {
@@ -131,6 +131,10 @@ export default {
         this.loading = false;
       }
     },
+    created() {
+      const store = useUserStore();
+      this.email = store.getEmail;
+    }
   },
 };
 </script>
