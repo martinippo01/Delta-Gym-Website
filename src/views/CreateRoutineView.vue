@@ -416,9 +416,7 @@ import { useEditeRoutine } from "@/store/editRoutine";
 import { watchEffect } from "vue";
 import {RoutinesApi,Routine} from "@/api/routines";
 
-watchEffect(() => {
-  console.log(this.selectedExercise);
-});
+
 export default {
   name: "CreateRoutuneView",
   components: { NavBar, exerciseCard, addButtom },
@@ -509,7 +507,6 @@ export default {
           },
           this.modifiedExerciseId
         );
-        console.log("modified exercise");
         this.getCreatedExercises();
       } catch (error) {
         this.error = true;

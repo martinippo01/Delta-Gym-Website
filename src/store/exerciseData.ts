@@ -49,9 +49,13 @@ export const useExerciseStore = defineStore('exercises', {
             return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[0]&& !ex.deleted);
         },
 
+        getRoutineId() {
+            return localStorage.getItem(ROUTINE_ID);
+        }
 
     },
     actions: {
+
         deleteExercise(id:number){
             const aux= this.exercisArray.findIndex(ex => ex.indexId === id);
             if(aux !== undefined && !this.exercisArray[aux].newExercise)
@@ -141,7 +145,6 @@ export const useExerciseStore = defineStore('exercises', {
               }
             }
          },
-
 
         async updateExercises(exercise: ExerciseAPiType, exerciseId: number) {
             exerciseApi.updateExercises(exerciseId, exercise);
