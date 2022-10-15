@@ -24,6 +24,7 @@
             dark
             clearable
             solo
+            @keypress="filter"
             color="primary"
             append-icon="mdi-cloud-search"
             @click:append="search"
@@ -124,6 +125,15 @@ export default {
           id: id,
         },
       });
+    },
+    filter: function (evt) {
+      evt = evt ? evt : window.event;
+      let expect =  evt.key.toString();
+
+      if (expect === "Enter") {
+        this.search();
+      }
+
     },
     previousPage() {
       if (this.page > 0) {
