@@ -55,25 +55,6 @@
               />
             </v-row>
             <v-row justify="end">
-              <v-text-field
-                disabled
-                class="pt-5 pr-10 pl-10"
-                label="Username"
-                dark="dark"
-                color="primary"
-                v-model="username"
-              />
-            </v-row>
-            <v-row justify="end"> </v-row>
-            <v-row>
-              <v-text-field
-                disabled
-                class="pt-5 pr-10 pl-10"
-                label="Email"
-                dark="dark"
-                color="primary"
-                v-model="email"
-              />
             </v-row>
             <v-row justify="end">
               <v-col>
@@ -117,7 +98,6 @@ export default {
       username: "",
       firstName: "",
       lastName: "",
-      email: "",
       readImg: "",
     };
   },
@@ -125,6 +105,8 @@ export default {
     try {
       const res = await UserApi.get();
       this.username = res.username;
+      this.firstName = res.firstName;
+      this.lastName = res.lastName;
       this.email = res.email;
       this.image = res.metadata.img;
     } catch (error) {
