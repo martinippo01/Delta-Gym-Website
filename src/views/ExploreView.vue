@@ -16,26 +16,27 @@
             <h1>EXPLORE</h1>
           </v-row>
           <v-row justify="center">
-          <v-text-field
-            v-model="searchPattern"
-            label="Title"
-            class="justify-center" style="padding: 10px; margin-right: 7px; margin-left: 15px"
-            counter
-            dark
-            clearable
-            solo
-            @keypress="filter"
-            color="primary"
-            append-icon="mdi-cloud-search"
-            @click:append="search"
-          ></v-text-field>
+            <v-text-field
+              v-model="searchPattern"
+              label="Title"
+              class="justify-center"
+              style="padding: 40px"
+              counter
+              dark
+              clearable
+              solo
+              @keypress="filter"
+              color="primary"
+              append-icon="mdi-cloud-search"
+              @click:append="search"
+            ></v-text-field>
             <v-btn
+              style="padding: 10px; margin-top: 45px"
               outlined
               color="primary"
-              style="margin-left: 7px; margin-right: 25px; margin-top: 10px"
               @click="clearSearch"
             >
-              Clear search
+              <v-icon>mdi-restart</v-icon>
             </v-btn>
           </v-row>
           <v-container
@@ -110,7 +111,7 @@ export default {
       maxPage: 0,
       minPage: 0,
       page: 0,
-      searchPattern:''
+      searchPattern: "",
     };
   },
   async created() {
@@ -128,12 +129,11 @@ export default {
     },
     filter: function (evt) {
       evt = evt ? evt : window.event;
-      let expect =  evt.key.toString();
+      let expect = evt.key.toString();
 
       if (expect === "Enter") {
         this.search();
       }
-
     },
     previousPage() {
       if (this.page > 0) {
@@ -145,17 +145,21 @@ export default {
         this.updatePage(++this.page);
       }
     },
-    search(){
+    search() {
       this.page = 0;
       this.updatePage(this.page);
     },
-    clearSearch(){
-      this.searchPattern = '';
+    clearSearch() {
+      this.searchPattern = "";
       this.search();
     },
     async updatePage(page) {
       try {
-        const res = await RoutinesApi.getAllRoutines(page, 12,this.searchPattern);
+        const res = await RoutinesApi.getAllRoutines(
+          page,
+          12,
+          this.searchPattern
+        );
         this.routines = res.content;
         if (page == 0) this.maxPage = Math.floor(res.totalCount / 12);
         console.log(this.routines);
