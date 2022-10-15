@@ -23,6 +23,7 @@
             fill
             style="position: absolute; top: 10px; right: 10px"
             @click="deleteMe"
+            v-if="!exploreMode"
           >
             <v-icon color="white">mdi-close</v-icon>
           </v-btn>
