@@ -8,23 +8,11 @@
           <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
             <v-row class="d-flex">
               <v-col class="d-flex ml-7">
-                <!--              Caso 1 ->  Vista de edicion-->
-                <!--                <v-text-field
-                  label="ROUTINE NAME"
-                  :rules="[() => !!routineName || 'This field is required']"
-                  class="textField"
-                  v-model="routineName"
-                  dark
-                  height="50"
-                  color="primary"
-                  v-if="editMode"
-                ></v-text-field>-->
 
-                <!--              Caso 2 -> Vista normal-->
+
                 <h1>{{ this.routineName }}</h1>
               </v-col>
               <v-col class="justify-end d-flex" md="2" offset-md="3">
-                <!--              CASO 1 -> Edit mode-->
                 <v-btn
                   color="primary"
                   plain
@@ -34,7 +22,6 @@
                 >
                   DISCARD
                 </v-btn>
-                <!--              CASO 1 -> Edit mode-->
                 <v-btn
                   color="primary"
                   class="temp justify-end mr-7 secondary--text"
@@ -56,17 +43,6 @@
             </v-row>
 
             <v-row>
-              <!--            Caso 1 -> Vista de edicion-->
-              <!--              <v-textarea
-                class="descripcion"
-                label="DESCRIPTION"
-                color="primary"
-                v-model="routineDetail"
-                max-
-                dark
-                v-if="editMode"
-              ></v-textarea>-->
-              <!--            Caso 2 -> Vista normal-->
               <p
                 class="text-justify"
                 style="margin: 40px; color: white; margin-bottom: 20px"
@@ -78,6 +54,7 @@
                 <v-file-input
                   v-if="editMode"
                   class="temp justify-end mr-15"
+                  show-size
                   style="
                     width: 400px;
                     font-family: Bebas Neue;
@@ -431,7 +408,6 @@ export default {
       detail: "",
       title: "",
       difficulty: "medium",
-      isPublic: true,
       dialogSelectExercise: false,
       dialogCreateExercise: false,
       dialogModifyExercise: false,
@@ -476,7 +452,7 @@ export default {
 
 
           await RoutinesApi.updateRoutine(
-            new Routine(this.routineName, this.routineDetail, "rookie", this.isPublic, {
+            new Routine(this.routineName, this.routineDetail, "rookie",this.publicRoutine, {
               img: this.image,
             }),
             parseInt(localStorage.getItem('ROUTINE-ID'))
@@ -597,6 +573,7 @@ export default {
     ...mapState(useExerciseStore, ["getWarmUpExercises"]),
     ...mapState(useExerciseStore, ["createdExercise"]),
     ...mapState(useExerciseStore, ["routineName"]),
+    ...mapState(useExerciseStore, ["publicRoutine"]),
     ...mapState(useExerciseStore, ["routineDetail"]),
   },
   mounted() {
