@@ -60,9 +60,10 @@ export default {
     routineId: { type: Number, required: true },
     exploreMode: { type: Boolean, required: true },
     directionName:{type:String,required:true},
-    routineUserName:{type: String, required: true},
-    routineUserId:{type: Number, required: true},
+    routineUserName:{type: String, required: false  },
+    routineUserId:{type: Number, required: false},
   },
+
   data() {
     return {
       items: [
@@ -84,15 +85,7 @@ export default {
     getProfilePic(){
       return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
     },
-    editMe() {
-      this.$router.push({
-        name: "createRoutine",
-        params: {
-          editMode: true,
-          id: this.routineId,
-        },
-      });
-    },
+
     toRoutine() {
       this.$router.push({
         name: `${this.directionName}`,
@@ -111,11 +104,14 @@ export default {
     try {
       const res = await RoutinesApi.getRoutine(this.routineId);
       this.image = res.metadata.img;
-      console.log(res);
-      console.log("got image");
+      console.log(this.image);
+      if (this.image.length <= 0) {
+        const images = require.context('../../assets', false, /\.png$/)
+        this.image = images('./' + 'logo' + ".png")
+      }
     } catch (error) {
-      this.image = "@/assets/imgs/routine_photo.jpg";
-    }
+      const images = require.context('../../assets', false, /\.png$/)
+      this.image = images('./' + 'DSC_0154' + ".png")    }
   },
   computed: {
     ...mapState(useUserStore, ["userId"]),

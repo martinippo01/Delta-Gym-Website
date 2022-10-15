@@ -35,8 +35,6 @@
                 :routine-id="routine.id"
                 :exploreMode="false"
                 directionName="createRoutine"
-                routine-user-name=""
-                routine-user-id=""
               ></RoutineButton>
             </v-row>
           </v-container>
@@ -155,7 +153,8 @@ export default {
       routineTitle: "",
       routineDetail:"",
       userId: -1,
-      public:false
+      public:false,
+
     }
   },
 

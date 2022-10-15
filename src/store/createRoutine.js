@@ -11,13 +11,7 @@ export const useCreateRoutine = defineStore('createRoutine', {
        cyclesCounter:[1,1,1]
     }),
     actions:{
-       async createRoutine(name,detail){
-          // const response = await RoutinesApi.addRoutine(new Routine(name,detail,"rookie",true));
-           //this.id = response.id;
-           //await this.createCycles();
 
-
-       },
        async createCycles(){
 
            console.log(this.cycles);

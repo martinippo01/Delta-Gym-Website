@@ -456,7 +456,7 @@ export default {
     ...mapActions(useExerciseStore, ["addExercisesToRoutine"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useExerciseStore, ["setId"]),
-    ...mapActions(useExerciseStore, ["getRoutineId"]),
+    ...mapState(useExerciseStore, ["getRoutineId"]),
 
 
     discardExerciseHandler() {
@@ -470,20 +470,26 @@ export default {
     async save() {
       this.editMode = false;
 
-      try {
-        await this.addExercisesToRoutine();
-        await RoutinesApi.updateRoutine(
-          new Routine(this.routineName, this.routineDetail, "rookie", this.isPublic, {
-            img: this.image,
-          }),
-          parseInt(this.getRoutineId())
-        );
+          await this.addExercisesToRoutine();
 
-      } catch (error) {
-        this.error = true;
-        this.errorText = error.name;
-      }
-      router.push("/myRoutines");
+        try {
+
+
+          await RoutinesApi.updateRoutine(
+            new Routine(this.routineName, this.routineDetail, "rookie", this.isPublic, {
+              img: this.image,
+            }),
+            parseInt(localStorage.getItem('ROUTINE-ID'))
+          );
+          router.push("/myRoutines");
+        }catch (error){
+          this.error = true;
+          this.errorText = error.errorText;
+        }
+
+
+
+
     },
     addRoutine(type) {
       this.dialogSelectExercise = true;

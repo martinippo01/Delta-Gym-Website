@@ -49,9 +49,6 @@ export const useExerciseStore = defineStore('exercises', {
             return this.exercisArray.filter(ex=>ex.cycleId === this.cycleIds[0]&& !ex.deleted);
         },
 
-        getRoutineId() {
-            return localStorage.getItem(ROUTINE_ID);
-        }
 
     },
     actions: {
@@ -147,10 +144,10 @@ export const useExerciseStore = defineStore('exercises', {
          },
 
         async updateExercises(exercise: ExerciseAPiType, exerciseId: number) {
-            exerciseApi.updateExercises(exerciseId, exercise);
+           await exerciseApi.updateExercises(exerciseId, exercise);
         },
         async deleteExercises(exerciseId: number) {
-            exerciseApi.deleteExercises(exerciseId);
+            await exerciseApi.deleteExercises(exerciseId);
         },
         async getCreatedExercises(){
             this.createdExercise = await exerciseApi.getExercises();
@@ -173,7 +170,7 @@ export const useExerciseStore = defineStore('exercises', {
        async createRoutine(){
             const response = await RoutinesApi.addRoutine(new Routine(this.routineName,this.routineDetail,"rookie",this.publicRoutine));
             this.routineId = response.id;
-
+            this.setId(this.routineId);
             let response2 =  await RoutinesApi.addCycle(this.routineId,"warmup","warmup","warmup",1,1 );
             this.cycleIds[0] = (response2.id);
             response2 =  await RoutinesApi.addCycle(this.routineId,"mainset","exercise","exercise",2,1 );
@@ -182,13 +179,20 @@ export const useExerciseStore = defineStore('exercises', {
             this.cycleIds[2]=(response2.id);
         },
        setId(id:number){
-            localStorage.setItem(ROUTINE_ID,id.toString());
+         localStorage.setItem(ROUTINE_ID,id.toString());
+         console.log(localStorage.getItem(ROUTINE_ID));
       },
       async addExercisesToRoutine(){
-          const cycles = await RoutinesApi.getCycle(this.routineId);
-          cycles[0].metadata = [];
-          cycles[1].metadata = [];
-          cycles[2].metadata = [];
+        let id;
+        if ((id =localStorage.getItem(ROUTINE_ID))== null)
+          id = 0;
+        else
+          id = parseInt(id);
+        this.routineId = id;
+        const cycles = await RoutinesApi.getCycle(this.routineId);
+        cycles[0].metadata = [];
+        cycles[1].metadata = [];
+        cycles[2].metadata = [];
         for (const ex in this.exercisArray){
           this.setOrder(ex);
           if (this.exercisArray[ex].newExercise) {
@@ -204,9 +208,7 @@ export const useExerciseStore = defineStore('exercises', {
           await  RoutinesApi.changeCycle(this.routineId,this.exercisArray[ex].cycleId,cycles[aux]);
         }
       },
-       getRoutineId(){
-        return   localStorage.getItem(ROUTINE_ID);
-      }
+
     }
 
 })
