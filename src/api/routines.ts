@@ -14,9 +14,10 @@ class RoutinesApi {
     return await Api.post(RoutinesApi.getUrl(), true, routine, null);
   }
 
-  static async getAllRoutines(page: number, size: number) {
+  static async getAllRoutines(page: number, size: number,searchPattern:string) {
+
     return await Api.get(
-      RoutinesApi.getUrlParameters(`size=${size}&page=${page}`),
+      RoutinesApi.getUrlParameters(`size=${size}&page=${page}`).concat((searchPattern.length > 2)? `&search=${searchPattern}`:''),
       false,
       {}
     );

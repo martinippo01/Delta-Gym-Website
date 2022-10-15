@@ -198,7 +198,8 @@ export default {
     },
     addRoutine(mode){
       this.dialog = false;
-      this.setRoutine(this.routineTitle,this.routineDetail,(this.public === 'true'));
+      console.log(this.public);
+      this.setRoutine(this.routineTitle,this.routineDetail,this.public);
       this.$router.push({
         name: "createRoutine",
         params: {

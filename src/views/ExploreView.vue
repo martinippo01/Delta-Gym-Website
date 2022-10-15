@@ -15,7 +15,15 @@
           <v-row class="justify-center" style="padding: 10px">
             <h1>EXPLORE</h1>
           </v-row>
+          <v-text-field
+            v-model="searchPattern"
+            label="Title"
+            class="justify-center" style="padding: 10px"
+            counter
+            append-icon="mdi-cloud-search"
+            @click:append="search"
 
+          ></v-text-field>
           <v-container
             color="secondary"
             style="justify-content: center"
@@ -88,6 +96,7 @@ export default {
       maxPage: 0,
       minPage: 0,
       page: 0,
+      searchPattern:''
     };
   },
   async created() {
@@ -113,9 +122,13 @@ export default {
         this.updatePage(++this.page);
       }
     },
+    search(){
+      this.page = 0;
+      this.updatePage(this.page);
+    },
     async updatePage(page) {
       try {
-        const res = await RoutinesApi.getAllRoutines(page, 12);
+        const res = await RoutinesApi.getAllRoutines(page, 12,this.searchPattern);
         this.routines = res.content;
         if (page == 0) this.maxPage = Math.floor(res.totalCount / 12);
         console.log(this.routines);
