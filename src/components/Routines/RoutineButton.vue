@@ -110,8 +110,8 @@ export default {
         this.image = images('./' + 'logo' + ".png")
       }
     } catch (error) {
-      const images = require.context('../../assets', false, /\.png$/)
-      this.image = images('./' + 'DSC_0154' + ".png")    }
+      const images = require.context('../../assets', false, /\.jpeg$/)
+      this.image = images('./' + 'menem' + ".jpeg")    }
   },
   computed: {
     ...mapState(useUserStore, ["userId"]),
