@@ -14,6 +14,10 @@ class RoutinesApi {
     return await Api.post(RoutinesApi.getUrl(), true, routine, null);
   }
 
+  static async updateRoutine(routine: Routine, routineId: number) {
+    return await Api.put(RoutinesApi.getUrl(routineId.toString()), true, routine);
+  }
+
   static async getAllRoutines(page: number, size: number,searchPattern:string) {
 
     return await Api.get(
@@ -84,13 +88,14 @@ class Routine {
     name: string,
     detail: string,
     difficulty: string,
-    isPublic: boolean
+    isPublic: boolean,
+    metadata: object = {} 
   ) {
     this.isPublic = isPublic;
     this.difficulty = difficulty;
     this.name = name;
     this.detail = detail;
-    this.metadata = null;
+    this.metadata = metadata;
     this.category = {
       id: 1,
     };
@@ -100,8 +105,8 @@ class Routine {
   detail: string;
   isPublic: boolean;
   difficulty: string;
-  category: any;
-  metadata: any;
+  category: object;
+  metadata: object;
 }
 class Cycle {
   constructor(

@@ -67,12 +67,31 @@
                 v-if="editMode"
               ></v-textarea>-->
               <!--            Caso 2 -> Vista normal-->
-              <p
-                class="text-justify"
-                style="margin: 40px; color: white; margin-bottom: 20px"
-              >
-                {{ this.routineDetail }}
-              </p>
+              <v-col>
+                <p
+                  class="text-justify"
+                  style="margin: 40px; color: white; margin-bottom: 20px"
+                >
+                  {{ this.routineDetail }}
+                </p>
+              </v-col>
+
+              <v-col class="justify-end d-flex" md="2" offset-md="3">
+                <img :src="image" />
+                <v-file-input
+                  v-if="editMode"
+                  class="temp justify-end mr-15"
+                  style="
+                    width: 400px;
+                    font-family: Bebas Neue;
+                    background-color: #cfffb3;
+                  "
+                  rounded="xl"
+                  @change="handleImage"
+                  v-model="readImg"
+                  accept="image/*"
+                />
+              </v-col>
             </v-row>
           </v-sheet>
 
@@ -399,10 +418,8 @@ import { useExerciseStore } from "@/store/exerciseData";
 import { useCreateRoutine } from "@/store/createRoutine";
 import { useEditeRoutine } from "@/store/editRoutine";
 import { watchEffect } from "vue";
+import { Routine, RoutinesApi } from "@/api/routines";
 
-watchEffect(() => {
-  console.log(this.selectedExercise);
-});
 export default {
   name: "CreateRoutuneView",
   components: { NavBar, exerciseCard, addButtom },
@@ -425,13 +442,16 @@ export default {
       cycleSelect: 0,
       maxId: 0,
       editMode: false,
+      image: "",
+      readImg: "",
     };
   },
 
   methods: {
+    ...mapState(useExerciseStore, ["getRoutineId"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useExerciseStore, ["addExercise"]),
-    ...mapActions(useExerciseStore, ["uploadExercises"]),
+    ...mapActions(useExerciseStore, ["uploadImage"]),
     ...mapActions(useExerciseStore, ["updateExercises"]),
     ...mapActions(useExerciseStore, ["deleteExercises"]),
     ...mapActions(useExerciseStore, ["getCreatedExercises"]),
@@ -441,6 +461,17 @@ export default {
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useExerciseStore, ["setId"]),
 
+    handleImage() {
+      this.createBase64Image(this.readImg);
+    },
+    createBase64Image(fileObject) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.image = e.target.result;
+      };
+      reader.readAsDataURL(fileObject);
+      console.log("wrote image");
+    },
     discardExerciseHandler() {
       this.dialogSelectExercise = false;
       this.selectedName = null;
@@ -453,6 +484,12 @@ export default {
       this.editMode = false;
       try {
         await this.addExercisesToRoutine();
+        await RoutinesApi.updateRoutine(
+          new Routine(this.routineName, this.detail, "rookie", this.isPublic, {
+            img: this.image,
+          }),
+          parseInt(this.getRoutineId())
+        );
       } catch (error) {
         this.error = true;
         this.errorText = error.name;
@@ -481,7 +518,6 @@ export default {
           },
           this.modifiedExerciseId
         );
-        console.log("modified exercise");
         this.getCreatedExercises();
       } catch (error) {
         this.error = true;

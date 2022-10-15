@@ -41,8 +41,6 @@
         </v-avatar>
         <p style="font-family: 'Roboto Light'; color: white; margin-left: 10px; margin-top: 7px">{{ this.routineUserName }}</p>
       </v-row>
-
-
     </v-img>
   </v-card>
 </template>
@@ -51,6 +49,8 @@
 import { mapActions, mapState } from "pinia";
 import { useRoutinesStore } from "@/store/routinesStore";
 import { useUserStore } from "@/store/user";
+import { exerciseApi } from "@/api/exercises";
+import { RoutinesApi } from "@/api/routines";
 
 export default {
   name: "RoutineButton",
@@ -69,9 +69,20 @@ export default {
         { title: "Edit", action: this.editMe },
         { title: "Delete", action: this.deleteMe },
       ],
+      photo: "",
       name: "",
       deleted: false,
     };
+  },
+  async created() {
+    try {
+      const res = await RoutinesApi.getRoutine(this.routineId);
+      this.image = res.metadata.img;
+      console.log(res);
+      console.log("got image");
+    } catch (error) {
+      this.image = "@/assets/imgs/routine_photo.jpg";
+    }
   },
   methods: {
     async deleteMe() {
