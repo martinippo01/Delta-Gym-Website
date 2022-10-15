@@ -15,15 +15,26 @@
           <v-row class="justify-center" style="padding: 10px">
             <h1>EXPLORE</h1>
           </v-row>
+          <v-row justify="center">
           <v-text-field
             v-model="searchPattern"
             label="Title"
-            class="justify-center" style="padding: 10px"
+            class="justify-center" style="padding: 10px; margin-right: 7px; margin-left: 15px"
             counter
+            dark
+            color="primary"
             append-icon="mdi-cloud-search"
             @click:append="search"
-
           ></v-text-field>
+            <v-btn
+              outlined
+              color="primary"
+              style="margin-left: 7px; margin-right: 25px; margin-top: 10px"
+              @click="clearSearch"
+            >
+              Clear search
+            </v-btn>
+          </v-row>
           <v-container
             color="secondary"
             style="justify-content: center"
@@ -125,6 +136,10 @@ export default {
     search(){
       this.page = 0;
       this.updatePage(this.page);
+    },
+    clearSearch(){
+      this.searchPattern = '';
+      this.search();
     },
     async updatePage(page) {
       try {
