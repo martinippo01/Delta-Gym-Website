@@ -57,7 +57,55 @@
                     LOG IN
                   </v-btn>
                 </v-row>
+                <v-dialog v-model="confirmationEmail" persistent width="620">
+                  <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
+                    <v-card
+                      color="background"
+                      width="600"
+                      height="190"
+                      class="box center"
+                      rounded="xl"
+                    >
+                      <v-app-bar color="background" style="margin-top: 1px"
+                                 elevation="0" height="20">
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          @click="confirmationEmail = false"
+                          color="white"
+                          style="padding-top: 4px; justify-self: end"
+                          icon
+                        >
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                      </v-app-bar>
+                      <v-card-title style="color: #cfffb3"
+                      >You have not confirmed your account!</v-card-title
+                      >
+                      <v-row class="d-flex justify-center align-center">
+                        <v-text-field v-model="email"
+                        style="max-width: 300px"
+                        >
 
+                        </v-text-field>
+                      </v-row>
+
+                      <v-card-actions>
+
+                        <v-row justify="center">
+
+                          <v-btn
+                            color="primary"
+                            outlined
+                            @click="resendCode"
+                            style="margin: 7px"
+                          >
+                            <span style="color: #cfffb3">Resend Code</span>
+                          </v-btn>
+                        </v-row>
+                      </v-card-actions>
+                    </v-card>
+                  </v-sheet>
+                </v-dialog>
                 <v-row justify="center" class="mt-5" style="margin-bottom: 5px">
                   <router-link to="/signUp">
                     <a justify="center"> Don't have an account? </a>
@@ -84,6 +132,7 @@ import NavBar from "@/components/NavBar";
 import { useSecurityStore } from "../store/securityStore.js";
 import router from "@/router";
 import { Credentials } from "@/api/user";
+import {UserApi} from "@/api/user";
 
 export default {
   name: "LogIn",
@@ -96,6 +145,8 @@ export default {
       snackbarColor: "",
       rememberMe: false,
       snackbarText: "",
+      email:"",
+      confirmationEmail:false
     };
   },
   methods: {
@@ -107,11 +158,25 @@ export default {
         await store.login(credentials, this.rememberMe);
         router.push("/myRoutines");
       } catch (error) {
+        if (error.code === 4) {
+          this.snackbarText = "Invalid username/password";
+          this.snackbarColor = "error";
+          this.snackbar = true;
+        }else if(error.code === 8){
+          this.confirmationEmail = true;
+        }
+      }
+    },
+    resendCode(){
+      try {
+        UserApi.resendVerification(this.email);
+        router.push("/VerifyEmail")
+      }catch (error){
         this.snackbarText = "Invalid username/password";
         this.snackbarColor = "error";
         this.snackbar = true;
       }
-    },
+    }
   },
 
 };

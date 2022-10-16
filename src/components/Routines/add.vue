@@ -38,8 +38,8 @@ h1 {
 
 .center {
   margin: auto;
-  width: 50%;
-  height: 100%;
+  height: 250px;
+  width: 350px;
 }
 
 .hover-click {

@@ -4,29 +4,16 @@
       <v-card-title>
         <span>{{ this.exerciseName }}</span>
 
-        <v-menu ffset-y :close-on-click="true">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn light icon v-bind="attrs" v-on="on" :disabled="!editmode">
-              <v-icon color=" primary">mdi-dots-horizontal</v-icon>
+            <v-btn light icon @click="deleteMe" :disabled="!editmode">
+              <v-icon color=" primary">mdi-delete</v-icon>
             </v-btn>
-          </template>
 
-          <v-list>
-            <v-list-item v-for="(item, i) in items" :key="i">
-              <v-list-item-title
-                ><v-btn @click="deleteMe">{{
-                  item.title
-                }}</v-btn></v-list-item-title
-              >
-            </v-list-item>
-          </v-list>
-        </v-menu>
       </v-card-title>
 
       <v-card-actions class="mt-0">
         <v-text-field
           prepend-icon="mdi-alarm"
-          label="Time"
+          label="Seconds"
           @keypress="filter"
           v-model="time"
           @blur="update_time"
@@ -48,7 +35,7 @@
       <v-card-actions class="mt-0 pt-0">
         <v-text-field
           prepend-icon="mdi-alarm"
-          label="Rest"
+          label="Rest (secs)"
           @keypress="filter"
           v-model="rest"
           @blur="update_rest"

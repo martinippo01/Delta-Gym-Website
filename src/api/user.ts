@@ -57,7 +57,9 @@ class UserApi {
   static async getUserRoutines(userId: number) {
     return Api.get(UserApi.getUrl(userId + "/routines"), true, null);
   }
-
+  static async resendVerification(email:string){
+   return  Api.post(this.getUrl('resend_verification'),false,{email:email},null);
+  }
   static async getAllUsersRoutines(userId: number, page: number, size: number) {
     return await Api.get(
       UserApi.getUrl(`${userId}/routines?&size=${size}&page=${page}`),

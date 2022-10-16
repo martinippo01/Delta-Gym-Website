@@ -121,7 +121,6 @@ export default {
 
       try {
         const res = await UserApi.confirmUser(confirmation);
-        console.log(res);
         this.loading = false;
         router.push("/verifiedEmailSuccessfully");
       } catch (error) {
@@ -131,11 +130,21 @@ export default {
         this.loading = false;
       }
     },
-    created() {
+
+  },
+  created() {
+    const aux = this.$route.query.email;
+    console.log(aux);
+    if (aux === undefined){
       const store = useUserStore();
       this.email = store.getEmail;
+    }else{
+      const store = useUserStore();
+      store.addEmail(aux);
+      console.log(this.$route.query.code);
+      this.onFinish(this.$route.query.code)
     }
-  },
+  }
 };
 </script>
 

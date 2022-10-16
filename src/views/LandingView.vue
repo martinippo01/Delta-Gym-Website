@@ -41,7 +41,7 @@
 
       <v-sheet
           color="background"
-          style=" background-image: linear-gradient(#1e1e1e, rgba(207, 255, 179, 0.3));"
+          style=" background-image: linear-gradient(to right bottom, #1e1e1e, rgba(207, 255, 179, 0.3));"
       >
         <v-row justify="center">
           <v-col cols="12">
@@ -97,7 +97,7 @@
 
       <v-sheet
           color="background"
-          style=" background-image: linear-gradient(#1e1e1e, rgba(207, 255, 179, 0.3));"
+          style=" background-image: linear-gradient(to bottom right, #1e1e1e, rgba(207, 255, 179, 0.3));"
 
       >
         <v-row justify="center">
