@@ -105,6 +105,7 @@ import router from "@/router";
 import { mapActions, mapState } from "pinia";
 import { UserApi, UsersSearch } from "@/api/user";
 import { RoutinesApi } from "@/api/routines";
+import {useBreadCrumbs} from "@/store/breadCrumbsStore";
 
 export default {
   name: "ExploreView",
@@ -119,18 +120,15 @@ export default {
     };
   },
   async created() {
+    this.cleanAll();
+    this.addPage("Explore",false,'/explore');
     this.updatePage(this.page);
   },
   methods: {
-    toRoutine(mode, id) {
-      this.$router.push({
-        name: "ViewRoutine",
-        params: {
-          editMode: mode,
-          id: id,
-        },
-      });
-    },
+    ...mapActions(useBreadCrumbs,['addPage']),
+    ...mapActions(useBreadCrumbs,['cleanAll']),
+
+
     filter: function (evt) {
       evt = evt ? evt : window.event;
       let expect = evt.key.toString();

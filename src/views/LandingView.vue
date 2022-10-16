@@ -52,6 +52,8 @@
 <script>
 import LandingScreen from "../components/LandingScreen.vue";
 import NavBar from "../components/NavBar.vue";
+import { mapActions } from "pinia";
+import { useBreadCrumbs } from "@/store/breadCrumbsStore";
 
 export default {
   name: "LandingPage",
@@ -59,6 +61,12 @@ export default {
     LandingScreen,
     NavBar,
   },
+  mounted() {
+    this.cleanAll();
+  },
+  methods:{
+    ...mapActions(useBreadCrumbs,['cleanAll'])
+  }
 };
 </script>
 

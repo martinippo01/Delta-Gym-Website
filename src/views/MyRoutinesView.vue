@@ -142,6 +142,7 @@ import { useRoutinesStore } from "@/store/routinesStore";
 import { mapActions, mapState } from "pinia";
 import { useUserStore } from "@/store/user";
 import {useExerciseStore} from "@/store/exerciseData";
+import { useBreadCrumbs } from "@/store/breadCrumbsStore";
 
 export default {
   name: "MyRoutines",
@@ -160,6 +161,8 @@ export default {
 
 
   async created() {
+    this.cleanAll();
+    this.addPage('MyRoutines',true,'/myRoutines')
     try {
       await this.resetStore();
       this.userId = await this.getUserId();
@@ -177,6 +180,8 @@ export default {
     ...mapActions(useRoutinesStore, ["resetStore"]),
     ...mapActions(useExerciseStore, ["setRoutine"]),
     ...mapActions(useUserStore, ['getUserId']),
+    ...mapActions(useBreadCrumbs,['addPage']),
+    ...mapActions(useBreadCrumbs,['cleanAll']),
 
     nextPageAux(){
       this.nextPage(this.userId);

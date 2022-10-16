@@ -8,6 +8,14 @@
         class="ma-3 position-absolute top-100 start-100 translate-middle"
       ></v-img>
     </router-link>
+    <v-breadcrumbs
+      :items="items"
+      dark
+      style="margin-top: 40px"
+    ><template v-slot:divider>
+      <v-icon>mdi-forward</v-icon>
+    </template>
+    </v-breadcrumbs>
     <v-spacer></v-spacer>
     <router-link style="text-decoration: none; color: inherit" to="/explore">
       <v-btn
@@ -56,7 +64,8 @@
 <script>
 import { useSecurityStore } from "@/store/securityStore";
 import router from "@/router";
-import { mapActions } from "pinia";
+import { mapActions,mapState } from "pinia";
+import {useBreadCrumbs} from "@/store/breadCrumbsStore";
 
 export default {
   name: "MainTopBar",
@@ -67,7 +76,13 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+
+
+    };
+  },
+  computed:{
+    ...mapState(useBreadCrumbs,['items'])
   },
   methods: {
     ...mapActions(useSecurityStore, ["logout"]),

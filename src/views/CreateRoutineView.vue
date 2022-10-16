@@ -388,9 +388,7 @@ import router from "@/router";
 import addButtom from "@/components/Routines/add";
 import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
-import { useCreateRoutine } from "@/store/createRoutine";
-import { useEditeRoutine } from "@/store/editRoutine";
-import { watchEffect } from "vue";
+import {useBreadCrumbs} from "@/store/breadCrumbsStore";
 import {RoutinesApi,Routine} from "@/api/routines";
 
 
@@ -421,6 +419,9 @@ export default {
   },
 
   methods: {
+    ...mapActions(useBreadCrumbs, ["cleanAll"]),
+    ...mapActions(useBreadCrumbs, ["addPage"]),
+
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useExerciseStore, ["addExercise"]),
     ...mapActions(useExerciseStore, ["uploadExercises"]),
@@ -577,6 +578,7 @@ export default {
     ...mapState(useExerciseStore, ["routineDetail"]),
   },
   mounted() {
+    this.addPage('CreateRoutine',true,'/createRoutine')
     this.editMode = this.$route.params.editMode;
     const aux = this.$route.params.from;
     if (aux === "myRoutinesNew") {

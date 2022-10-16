@@ -104,12 +104,10 @@
 <script>
 import exerciseCard from "@/components/Routines/exerciseCard";
 import NavBar from "@/components/NavBar";
-import router from "@/router";
-import addButtom from "@/components/Routines/add";
+
 import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
-import { useCreateRoutine } from "@/store/createRoutine";
-import { useEditeRoutine } from "@/store/editRoutine";
+import {useBreadCrumbs} from "@/store/breadCrumbsStore";
 
 export default {
   name: "CreateRoutuneView",
@@ -129,6 +127,8 @@ export default {
     ...mapActions(useExerciseStore, ["getRoutineData"]),
     ...mapActions(useExerciseStore, ["setId"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
+    ...mapActions(useBreadCrumbs, ["addPage"]),
+
   },
   computed: {
     ...mapState(useExerciseStore, ["getCoolDownExercise"]),
@@ -140,6 +140,7 @@ export default {
     ...mapState(useExerciseStore, ["routineDetail"]),
   },
   mounted() {
+    this.addPage('ViewRouting',false,'/ViewRoutine')
     const routineID = this.$route.params.id;
     if (routineID != null) {
       this.setId(parseInt(routineID));

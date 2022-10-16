@@ -87,6 +87,7 @@ import NavBar from "@/components/NavBar";
 import router from "@/router";
 import { useUserStore } from "@/store/user";
 import { mapActions } from "pinia";
+import { useBreadCrumbs } from "@/store/breadCrumbsStore";
 
 export default {
   name: "ProfilePage",
@@ -102,6 +103,8 @@ export default {
     };
   },
   async created() {
+    this.cleanAll();
+    this.addPage('MyProfiel',false,'/profile')
     try {
       const res = await UserApi.get();
       this.username = res.username;
@@ -115,6 +118,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions(useBreadCrumbs,['cleanAll']),
+    ...mapActions(useBreadCrumbs,['addPage']),
     handleImage() {
       this.createBase64Image(this.readImg);
     },
