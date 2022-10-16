@@ -11,6 +11,7 @@
       height="250px"
       :src="this.image"
       @click="toRoutine"
+      gradient="to top , rgba(30,30,30,0.13), rgba(30,30,30,0.5)"
     >
       <v-container>
         <v-row class="justify-center">
