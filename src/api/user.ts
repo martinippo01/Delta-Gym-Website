@@ -109,13 +109,15 @@ class Credentials {
 }
 
 class UpdatableCredentials {
-  constructor(firstName: string, lastName: string, metadata: object) {
+  constructor(firstName: string, lastName: string, metadata: object, img: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.metadata = metadata;
+    this.avatarUrl = img;
   }
 
   metadata: object;
   firstName: string;
   lastName: string;
+  avatarUrl: string;
 }

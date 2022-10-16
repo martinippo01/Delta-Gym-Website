@@ -15,7 +15,6 @@
             </v-avatar>
           </v-row>
 
-
           <v-row justify="center" style="margin-top: 20px; margin-bottom: 20px;">
             <v-sheet
                 width="300"
@@ -23,12 +22,15 @@
             >
               <v-file-input
                 style="
-                  font-family: Bebas Neue;
-                  background-color: #CFFFB3;
+                  font-family: 'Roboto Light';
                 "
+                color="primary"
                 @change="handleImage"
                 v-model="readImg"
                 rounded
+                dark
+                outlined
+                label="Change Profile Picture"
                 accept="image/*"
               />
             </v-sheet>
@@ -91,24 +93,68 @@
         </v-main>
       </v-app>
 
-    <v-dialog v-model="dialog" persistent width="610">
+    <v-dialog v-model="dialogError" persistent width="610">
       <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
         <v-card
             color="background"
             width="600"
-            height="120"
+            height="150"
             class="box center"
             rounded="xl"
         >
           <v-card-title style="color: #cfffb3">
-            Profile details changed successfully
+            There has been an error with the details you have entered.
           </v-card-title>
+          <v-card-subtitle style="color: white">
+            Note that 'Name' and 'Last name' should not exceed 50 characters.
+          </v-card-subtitle>
           <v-card-actions>
-            <v-btn style="margin-left: auto; margin-right: auto" @click="dialog = false">Close</v-btn>
+            <v-btn style="margin-left: auto; margin-right: auto" @click="dialogError = false" outlined color="error">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-sheet>
     </v-dialog>
+
+
+
+      <v-dialog v-model="dialog" persistent width="610">
+        <v-sheet color="primary" outlined="outlined" width="600" rounded="xl">
+          <v-card
+              color="background"
+              width="600"
+              height="120"
+              class="box center"
+              rounded="xl"
+          >
+            <v-card-title style="color: #cfffb3">
+              Changes saved successfully
+            </v-card-title>
+            <v-card-actions>
+              <v-btn style="margin-left: auto; margin-right: auto" @click="dialog = false" outlined color="primary">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-sheet>
+      </v-dialog>
+
+      <v-dialog v-model="dialogImgError" persistent width="610">
+        <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
+          <v-card
+              color="background"
+              width="600"
+              height="120"
+              class="box center"
+              rounded="xl"
+          >
+            <v-card-title style="color: #cfffb3">
+              Sorry, but maximum size of image is 80Kb
+            </v-card-title>
+            <v-card-actions>
+              <v-btn style="margin-left: auto; margin-right: auto" @click="dialogImgError = false" outlined color="error">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-sheet>
+      </v-dialog>
+
     </div>
   </div>
 </template>
@@ -128,10 +174,14 @@ export default {
     return {
       saveColor: "primary",
       image: "",
+      avatarUrl: "",
       firstName: "",
       lastName: "",
       readImg: "",
       dialog: false,
+      dialogError: false,
+      dialogImgError: false,
+      IMGBB_APIKEY: '5a3d2c568ff11e50c066f293ad0e6641',
     };
   },
   async created() {
@@ -150,14 +200,33 @@ export default {
   methods: {
     ...mapActions(useBreadCrumbs, ["cleanAll"]),
     ...mapActions(useBreadCrumbs, ["addPage"]),
+
     handleImage() {
       if(this.readImg.size > 80000) {
-        alert("Sorry, but maximum size of image is 80Kb");        
+        this.dialogImgError = true;
         this.readImg = "";
       } else  {
         this.createBase64Image(this.readImg);
+        let formData = new FormData();
+        formData.append('image', this.readImg);
+
+        try{
+          fetch(`https://api.imgbb.com/1/upload?key=${this.IMGBB_APIKEY}`, {
+            method: 'POST',
+            body: formData
+          }).then(response => response.json())
+              .then(result => {
+                this.avatarUrl = result.data.url;
+                console.log(this.avatarUrl);
+              });
+        }
+        catch (error){
+          console.log('error in imgbb');
+        }
+
       }
     },
+
     createBase64Image(fileObject) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -165,19 +234,23 @@ export default {
       };
       reader.readAsDataURL(fileObject);
     },
+
     async saveHandler() {
-      this.dialog = true;
+
       const metadata = { img: this.image };
       const newInformation = new UpdatableCredentials(
         this.firstName,
         this.lastName,
-        metadata
+        metadata,
+        this.avatarUrl
       );
       try {
         await UserApi.updateUser(newInformation);
         this.saveColor = "green";
+        this.dialog = true;
       } catch (error) {
         this.saveColor = "red";
+        this.dialogError = true;
       }
     },
   },

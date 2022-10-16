@@ -57,6 +57,7 @@
                 :exploreMode="true"
                 :routine-user-name="routine.user.username"
                 :routine-user-id="routine.user.id"
+                :routine-user-avatar-url="routine.user.avatarUrl"
               >
               </RoutineButton>
             </v-row>

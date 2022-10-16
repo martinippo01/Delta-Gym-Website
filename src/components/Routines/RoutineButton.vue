@@ -11,7 +11,7 @@
       height="250px"
       :src="this.image"
       @click="toRoutine"
-      gradient="to top , rgba(30,30,30,0.13), rgba(30,30,30,0.5)"
+      gradient="to top , rgba(30,30,30,0.5), rgba(30,30,30,0.5)"
     >
       <v-container>
         <v-row class="justify-center">
@@ -38,7 +38,7 @@
         <v-avatar size="32">
           <v-img
             alt="user"
-            :src="this.getProfilePic()"></v-img>
+            :src="this.routineUserAvatarUrl"></v-img>
         </v-avatar>
         <p style="font-family: 'Roboto Light'; color: white; margin-left: 10px; margin-top: 7px">{{ this.routineUserName }}</p>
       </v-row>
@@ -96,6 +96,7 @@ export default {
     directionName:{type:String,required:true},
     routineUserName:{type: String, required: false  },
     routineUserId:{type: Number, required: false},
+    routineUserAvatarUrl:{type: String, required: false  },
   },
 
   data() {
