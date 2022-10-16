@@ -19,10 +19,10 @@
           </h1>
           <v-btn
             icon
-            v-on:click.stop="deleteMe()"
+            v-on:click.stop="changeDeleteState"
             fill
             style="position: absolute; top: 10px; right: 10px"
-            @click="deleteMe"
+            @click="changeDeleteState"
             v-if="!exploreMode"
           >
             <v-icon color="white">mdi-close</v-icon>
@@ -41,6 +41,41 @@
         </v-avatar>
         <p style="font-family: 'Roboto Light'; color: white; margin-left: 10px; margin-top: 7px">{{ this.routineUserName }}</p>
       </v-row>
+      <v-dialog v-model="deleted" persistent width="610">
+        <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
+          <v-card
+            color="background"
+            width="600"
+            height="120"
+            class="box center"
+            rounded="xl"
+          >
+            <v-card-title style="color: #cfffb3"
+            >Are you sure you wanna deleted?</v-card-title
+            >
+            <v-card-actions>
+              <v-row justify="center">
+                <v-btn
+                  color="primary"
+                  outlined
+                  @click="changeDeleteState(false)"
+                  style="margin: 7px"
+                >
+                  <span style="color: #cfffb3">No Sorry</span>
+                </v-btn>
+                <v-btn
+                  color="primary"
+                  filled
+                  @click="deleteMe"
+                  style="margin: 7px"
+                >
+                  <span style="color: #1e1e1e">YES</span>
+                </v-btn>
+              </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-sheet>
+      </v-dialog>
     </v-img>
   </v-card>
 </template>
@@ -78,9 +113,12 @@ export default {
   },
   methods: {
     async deleteMe() {
-      this.deleted = true;
       await this.deleteRoutine(this.routineId);
       await this.setRoutines(this.userId);
+    },
+    changeDeleteState(state){
+      this.deleted = state;
+      console.log(this.deleted);
     },
     getProfilePic(){
       return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";

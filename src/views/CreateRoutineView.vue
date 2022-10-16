@@ -49,21 +49,30 @@
               >
                 {{ this.routineDetail }}
               </p>
-              <v-col class="justify-end d-flex" md="2" offset-md="3">
-                <img :src="image" />
+              </v-row>
+            <v-row  class="d-flex justify-center align-center">
                 <v-file-input
                   v-if="editMode"
-                  class="temp justify-end mr-15"
+                  class="temp  "
+                  color="primary "
+                  dark
+                  :clearable="false"
                   show-size
+                  label="SET IMAGE"
+                  rounded="lg"
                   style="
-                    width: 400px;
+                    align-self: end;
                     font-family: Bebas Neue;
-                    background-color: #cfffb3;
+                    max-width: 250px;
                   "
                   @change="handleImage"
                   v-model="readImg"
                   accept="image/*"
                 />
+            </v-row>
+            <v-row>
+              <v-col class="d-flex justify-center align-center">
+              <img :src="image" style="max-width: 300px ; max-height: 300px" class="align-end"/>
               </v-col>
             </v-row>
           </v-sheet>
@@ -178,23 +187,7 @@
           </v-card-title>
           <v-card-text>
             <v-container>
-              <!-- <v-row> -->
-              <!-- <v-col cols="12" sm="10" md="8"> -->
-              <!--   <v-autocomplete -->
-              <!--     :items="createdExercise" -->
-              <!--     item-text="name" -->
-              <!--     dense -->
-              <!--     chips -->
-              <!--     small-chips -->
-              <!--     label="Search" -->
-              <!--     solo -->
-              <!--     color="secondary" -->
-              <!--     return-object -->
-              <!--     v-model="selectedExercise" -->
-              <!--     background-color="secondary" -->
-              <!--   ></v-autocomplete> -->
-              <!-- </v-col> -->
-              <!-- </v-row> -->
+
               <v-row>
                 <v-col>
                   <v-virtual-scroll
