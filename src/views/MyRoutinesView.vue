@@ -162,7 +162,7 @@ export default {
 
   async created() {
     this.cleanAll();
-    this.addPage('MyRoutines',true,'/myRoutines')
+    this.addPage('My Routines',true,'/myRoutines')
     try {
       await this.resetStore();
       this.userId = await this.getUserId();

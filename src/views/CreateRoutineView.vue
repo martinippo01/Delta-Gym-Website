@@ -517,7 +517,13 @@ export default {
       this.maxId++;
     },
     handleImage() {
-      this.createBase64Image(this.readImg);
+
+      if(this.readImg.size > 12000) {
+        alert("Sorry, but maximum size of image is 10Kb");        
+        this.readImg = "";
+      } else  {
+        this.createBase64Image(this.readImg);
+      }
     },
     createBase64Image(fileObject) {
       const reader = new FileReader();

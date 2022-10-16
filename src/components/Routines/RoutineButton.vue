@@ -51,7 +51,7 @@
             rounded="xl"
           >
             <v-card-title style="color: #cfffb3"
-            >Sería, are you sure you want to delete it?</v-card-title
+            >Are you sure you want to delete it?</v-card-title
             >
             <v-card-actions>
               <v-row justify="center">
@@ -61,7 +61,7 @@
                   @click="changeDeleteState(false)"
                   style="margin: 7px"
                 >
-                  <span style="color: #cfffb3">No Sorry</span>
+                  <span style="color: #cfffb3">No </span>
                 </v-btn>
                 <v-btn
                   color="primary"

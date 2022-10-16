@@ -28,20 +28,17 @@
         />
       </v-col>
 
-      <v-col class="d-flex justify-center align-center background"
-          style=" border-radius: 25px;"
-
+      <v-col
+        class="d-flex justify-center align-center background"
+        style="border-radius: 25px"
       >
         <v-sheet
-          style=" border-radius: 25px;"
+          style="border-radius: 25px"
           color="secondary"
           max-height="1000"
           max-width="500"
         >
-          <v-container 
-
-          style=" border-radius: 25px;"
-          >
+          <v-container style="border-radius: 25px">
             <v-row justify="end">
               <v-text-field
                 class="pt-10 pr-10 pl-10"
@@ -60,8 +57,7 @@
                 v-model="lastName"
               />
             </v-row>
-            <v-row justify="end">
-            </v-row>
+            <v-row justify="end"> </v-row>
             <v-row justify="end">
               <v-col>
                 <v-btn color="primary" text class="temp">
@@ -84,6 +80,34 @@
         </v-sheet>
       </v-col>
     </v-main>
+
+      <v-dialog v-model="dialog" persistent width="610">
+        <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
+          <v-card
+            color="background"
+            width="600"
+            height="120"
+            class="box center"
+            rounded="xl"
+          >
+            <v-card-title style="color: #cfffb3"
+            >Sería, are you sure you want to delete it?</v-card-title
+            >
+            <v-card-actions>
+              <v-row justify="center">
+                <v-btn
+                  color="primary"
+                  filled
+                  @click="deleteMe"
+                  style="margin: 7px"
+                >
+                  <span style="color: #1e1e1e">OK</span>
+                </v-btn>
+              </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-sheet>
+      </v-dialog>
   </v-app>
 </template>
 
@@ -105,11 +129,12 @@ export default {
       firstName: "",
       lastName: "",
       readImg: "",
+      dialog: false,
     };
   },
   async created() {
     this.cleanAll();
-    this.addPage('MyProfiel',false,'/profile')
+    this.addPage("Profile", false, "/profile");
     try {
       const res = await UserApi.get();
       this.firstName = res.firstName;
@@ -121,10 +146,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useBreadCrumbs,['cleanAll']),
-    ...mapActions(useBreadCrumbs,['addPage']),
+    ...mapActions(useBreadCrumbs, ["cleanAll"]),
+    ...mapActions(useBreadCrumbs, ["addPage"]),
     handleImage() {
-      this.createBase64Image(this.readImg);
+      if(this.readImg.size > 12000) {
+        alert("Sorry, but maximum size of image is 10Kb");        
+        this.readImg = "";
+      } else  {
+        this.createBase64Image(this.readImg);
+      }
     },
     createBase64Image(fileObject) {
       const reader = new FileReader();
@@ -160,4 +190,3 @@ h1 {
   font-family: "Bebas Neue";
 }
 </style>
-
