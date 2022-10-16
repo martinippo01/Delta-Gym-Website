@@ -9,6 +9,7 @@
         <v-img
             src="https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             max-height="900"
+            gradient="to top , rgba(30,30,30,0.2), rgba(30,30,30,1)"
         >
           <v-sheet
               style="position: absolute; margin-left: 20%; margin-top: 100px"
@@ -107,6 +108,18 @@
             </v-row>
             <v-row>
               <h2 style="color: white; font-family: 'Bebas Neue'; font-size: 30px;  margin-left: auto; margin-right: auto">Explore our selection of routines or create your own with our unique delta tracking.</h2>
+            </v-row>
+            <v-row>
+              <router-link style="text-decoration: none; color: inherit; margin-left: auto; margin-right: auto" to="/explore">
+                <v-btn
+                    x-large
+                    outlined
+                    color="primary"
+                    style="outline-color: #CFFFB3; margin-right: auto; margin-left: auto; margin-top: 20px"
+                >
+                  <span style="color: #CFFFB3">Explore Routines<v-icon>mdi-chevron-right</v-icon></span>
+                </v-btn>
+              </router-link>
             </v-row>
             <v-img
                 src="@/assets/postWorkoutv2.png"
