@@ -76,16 +76,6 @@
                     accept="image/*"
                   />
               </v-row>
-<!--              <v-row>-->
-<!--                <p style="font-family: 'Roboto Medium'; color: white; margin-left: 40px">Routine Image:</p>-->
-<!--              </v-row>-->
-<!--              <v-row>-->
-<!--                <v-col class="d-flex justify-center align-center">-->
-<!--                  <v-card color="background">-->
-<!--                    <v-img :src="image" height="300" width="400" class="align-end"/>-->
-<!--                  </v-card>-->
-<!--                </v-col>-->
-<!--              </v-row>-->
             </v-img>
           </v-card>
 
@@ -415,7 +405,6 @@ import { useExerciseStore } from "@/store/exerciseData";
 import {useBreadCrumbs} from "@/store/breadCrumbsStore";
 import {RoutinesApi,Routine} from "@/api/routines";
 
-
 export default {
   name: "CreateRoutuneView",
   components: { NavBar, exerciseCard, addButtom },
@@ -439,14 +428,13 @@ export default {
       editMode: false,
       image: "",
       readImg: "",
-      dialogImgError: false
+      dialogImgError: false,
     };
   },
 
   methods: {
     ...mapActions(useBreadCrumbs, ["cleanAll"]),
     ...mapActions(useBreadCrumbs, ["addPage"]),
-
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useExerciseStore, ["addExercise"]),
     ...mapActions(useExerciseStore, ["uploadExercises"]),
@@ -459,6 +447,7 @@ export default {
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useExerciseStore, ["setId"]),
     ...mapState(useExerciseStore, ["getRoutineId"]),
+    ...mapState(useExerciseStore, ["setRoutine"]),
 
 
     discardExerciseHandler() {
@@ -476,7 +465,6 @@ export default {
 
         try {
 
-          if (this.image != "")
           await RoutinesApi.updateRoutine(
             new Routine(this.routineName, this.routineDetail, "rookie",this.publicRoutine, {
               img: this.image,
@@ -607,8 +595,9 @@ export default {
     ...mapState(useExerciseStore, ["routineName"]),
     ...mapState(useExerciseStore, ["publicRoutine"]),
     ...mapState(useExerciseStore, ["routineDetail"]),
+
   },
-  mounted() {
+  async mounted() {
     this.addPage('CreateRoutine',true,'/createRoutine')
     this.editMode = this.$route.params.editMode;
     const aux = this.$route.params.from;
@@ -626,6 +615,19 @@ export default {
     } catch (error) {
       this.error = true;
       this.errorText = error.errorText;
+    }
+    try {
+      var id;
+      if ((id =localStorage.getItem("ROUTINE-ID"))== null)
+        id = 0;
+      else
+        id = parseInt(id);
+      const resp = await RoutinesApi.getRoutine(id);
+      this.image = resp.metadata.img;
+      this.setRoutine(resp.name,resp.detail,resp.isPublic,resp.metadata.img);
+    }catch (error){
+        this.error = true;
+        this.errorText = error.text;
     }
   },
   beforeRouteLeave(to, from, next) {

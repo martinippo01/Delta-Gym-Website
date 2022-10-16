@@ -108,6 +108,7 @@ import NavBar from "@/components/NavBar";
 import { mapState, mapActions, storeToRefs } from "pinia";
 import { useExerciseStore } from "@/store/exerciseData";
 import {useBreadCrumbs} from "@/store/breadCrumbsStore";
+import { RoutinesApi } from "@/api/routines";
 
 export default {
   name: "CreateRoutuneView",
@@ -121,6 +122,7 @@ export default {
       dialogSelectExercise: false,
       dialogCreateExercise: false,
       selectedName: null,
+      image:''
     };
   },
   methods: {
@@ -128,6 +130,7 @@ export default {
     ...mapActions(useExerciseStore, ["setId"]),
     ...mapActions(useExerciseStore, ["deleteAll"]),
     ...mapActions(useBreadCrumbs, ["addPage"]),
+    ...mapActions(useExerciseStore,['setRoutine'])
 
   },
   computed: {
@@ -139,16 +142,17 @@ export default {
     ...mapState(useExerciseStore, ["routineName"]),
     ...mapState(useExerciseStore, ["routineDetail"]),
   },
-  mounted() {
+  async mounted() {
     this.addPage('ViewRouting',false,'/ViewRoutine')
     const routineID = this.$route.params.id;
     if (routineID != null) {
       this.setId(parseInt(routineID));
+      const resp = await RoutinesApi.getRoutine(parseInt(routineID));
+      this.image = resp.metadata.img;
+      this.setRoutine(resp.name, resp.detail, resp.isPublic, resp.metadata.img);
     }
-    this.getRoutineData();
   },
   destroyed() {
-    console.log("HOLA");
     this.deleteAll();
   },
 };

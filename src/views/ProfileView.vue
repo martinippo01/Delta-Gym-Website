@@ -267,6 +267,7 @@ export default {
         metadata,
         this.avatarUrl
       );
+      console.log(newInformation);
       try {
         await UserApi.updateUser(newInformation);
         this.saveColor = "green";

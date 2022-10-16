@@ -21,5 +21,8 @@ class CyclesApi{
             console.log( error);
         }
     }
+    static async deleteExercise(cycleId:number,exId:number){
+        await Api.delete(this.getUrl(cycleId,exId),true,null);
+    }
 
 }

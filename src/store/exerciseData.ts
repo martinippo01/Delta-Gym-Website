@@ -21,6 +21,7 @@ interface ExerciseAPiType{
     id:number;
     metadata: any;
 
+
 }
 export {ExerciseAPiType,Exercise}
 export const useExerciseStore = defineStore('exercises', {
@@ -35,7 +36,7 @@ export const useExerciseStore = defineStore('exercises', {
         routineId:0,
         id:0,
         publicRoutine:false,
-
+        img:''
     }),
     getters: {
 
@@ -162,10 +163,11 @@ export const useExerciseStore = defineStore('exercises', {
             this.cycleIds =[];
             this.createdExercise = [];
         },
-        setRoutine(name:string,detail:string,publicRoutine:boolean){
+        setRoutine(name:string,detail:string,publicRoutine:boolean,img:string){
             this.routineName = name;
             this.routineDetail = detail;
             this.publicRoutine = publicRoutine;
+            this.img = img;
         },
        async createRoutine(){
             const response = await RoutinesApi.addRoutine(new Routine(this.routineName,this.routineDetail,"rookie",this.publicRoutine));
@@ -196,7 +198,10 @@ export const useExerciseStore = defineStore('exercises', {
         for (const ex in this.exercisArray){
           this.setOrder(ex);
           if (this.exercisArray[ex].newExercise) {
-            await CyclesApi.changeExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id, this.exercisArray[ex].exerciseInCycle);
+            if (!this.exercisArray[ex].deleted)
+              await CyclesApi.changeExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id, this.exercisArray[ex].exerciseInCycle);
+            else
+                await CyclesApi.deleteExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id);
           }
           else {
             await CyclesApi.addExercise(this.exercisArray[ex].cycleId, this.exercisArray[ex].exercise.id, this.exercisArray[ex].exerciseInCycle);
