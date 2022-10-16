@@ -1,52 +1,173 @@
 <template>
-  <v-app>
+  <v-app class="background">
     <NavBar select="" />
+    <v-main class="background">
 
-    <div class="landing">
-      <LandingScreen>
-        <template #title> DELTA </template>
-        <template #body>
-          TRACK YOUR WORKOUTS, MEASURE YOUR PROGRESS AND, STAY MOTIVATED
-        </template>
-        <template #img>
-          <img src="../assets/postWorkout.png" />
-        </template>
-      </LandingScreen>
+      <v-card
+          style="margin-top: 10px"
+      >
+        <v-img
+            src="https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            max-height="700"
+        >
+          <v-sheet
+              style="position: absolute; margin-left: 70px; margin-top: 100px"
+              max-width="1000"
+              height="500"
+              rounded="xl"
+              color="rgb(30, 30, 30, 0.5)"
+              elevation=""
+          >
+            <v-row justify="center">
+              <v-col cols="6">
+                <v-row>
+                  <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 100px; margin-left: 50px; margin-top: 150px">Delta</h1>
+                </v-row>
+                <v-row>
+                  <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px; margin-left: 50px">Track your workouts, measure your progress and stay motivated</h2>
+                </v-row>
+              </v-col>
+              <v-col
+                  cols="6"
+              >
+                <v-img src="@/assets/googlePlay.png" style="margin-top: 40px; margin-left: 50px" width="400" ></v-img>
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </v-img>
+      </v-card>
+      <!--_______________________________________________________________________________________________--->
 
-      <LandingScreen>
-        <template #title> WHAT MAKES US DIFFERENT </template>
-        <template #body>
-          WITH OUR UNIQUE DELTA SYSTEM EVERY WORKOUT WILL BE DIFFERENT—SEE
-          IMPROVEMENT FROM DAY ONE.
-        </template>
-        <template #img>
-          <img src="../assets/postWorkout.png" />
-        </template>
-      </LandingScreen>
+      <v-sheet
+          color="background"
+      >
+        <v-row justify="center">
+          <v-col cols="12">
+            <v-row>
+              <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 70px; margin-left: 90px; margin-top: 150px"> WHAT MAKES US DIFFERENT?</h1>
+            </v-row>
+            <v-row>
+              <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px;  margin-left:90px">With our unique Delta system, every workout will be different - See Improvement from day one.</h2>
+            </v-row>
+            <v-img
+                src="@/assets/inWorkoutv2.png"
+                width="800"
+                height="800"
+                style="margin-left: auto; margin-right: auto"
+            ></v-img>
+          </v-col>
+        </v-row>
 
-      <LandingScreen>
-        <template #title> PROGRESS, SHUFFLE, SKIP </template>
-        <template #body>
-          LET THE APP ADAPT TO YOURSELF: SHUFFLE EXERCISES, SKIP, RECORD—SEE THE
-          WHOLE PICTURE
-        </template>
-        <template #img>
-          <img src="../assets/inWorkout.png" />
-        </template>
-      </LandingScreen>
+      </v-sheet>
 
-      <LandingScreen>
-        <template #title> EXPLORE, CREATE </template>
-        <template #body>
-          EXPLORE OUR SELECTION OF ROUTINES OR CREATE YOUR OWN WITH OUR UNIQUE
-          DELTA TRACKING
-        </template>
-        <template #img>
-          <v-btn> EXPLORE ROUTINES </v-btn>
-        </template>
-      </LandingScreen>
-    </div>
+      <!--_______________________________________________________________________________________________--->
+
+
+      <template>
+        <v-parallax
+            dark
+            src="https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            height="350"
+        >
+          <v-sheet
+              style="position: absolute; margin-left: auto; margin-top: 0"
+              max-width="1000"
+              height="300"
+              rounded="xl"
+              color="rgb(30, 30, 30, 0.5)"
+              elevation=""
+          >
+            <v-row justify="center">
+
+              <v-row>
+                <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 100px; margin-left: 50px; margin-top: 40px; margin-right: 20px">PROGRESS, SHUFFLE, SKIP</h1>
+              </v-row>
+              <v-row>
+                <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px; margin-left: 50px; margin-right: 20px">Let the app adapt to yourself: Shuffle exercises, skip, record - See the whole picture</h2>
+              </v-row>
+
+            </v-row>
+          </v-sheet>
+        </v-parallax>
+      </template>
+
+
+      <!--_______________________________________________________________________________________________--->
+
+      <v-sheet
+          color="background"
+      >
+        <v-row justify="center">
+          <v-col cols="12">
+            <v-row>
+              <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 70px; margin-left: auto; margin-right: auto; margin-top: 100px"> Explore, Create</h1>
+            </v-row>
+            <v-row>
+              <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px;  margin-left: auto; margin-right: auto">Explore our selection of routines or create your own with our unique delta tracking.</h2>
+            </v-row>
+            <v-img
+                src="@/assets/postWorkoutv2.png"
+                max-width="600"
+                style="margin-left: auto; margin-right: auto"
+            ></v-img>
+          </v-col>
+        </v-row>
+
+      </v-sheet>
+
+
+    </v-main>
+
   </v-app>
+
+<!--  <v-app>-->
+<!--    <NavBar select="" />-->
+
+<!--    <div class="landing">-->
+<!--      <LandingScreen>-->
+<!--        <template #title> DELTA </template>-->
+<!--        <template #body>-->
+<!--          TRACK YOUR WORKOUTS, MEASURE YOUR PROGRESS AND, STAY MOTIVATED-->
+<!--        </template>-->
+<!--        <template #img>-->
+<!--          <img src="../assets/postWorkout.png" />-->
+<!--        </template>-->
+<!--      </LandingScreen>-->
+
+<!--      <LandingScreen>-->
+<!--        <template #title> WHAT MAKES US DIFFERENT </template>-->
+<!--        <template #body>-->
+<!--          WITH OUR UNIQUE DELTA SYSTEM EVERY WORKOUT WILL BE DIFFERENT—SEE-->
+<!--          IMPROVEMENT FROM DAY ONE.-->
+<!--        </template>-->
+<!--        <template #img>-->
+<!--          <img src="../assets/postWorkout.png" />-->
+<!--        </template>-->
+<!--      </LandingScreen>-->
+
+<!--      <LandingScreen>-->
+<!--        <template #title> PROGRESS, SHUFFLE, SKIP </template>-->
+<!--        <template #body>-->
+<!--          LET THE APP ADAPT TO YOURSELF: SHUFFLE EXERCISES, SKIP, RECORD—SEE THE-->
+<!--          WHOLE PICTURE-->
+<!--        </template>-->
+<!--        <template #img>-->
+<!--          <img src="../assets/inWorkout.png" />-->
+<!--        </template>-->
+<!--      </LandingScreen>-->
+
+<!--      <LandingScreen>-->
+<!--        <template #title> EXPLORE, CREATE </template>-->
+<!--        <template #body>-->
+<!--          EXPLORE OUR SELECTION OF ROUTINES OR CREATE YOUR OWN WITH OUR UNIQUE-->
+<!--          DELTA TRACKING-->
+<!--        </template>-->
+<!--        <template #img>-->
+<!--          <v-btn> EXPLORE ROUTINES </v-btn>-->
+<!--        </template>-->
+<!--      </LandingScreen>-->
+<!--    </div>-->
+<!--  </v-app>-->
 </template>
 
 <script>
@@ -58,7 +179,6 @@ import { useBreadCrumbs } from "@/store/breadCrumbsStore";
 export default {
   name: "LandingPage",
   components: {
-    LandingScreen,
     NavBar,
   },
   mounted() {
