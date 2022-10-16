@@ -155,6 +155,28 @@
         </v-sheet>
       </v-dialog>
 
+      <v-dialog v-model="imgbbImgError" persistent width="620">
+        <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
+          <v-card
+              color="background"
+              width="600"
+              height="180"
+              class="box center"
+              rounded="xl"
+          >
+            <v-card-title style="color: #CFFFB3">
+              Sorry, there has been an error while uploading your profile picture.
+            </v-card-title>
+            <v-card-subtitle style="color: white">
+              Other users will not be able to see your profile picture. Please try to upload it again.
+            </v-card-subtitle>
+            <v-card-actions>
+              <v-btn style="margin-left: auto; margin-right: auto" @click="imgbbImgError = false" outlined color="error">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-sheet>
+      </v-dialog>
+
     </div>
   </div>
 </template>
@@ -181,6 +203,7 @@ export default {
       dialog: false,
       dialogError: false,
       dialogImgError: false,
+      imgbbImgError: false,
       IMGBB_APIKEY: '5a3d2c568ff11e50c066f293ad0e6641',
     };
   },
@@ -218,7 +241,10 @@ export default {
               .then(result => {
                 this.avatarUrl = result.data.url;
                 console.log(this.avatarUrl);
-              }).catch(() => this.avatarUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+              }).catch(() => {
+            this.avatarUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+            this.imgbbImgError = true;
+          });
 
 
       }
