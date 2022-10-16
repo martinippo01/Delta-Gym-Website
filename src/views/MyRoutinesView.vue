@@ -22,10 +22,11 @@
             rounded="xl"
             elevation="0"
           >
-            <v-row class="routines-group">
+            <v-row >
+
               <Add
                 @click.native="dialog = true"
-                style="text-decoration: none; color: inherit; margin: 10px"
+                style="text-decoration: none; color: inherit; margin: 10px; justify-content: center"
               />
               <RoutineButton
                 v-for="routine in routines"
