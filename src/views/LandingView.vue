@@ -8,29 +8,30 @@
       >
         <v-img
             src="https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            max-height="700"
+            max-height="900"
         >
           <v-sheet
-              style="position: absolute; margin-left: 70px; margin-top: 100px"
-              max-width="1000"
+              style="position: absolute; margin-left: 20%; margin-top: 100px"
+              min-width="500"
+
               height="500"
               rounded="xl"
-              color="rgb(30, 30, 30, 0.5)"
+              color="rgb(30, 30, 30, 0)"
               elevation=""
           >
             <v-row justify="center">
               <v-col cols="6">
                 <v-row>
-                  <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 100px; margin-left: 50px; margin-top: 150px">Delta</h1>
+                  <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 120px; margin-left: 50px; margin-top: 250px">Delta</h1>
                 </v-row>
                 <v-row>
-                  <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px; margin-left: 50px">Track your workouts, measure your progress and stay motivated</h2>
+                  <h2 style="color: white; font-family: 'Bebas Neue'; font-size: 40px; margin-left: 50px">Track your workouts, measure your progress and stay motivated</h2>
                 </v-row>
               </v-col>
               <v-col
                   cols="6"
               >
-                <v-img src="@/assets/googlePlay.png" style="margin-top: 40px; margin-left: 50px" width="400" ></v-img>
+                <v-img src="@/assets/googlePlay.png" style="margin-top: 160px; margin-left: 50px" width="400" ></v-img>
               </v-col>
             </v-row>
           </v-sheet>
@@ -40,20 +41,20 @@
 
       <v-sheet
           color="background"
+          style=" background-image: linear-gradient(to right bottom, #1e1e1e, rgba(207, 255, 179, 0.3));"
       >
         <v-row justify="center">
           <v-col cols="12">
-            <v-row>
+
               <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 70px; margin-left: 90px; margin-top: 150px"> WHAT MAKES US DIFFERENT?</h1>
-            </v-row>
-            <v-row>
-              <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px;  margin-left:90px">With our unique Delta system, every workout will be different - See Improvement from day one.</h2>
-            </v-row>
+
+              <h2 style="color: white; font-family: 'Bebas Neue'; font-size: 30px;  margin-left:90px">With our unique Delta system, every workout will be different - See Improvement from day one.</h2>
+
             <v-img
-                src="@/assets/inWorkoutv2.png"
-                width="800"
+                src="@/assets/inWorkout.png"
+                width="400"
                 height="800"
-                style="margin-left: auto; margin-right: auto"
+                style="margin-left: auto; margin-right: auto; scale: 0.6;"
             ></v-img>
           </v-col>
         </v-row>
@@ -83,7 +84,7 @@
                 <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 100px; margin-left: 50px; margin-top: 40px; margin-right: 20px">PROGRESS, SHUFFLE, SKIP</h1>
               </v-row>
               <v-row>
-                <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px; margin-left: 50px; margin-right: 20px">Let the app adapt to yourself: Shuffle exercises, skip, record - See the whole picture</h2>
+                <h2 style="color: white; font-family: 'Bebas Neue'; font-size: 30px; margin-left: 50px; margin-right: 20px">Let the app adapt to yourself: Shuffle exercises, skip, record - See the whole picture</h2>
               </v-row>
 
             </v-row>
@@ -96,6 +97,8 @@
 
       <v-sheet
           color="background"
+          style=" background-image: linear-gradient(to bottom right, #1e1e1e, rgba(207, 255, 179, 0.3));"
+
       >
         <v-row justify="center">
           <v-col cols="12">
@@ -103,7 +106,7 @@
               <h1 style="color: #CFFFB3; font-family: 'Bebas Neue'; font-size: 70px; margin-left: auto; margin-right: auto; margin-top: 100px"> Explore, Create</h1>
             </v-row>
             <v-row>
-              <h2 style="color: white; font-family: 'Roboto Light'; font-size: 30px;  margin-left: auto; margin-right: auto">Explore our selection of routines or create your own with our unique delta tracking.</h2>
+              <h2 style="color: white; font-family: 'Bebas Neue'; font-size: 30px;  margin-left: auto; margin-right: auto">Explore our selection of routines or create your own with our unique delta tracking.</h2>
             </v-row>
             <v-img
                 src="@/assets/postWorkoutv2.png"
