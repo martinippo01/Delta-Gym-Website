@@ -24,7 +24,7 @@
           :color="select === 'singUp' ? 'primary' : 'topBar'"
           plain
         >
-          SING UP
+          SIGN UP
         </v-btn>
       </router-link>
       <router-link  style="text-decoration: none; color: inherit;" to="/login">
