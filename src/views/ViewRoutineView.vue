@@ -5,7 +5,11 @@
         <NavBar select="explore"></NavBar>
         <v-main class="background">
           <!--        _______________________________________________________________________________________-->
-          <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
+          <v-card class="mx-auto sheet" color="secondary" rounded="xl" max-width="1500">
+            <v-img :src="this.image"
+                   max-height="300"
+                   gradient="to top , rgba(30,30,30,0.75), rgba(30,30,30,0.75)"
+            >
             <v-row class="d-flex">
               <v-col class="d-flex ml-7">
                 <!--              Caso 1 ->  Vista de edicion-->
@@ -26,7 +30,8 @@
                 {{ this.routineDetail }}
               </p>
             </v-row>
-          </v-sheet>
+            </v-img>
+          </v-card>
 
           <!--        _______________________________________________________________________________________-->
 
