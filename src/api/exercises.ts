@@ -32,8 +32,7 @@ class exerciseApi {
   static async modifyExercise(id: number, exercise: ExerciseAPiType) {
     return await Api.put(this.getUrl(id.toString()), true, exercise);
   }
-  static async getExercises() {
-    const result = await Api.get(exerciseApi.getUrl(), true, null);
-    return result.content;
+  static async getExercises(page:number) {
+    return await Api.get(exerciseApi.getUrl().concat(`?page=${page}`), true, null);
   }
 }

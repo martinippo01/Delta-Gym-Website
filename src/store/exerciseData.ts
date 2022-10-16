@@ -151,11 +151,21 @@ export const useExerciseStore = defineStore('exercises', {
             await exerciseApi.deleteExercises(exerciseId);
         },
         async getCreatedExercises(){
-            this.createdExercise = await exerciseApi.getExercises();
+            this.createdExercise = [];
+            let finishe = false;
+          let page = 0
+          while (!finishe) {
+            const aux = await exerciseApi.getExercises(page++);
+            for (let i = 0 ; i < aux.content.length; i++){
+                this.createdExercise.push({name: aux.content[i].name,detail:aux.content[i].detail,type:aux.content[i].aux,id:aux.content[i].id,metadata:aux.content[i].metadata});
+              }
+            finishe = aux.isLastPage;
+            }
         },
         setOrder(index:any){
-            const aux = this.cycleIds.findIndex(ex => ex=== this.exercisArray[index].cycleId);
-            this.exercisArray[index].exerciseInCycle.order = this.orderCycles[aux]++;
+            const aux = this.cycleIds.findIndex(ex => ex === this.exercisArray[index].cycleId);
+            if (!this.exercisArray[index].deleted)
+              this.exercisArray[index].exerciseInCycle.order = this.orderCycles[aux]++;
         },
         deleteAll(){
             this.orderCycles = [1,1,1];
