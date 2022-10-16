@@ -22,7 +22,7 @@
             rounded="xl"
             elevation="0"
           >
-            <v-row >
+            <v-row justify="center">
 
               <Add
                 @click.native="dialog = true"
