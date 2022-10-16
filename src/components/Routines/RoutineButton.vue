@@ -51,7 +51,7 @@
             rounded="xl"
           >
             <v-card-title style="color: #cfffb3"
-            >Are you sure you wanna deleted?</v-card-title
+            >Sería, are you sure you want to delete it?</v-card-title
             >
             <v-card-actions>
               <v-row justify="center">
