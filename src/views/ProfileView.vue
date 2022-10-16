@@ -28,14 +28,20 @@
         />
       </v-col>
 
-      <v-col class="d-flex justify-center align-center background">
+      <v-col class="d-flex justify-center align-center background"
+          style=" border-radius: 25px;"
+
+      >
         <v-sheet
-          rounded="xl"
+          style=" border-radius: 25px;"
           color="secondary"
           max-height="1000"
           max-width="500"
         >
-          <v-container>
+          <v-container 
+
+          style=" border-radius: 25px;"
+          >
             <v-row justify="end">
               <v-text-field
                 class="pt-10 pr-10 pl-10"
@@ -96,7 +102,6 @@ export default {
     return {
       saveColor: "primary",
       image: "",
-      username: "",
       firstName: "",
       lastName: "",
       readImg: "",
@@ -107,10 +112,8 @@ export default {
     this.addPage('MyProfiel',false,'/profile')
     try {
       const res = await UserApi.get();
-      this.username = res.username;
       this.firstName = res.firstName;
       this.lastName = res.lastName;
-      this.email = res.email;
       this.image = res.metadata.img;
     } catch (error) {
       this.snackbar = true;
