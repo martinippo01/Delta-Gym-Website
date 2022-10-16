@@ -66,25 +66,16 @@
 
                 <v-row>
 
-                    <v-col>
-                      <v-btn
-                          color="primary"
-                          text
-                      >
-                        DISCARD CHANGES
-                      </v-btn>
-                    </v-col>
-
-                    <v-col>
                         <v-btn
                           @click="saveHandler()"
                           :color="saveColor"
-                          outlined
+                          filled
                           justify="center"
+                          style="margin-right: auto; margin-left: auto; margin-bottom: 20px"
                         >
-                          SAVE CHANGES
+                          <span style="color: #1e1e1e">SAVE CHANGES</span>
                         </v-btn>
-                    </v-col>
+
                 </v-row>
 
               </v-container>
