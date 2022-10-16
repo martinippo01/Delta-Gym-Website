@@ -149,8 +149,8 @@ export default {
     ...mapActions(useBreadCrumbs, ["cleanAll"]),
     ...mapActions(useBreadCrumbs, ["addPage"]),
     handleImage() {
-      if(this.readImg.size > 12000) {
-        alert("Sorry, but maximum size of image is 10Kb");        
+      if(this.readImg.size > 80000) {
+        alert("Sorry, but maximum size of image is 80Kb");        
         this.readImg = "";
       } else  {
         this.createBase64Image(this.readImg);

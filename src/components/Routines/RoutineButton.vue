@@ -50,9 +50,7 @@
             class="box center"
             rounded="xl"
           >
-            <v-card-title style="color: #cfffb3"
-            >Are you sure you want to delete it?</v-card-title
-            >
+            <v-card-title style="color: #cfffb3; ">Are you sure you want to delete it?</v-card-title>
             <v-card-actions>
               <v-row justify="center">
                 <v-btn
