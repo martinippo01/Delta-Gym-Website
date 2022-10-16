@@ -210,7 +210,7 @@ export default {
         let formData = new FormData();
         formData.append('image', this.readImg);
 
-        try{
+
           fetch(`https://api.imgbb.com/1/upload?key=${this.IMGBB_APIKEY}`, {
             method: 'POST',
             body: formData
@@ -218,11 +218,8 @@ export default {
               .then(result => {
                 this.avatarUrl = result.data.url;
                 console.log(this.avatarUrl);
-              });
-        }
-        catch (error){
-          console.log('error in imgbb');
-        }
+              }).catch(() => this.avatarUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+
 
       }
     },
