@@ -5,77 +5,89 @@
         <NavBar select="myRoutines"></NavBar>
         <v-main class="background">
           <!--        _______________________________________________________________________________________-->
-          <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
-            <v-row class="d-flex">
-              <v-col class="d-flex ml-7">
-
-
-                <h1>{{ this.routineName }}</h1>
-              </v-col>
-              <v-col class="justify-end d-flex" md="2" offset-md="3">
-                <v-btn
-                  color="primary"
-                  plain
-                  class="temp justify-end mr-7"
-                  v-if="editMode"
-                  @click="discard"
-                >
-                  DISCARD
-                </v-btn>
-                <v-btn
-                  color="primary"
-                  class="temp justify-end mr-7 secondary--text"
-                  v-if="editMode"
-                  @click="save"
-                >
-                  SAVE
-                </v-btn>
-                <!--              CASO 2 -> Vista normal-->
-                <v-btn
-                  color="primary"
-                  class="temp justify-end mr-7 secondary--text"
-                  v-if="!editMode"
-                  @click="editMode = true"
-                >
-                  EDIT ROUTINE
-                </v-btn>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <p
-                class="text-justify"
-                style="margin: 40px; color: white; margin-bottom: 20px"
-              >
-                {{ this.routineDetail }}
-              </p>
+          <v-card class="mx-auto sheet" color="secondary" rounded="xl" max-width="1500">
+            <v-img :src="this.image"
+                   max-height="400"
+                   gradient="to top , rgba(30,30,30,0.75), rgba(30,30,30,0.75)"
+            >
+              <v-row class="d-flex">
+                <v-col class="d-flex ml-7">
+                  <h1 style="margin-top: 10px">{{ this.routineName }}</h1>
+                </v-col>
+                <v-col class="justify-end d-flex" md="2" offset-md="3">
+                  <v-btn
+                    color="primary"
+                    outlined
+                    style="margin-top: 10px"
+                    class="justify-end mr-7"
+                    v-if="editMode"
+                    @click="discard"
+                  >
+                    DISCARD
+                  </v-btn>
+                  <v-btn
+                    color="primary"
+                    class=" justify-end mr-7 secondary--text"
+                    v-if="editMode"
+                    style="margin-top: 10px"
+                    @click="save"
+                  >
+                    SAVE
+                  </v-btn>
+                  <!--              CASO 2 -> Vista normal-->
+                  <v-btn
+                    color="primary"
+                    class=" justify-end mr-7 secondary--text"
+                    v-if="!editMode"
+                    style="margin-top: 10px"
+                    @click="editMode = true"
+                  >
+                    EDIT ROUTINE
+                  </v-btn>
+                </v-col>
               </v-row>
-            <v-row  class="d-flex justify-center align-center">
-                <v-file-input
-                  v-if="editMode"
-                  class="temp  "
-                  color="primary "
-                  dark
-                  :clearable="false"
-                  show-size
-                  label="SET IMAGE"
-                  rounded="lg"
-                  style="
-                    align-self: end;
-                    font-family: Bebas Neue;
-                    max-width: 250px;
-                  "
-                  @change="handleImage"
-                  v-model="readImg"
-                  accept="image/*"
-                />
-            </v-row>
-            <v-row>
-              <v-col class="d-flex justify-center align-center">
-              <img :src="image" style="max-width: 300px ; max-height: 300px" class="align-end"/>
-              </v-col>
-            </v-row>
-          </v-sheet>
+
+              <v-row>
+                <p
+                  class="text-justify"
+                  style="margin: 40px; color: white; margin-bottom: 20px"
+                >
+                  {{ this.routineDetail }}
+                </p>
+                </v-row>
+              <v-row  class="d-flex justify-center align-center">
+                  <v-file-input
+                    v-if="editMode"
+                    color="primary "
+                    dark
+                    :clearable="false"
+                    show-size
+                    label="Set Routine Image"
+                    outlined
+                    rounded="lg"
+                    style="
+                      align-self: end;
+                      font-family: 'Roboto Medium';
+                      font-size: x-large;
+                      max-width: 250px;
+                    "
+                    @change="handleImage"
+                    v-model="readImg"
+                    accept="image/*"
+                  />
+              </v-row>
+<!--              <v-row>-->
+<!--                <p style="font-family: 'Roboto Medium'; color: white; margin-left: 40px">Routine Image:</p>-->
+<!--              </v-row>-->
+<!--              <v-row>-->
+<!--                <v-col class="d-flex justify-center align-center">-->
+<!--                  <v-card color="background">-->
+<!--                    <v-img :src="image" height="300" width="400" class="align-end"/>-->
+<!--                  </v-card>-->
+<!--                </v-col>-->
+<!--              </v-row>-->
+            </v-img>
+          </v-card>
 
           <!--        _______________________________________________________________________________________-->
 
@@ -371,6 +383,25 @@
         </v-card>
       </v-sheet>
     </v-dialog>
+
+    <v-dialog v-model="dialogImgError" persistent width="610">
+      <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
+        <v-card
+            color="background"
+            width="600"
+            height="120"
+            class="box center"
+            rounded="xl"
+        >
+          <v-card-title style="color: #cfffb3">
+            Sorry, but maximum size of image is 80Kb
+          </v-card-title>
+          <v-card-actions>
+            <v-btn style="margin-left: auto; margin-right: auto" @click="dialogImgError = false" outlined color="error">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-sheet>
+    </v-dialog>
   </div>
 </template>
 
@@ -408,6 +439,7 @@ export default {
       editMode: false,
       image: "",
       readImg: "",
+      dialogImgError: false
     };
   },
 
@@ -519,7 +551,7 @@ export default {
     handleImage() {
 
       if(this.readImg.size > 80000) {
-        alert("Sorry, but maximum size of image is 80Kb");        
+        this.dialogImgError = true;
         this.readImg = "";
       } else  {
         this.createBase64Image(this.readImg);
