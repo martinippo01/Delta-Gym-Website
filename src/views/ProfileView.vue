@@ -1,114 +1,116 @@
 <template>
-  <v-app>
-    <NavBar select="profile"></NavBar>
-    <v-main class="background">
-      <h1 class="d-flex justify-center align-center">my profile</h1>
-      <v-col class="d-flex justify-center align-center background">
-        <v-avatar size="200">
-          <img style="" :src="image" alt="" />
-        </v-avatar>
-      </v-col>
+  <div>
+    <div id="app">
+      <v-app>
+        <NavBar select="profile"></NavBar>
+        <v-main class="background">
 
-      <v-col
-        class="d-flex justify-center align-center background"
-        style="width: 200px; margin: auto"
-      >
-        <v-file-input
-          style="
-            width: 600px;
-            font-family: Bebas Neue;
-            background-color: #cfffb3;
-            padding-top: 10%;
-            padding-left: 10%;
-          "
-          rounded="xl"
-          @change="handleImage"
-          v-model="readImg"
-          accept="image/*"
-        />
-      </v-col>
+          <v-row justify="center">
+            <h1 class="d-flex justify-center align-center">my profile</h1>
+          </v-row>
 
-      <v-col
-        class="d-flex justify-center align-center background"
-        style="border-radius: 25px"
-      >
-        <v-sheet
-          style="border-radius: 25px"
-          color="secondary"
-          max-height="1000"
-          max-width="500"
-        >
-          <v-container style="border-radius: 25px">
-            <v-row justify="end">
-              <v-text-field
-                class="pt-10 pr-10 pl-10"
-                label="Name"
-                dark="dark"
-                color="primary"
-                v-model="firstName"
+          <v-row justify="center" style="margin-top: 20px; margin-bottom: 20px">
+            <v-avatar size="200">
+              <img style="" :src="image" alt="" />
+            </v-avatar>
+          </v-row>
+
+
+          <v-row justify="center" style="margin-top: 20px; margin-bottom: 20px;">
+            <v-sheet
+                width="300"
+                color="background"
+            >
+              <v-file-input
+                style="
+                  font-family: Bebas Neue;
+                  background-color: #CFFFB3;
+                "
+                @change="handleImage"
+                v-model="readImg"
+                rounded
+                accept="image/*"
               />
-            </v-row>
-            <v-row justify="end">
-              <v-text-field
-                class="pt-10 pr-10 pl-10"
-                label="Last Name"
-                dark="dark"
-                color="primary"
-                v-model="lastName"
-              />
-            </v-row>
-            <v-row justify="end"> </v-row>
-            <v-row justify="end">
-              <v-col>
-                <v-btn color="primary" text class="temp">
-                  DISCARD CHANGES
-                </v-btn>
-              </v-col>
-              <v-col>
-                <v-btn
-                  @click="saveHandler()"
-                  :color="saveColor"
-                  outlined
-                  class="temp"
-                  justify="center"
-                >
-                  SAVE CHANGES
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-sheet>
-      </v-col>
-    </v-main>
+            </v-sheet>
+          </v-row>
 
-      <v-dialog v-model="dialog" persistent width="610">
-        <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
-          <v-card
+          <v-row style="margin-top: 20px">
+          <v-sheet
+              color="secondary"
+              max-height="1000"
+              width="500"
+              rounded="xl"
+              style="margin-left: auto; margin-right: auto"
+            >
+              <v-container style="border-radius: 25px">
+                <v-row justify="end">
+                  <v-text-field
+                    class="pt-10 pr-10 pl-10"
+                    label="Name"
+                    dark="dark"
+                    color="primary"
+                    v-model="firstName"
+                  />
+                </v-row>
+                <v-row justify="end">
+                  <v-text-field
+                    class="pt-10 pr-10 pl-10"
+                    label="Last Name"
+                    dark="dark"
+                    color="primary"
+                    v-model="lastName"
+                  />
+                </v-row>
+
+                <v-row>
+
+                    <v-col>
+                      <v-btn
+                          color="primary"
+                          text
+                      >
+                        DISCARD CHANGES
+                      </v-btn>
+                    </v-col>
+
+                    <v-col>
+                        <v-btn
+                          @click="saveHandler()"
+                          :color="saveColor"
+                          outlined
+                          justify="center"
+                        >
+                          SAVE CHANGES
+                        </v-btn>
+                    </v-col>
+                </v-row>
+
+              </v-container>
+            </v-sheet>
+          </v-row>
+        </v-main>
+      </v-app>
+
+    <v-dialog v-model="dialog" persistent width="610">
+      <v-sheet color="error" outlined="outlined" width="600" rounded="xl">
+        <v-card
             color="background"
             width="600"
             height="120"
             class="box center"
             rounded="xl"
-          >
-            <v-card-title style="color: #cfffb3"
-            >Sería, are you sure you want to delete it?</v-card-title
-            >
-            <v-card-actions>
-              <v-row justify="center">
-                <v-btn
-                  color="primary"
-                  filled
-                  @click="deleteMe"
-                  style="margin: 7px"
-                >
-                  <span style="color: #1e1e1e">OK</span>
-                </v-btn>
-              </v-row>
-            </v-card-actions>
-          </v-card>
-        </v-sheet>
-      </v-dialog>
-  </v-app>
+        >
+          <v-card-title style="color: #cfffb3">
+            Profile details changed successfully
+          </v-card-title>
+          <v-card-actions>
+            <v-btn style="margin-left: auto; margin-right: auto" @click="dialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-sheet>
+    </v-dialog>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -164,6 +166,7 @@ export default {
       reader.readAsDataURL(fileObject);
     },
     async saveHandler() {
+      this.dialog = true;
       const metadata = { img: this.image };
       const newInformation = new UpdatableCredentials(
         this.firstName,
@@ -182,9 +185,6 @@ export default {
 </script>
 
 <style scoped>
-div {
-  background-color: #4b4b4b;
-}
 h1 {
   color: #cfffb3;
   font-family: "Bebas Neue";
