@@ -402,19 +402,40 @@
         </v-card>
       </v-sheet>
     </v-dialog>
-    <v-dialog v-model="share" persistent width="610">
-      <v-sheet color="primary" outlined="outlined" width="600" rounded="xl">
+    <v-dialog v-model="share" persistent width="620">
+      <v-sheet  color="primary" style="margin-left: auto; margin-right: auto" outlined="outlined" width="600" rounded="xl">
         <v-card
           color="background"
-          width="600"
+          width="800"
           height="120"
+          rounded="xl"
           class="box center"
         >
           <v-card-title style="color: #cfffb3">
             Your share link is: http://localhost:8080/viewRoutine?id={{this.getID()}}
+
           </v-card-title>
-          <v-card-actions>
-            <v-btn style="margin-left: auto; margin-right: auto" @click="share = false" outlined color="primary">Close</v-btn>
+
+          <v-card-actions >
+
+              <v-row justify="center">
+                <v-btn
+                  color="primary"
+                  outlined
+                  @click="share = false"
+                  style="margin: 7px"
+                >
+                  <span style="color: #cfffb3">Close</span>
+                </v-btn>
+                <v-btn
+                  color="primary"
+                  filled
+                  @click="copyToClipboard"
+                  style="margin: 7px"
+                >
+                  <span style="color: #1e1e1e">Copy</span>
+                </v-btn>
+              </v-row>
           </v-card-actions>
         </v-card>
       </v-sheet>
@@ -512,6 +533,15 @@ export default {
 
 
 
+    },
+    copyToClipboard(){
+      const clipboardData =
+        event.clipboardData ||
+        window.clipboardData ||
+        event.originalEvent?.clipboardData ||
+        navigator.clipboard;
+      clipboardData.writeText(` http://localhost:8080/viewRoutine?id=${this.getID()}`);
+      this.share = false;
     },
     addRoutine(type) {
       this.dialogSelectExercise = true;
