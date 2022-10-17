@@ -51,6 +51,7 @@ export const useExerciseStore = defineStore('exercises', {
         },
 
 
+
     },
     actions: {
 

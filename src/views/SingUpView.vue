@@ -146,15 +146,17 @@ export default {
       const store = useUserStore();
       store.addEmail(this.email);
       try {
+        if(this.password !== this.re_password) {
+          throw { code:88 };
+        }
         await UserApi.addUser(credentials);
         this.loading = false;
         router.push("/verifyEmail");
       } catch (error) {
-
-        if(this.password !== this.re_password)
+        if(this.password !== this.re_password) {
           this.snackbarMsg = "Passwords don't match, type them again";
-
-        else if(error.details[0] === 'UNIQUE constraint failed: User.username')
+        }else
+         if(error.details[0] === 'UNIQUE constraint failed: User.username')
           this.snackbarMsg = "Username is already in use, pick another one";
         
         else if(error.details[0] === 'UNIQUE constraint failed: User.email')

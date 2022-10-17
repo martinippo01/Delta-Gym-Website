@@ -148,13 +148,24 @@ export default {
     ...mapState(useExerciseStore, ["routineDetail"]),
   },
   async mounted() {
-    this.addPage('ViewRouting',false,'/ViewRoutine')
+    this.addPage('View Routine',false,'/ViewRoutine')
     const routineID = this.$route.params.id;
     if (routineID != null) {
       this.setId(parseInt(routineID));
       const resp = await RoutinesApi.getRoutine(parseInt(routineID));
       this.image = resp.metadata.img;
       this.setRoutine(resp.name, resp.detail, resp.isPublic, resp.metadata.img);
+      this.getRoutineData();
+    }else{
+      const routineShare = this.$route.query.id;
+      console.log(routineShare);
+      if (routineShare != null){
+        this.setId(parseInt(routineShare));
+        const resp = await RoutinesApi.getRoutine(parseInt(routineShare));
+        this.image = resp.metadata.img;
+        this.setRoutine(resp.name, resp.detail, resp.isPublic, resp.metadata.img);
+        this.getRoutineData();
+      }
     }
   },
   destroyed() {

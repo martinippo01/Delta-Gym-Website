@@ -37,6 +37,16 @@
                   <!--              CASO 2 -> Vista normal-->
                   <v-btn
                     color="primary"
+                    class=" justify-end mr-7 "
+                    outlined
+                    v-if="!editMode"
+                    style="margin-top: 10px"
+                    @click="share = true"
+                  >
+                    SHARE ROUTINE
+                  </v-btn>
+                  <v-btn
+                    color="primary"
                     class=" justify-end mr-7 secondary--text"
                     v-if="!editMode"
                     style="margin-top: 10px"
@@ -392,6 +402,23 @@
         </v-card>
       </v-sheet>
     </v-dialog>
+    <v-dialog v-model="share" persistent width="610">
+      <v-sheet color="primary" outlined="outlined" width="600" rounded="xl">
+        <v-card
+          color="background"
+          width="600"
+          height="120"
+          class="box center"
+        >
+          <v-card-title style="color: #cfffb3">
+            Your share link is: http://localhost:8080/viewRoutine?id={{this.getID()}}
+          </v-card-title>
+          <v-card-actions>
+            <v-btn style="margin-left: auto; margin-right: auto" @click="share = false" outlined color="primary">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-sheet>
+    </v-dialog>
   </div>
 </template>
 
@@ -429,6 +456,8 @@ export default {
       image: "",
       readImg: "",
       dialogImgError: false,
+      share:false,
+      routineId:0
     };
   },
 
@@ -457,6 +486,9 @@ export default {
     discard() {
       this.editMode = false;
       router.push("/myRoutines");
+    },
+    getID(){
+      return localStorage.getItem("ROUTINE-ID");
     },
     async save() {
       this.editMode = false;
@@ -598,7 +630,7 @@ export default {
 
   },
   async mounted() {
-    this.addPage('CreateRoutine',true,'/createRoutine')
+    this.addPage('Edit Routine',true,'/createRoutine')
     this.editMode = this.$route.params.editMode;
     const aux = this.$route.params.from;
     if (aux === "myRoutinesNew") {
