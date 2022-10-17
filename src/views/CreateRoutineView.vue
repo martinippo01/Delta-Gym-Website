@@ -567,6 +567,10 @@ export default {
         );
         this.getCreatedExercises();
       } catch (error) {
+        if (error.code === 99) {
+          this.error = true;
+          this.errorText = "Connection error";
+        }
         this.error = true;
         this.errorText = "Couldn't modify exercise";
       }
@@ -663,18 +667,31 @@ export default {
     this.addPage('Edit Routine',true,'/createRoutine')
     this.editMode = this.$route.params.editMode;
     const aux = this.$route.params.from;
-    if (aux === "myRoutinesNew") {
-      this.createRoutine();
-    } else if (aux === "myRoutine") {
-      const routineID = this.$route.params.id;
-      this.setId(parseInt(routineID));
-      this.getRoutineData();
-    } else {
-      this.getRoutineData();
+    try {
+      if (aux === "myRoutinesNew") {
+        this.createRoutine();
+      } else if (aux === "myRoutine") {
+        const routineID = this.$route.params.id;
+        this.setId(parseInt(routineID));
+        this.getRoutineData();
+      } else {
+        this.getRoutineData();
+      }
+    }catch (error){
+      if (error.code === 99) {
+        this.error = true;
+        this.errorText = "Connection error";
+      }
+      this.error = true;
+      this.errorText = error.text;
     }
     try {
       this.getCreatedExercises();
     } catch (error) {
+      if (error.code === 99) {
+        this.error = true;
+        this.errorText = "Connection error";
+      }
       this.error = true;
       this.errorText = error.errorText;
     }
@@ -688,6 +705,10 @@ export default {
       this.image = resp.metadata.img;
       this.setRoutine(resp.name,resp.detail,resp.isPublic,resp.metadata.img);
     }catch (error){
+      if (error.code === 99) {
+        this.error = true;
+        this.errorText = "Connection error";
+      }
         this.error = true;
         this.errorText = error.text;
     }
