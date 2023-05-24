@@ -74,6 +74,24 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "about" */ "../views/VerifyEmail.vue"),
   },
   {
+    path: "/viewRoutine",
+    name: "ViewRoutine",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ViewRoutineView.vue"),
+  },
+  {
+    path: "/verifiedEmailSuccessfully",
+    name: "verifiedEmailSuccessfully",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/VerifiedEmailSuccessfullyView.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "ErrorPage",
     // route level code-splitting

@@ -1,6 +1,8 @@
-import { defineStore } from "pinia";
+import { defineStore, mapActions } from "pinia";
 import { RoutinesApi } from "@/api/routines";
+import { useUserStore } from "@/store/user";
 import router from "@/router";
+import { UserApi } from "@/api/user";
 
 export const useRoutinesStore = defineStore("routines", {
   state: () => {
@@ -8,7 +10,7 @@ export const useRoutinesStore = defineStore("routines", {
       routines: [],
       page:0,
       maxPage:0,
-      minPage: 0
+      minPage: 0,
     };
   },
   getters: {
@@ -17,28 +19,33 @@ export const useRoutinesStore = defineStore("routines", {
     },
   },
   actions: {
-    async setRoutines() {
-      const res = await RoutinesApi.getAllRoutines(this.page);
-      this.routines = res.content;
-      this.maxPage = Math.floor(res.totalCount / 11);
+    async setRoutines(userId: number) {
+        const res = await UserApi.getAllUsersRoutines(userId, this.page, 11);
+        this.routines = res.content;
+        this.maxPage = Math.floor(res.totalCount / 11);
     },
-    async nextPage(){
+    async nextPage(userId: number){
         if (this.page < this.maxPage){
           this.page++;
-          await this.setRoutines();
+          await this.setRoutines(userId);
         }
     },
-    async previousPage(){
+    async previousPage(userId: number){
       if (this.page > this.minPage){
-        console.log("HOLA")
         this.page--;
-        await this.setRoutines();
+        await this.setRoutines(userId);
       }
     },
-    resetStore(){
+    async resetStore(){
       this.page = 0;
       this.maxPage = 0;
       this.routines = [];
-    }
+    },
+    async deleteRoutine(routineId: number){
+      const res = await RoutinesApi.deleteRoutines(routineId);
+      console.log(res);
+    },
+
   },
+
 });

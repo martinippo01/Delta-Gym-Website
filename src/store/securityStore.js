@@ -29,6 +29,7 @@ export const useSecurityStore = defineStore("security", {
       Api.token = token;
     },
     updateToken(token, rememberMe) {
+      this.rememberMe = rememberMe;
       if (rememberMe) localStorage.setItem(SECURITY_TOKEN_KEY, token);
       this.setToken(token);
     },

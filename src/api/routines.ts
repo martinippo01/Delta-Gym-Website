@@ -14,20 +14,22 @@ class RoutinesApi {
     return await Api.post(RoutinesApi.getUrl(), true, routine, null);
   }
 
-  static async getAllRoutines(page: number) {
+  static async getAllRoutines(page: number, size: number,searchPattern:string) {
+
     return await Api.get(
-      RoutinesApi.getUrlParameters(`size=11&page=${page}`),
-      true,
+      RoutinesApi.getUrlParameters(`size=${size}&page=${page}`).concat((searchPattern.length > 2)? `&search=${searchPattern}`:''),
+      false,
       {}
     );
   }
 
-  static async getAllUsersRoutines(page: number) {
-    return await Api.get(
-      RoutinesApi.getUrlParameters(`size=11&page=${page}`),
-      false,
-      {}
-    );
+  static async getRoutine(routineId:number){
+    return await Api.get(this.getUrl(`${routineId}`),true,{});
+  }
+
+  static async deleteRoutines(routineId: number){
+    return await Api.delete(RoutinesApi.getUrl(`${routineId}`),
+      true,{});
   }
 
   static async addCycle(
@@ -49,6 +51,13 @@ class RoutinesApi {
     const aux = await Api.get(this.getUrl(`${rutineId.toString()}/cycles`),true,null);
     return aux.content;
   }
+  static async changeCycle(rutineId:number,cycleId : number,object:any){
+    return await Api.put(this.getUrl(`${rutineId}/cycles/ ${cycleId}`),true,object)
+  }
+  static async updateRoutine(routine: Routine, routineId: number) {
+    return await Api.put(RoutinesApi.getUrl(routineId.toString()), true, routine);
+  }
+
 }
 
 class FetchRoutines {
@@ -78,13 +87,14 @@ class Routine {
     name: string,
     detail: string,
     difficulty: string,
-    isPublic: boolean
+    isPublic: boolean,
+    metadata:object={}
   ) {
     this.isPublic = isPublic;
     this.difficulty = difficulty;
     this.name = name;
     this.detail = detail;
-    this.metadata = null;
+    this.metadata = metadata;
     this.category = {
       id: 1,
     };
@@ -95,7 +105,7 @@ class Routine {
   isPublic: boolean;
   difficulty: string;
   category: any;
-  metadata: any;
+  metadata: object;
 }
 class Cycle {
   constructor(

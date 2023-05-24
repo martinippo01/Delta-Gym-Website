@@ -6,6 +6,7 @@ export const useUserStore = defineStore("user", {
     return {
       email: "" as string,
       allUsersRoutines: [],
+      userId: -1,
     }
   },
   getters: {
@@ -19,6 +20,11 @@ export const useUserStore = defineStore("user", {
     },
     updateUser(credentials: UpdatableCredentials) {
         UserApi.updateUser(credentials)
+    },
+    async getUserId(){
+      const res = await UserApi.get();
+      this.userId = res.id;
+      return res.id;
     }
   },
 });

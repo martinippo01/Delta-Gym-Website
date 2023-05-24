@@ -1,27 +1,30 @@
 <template>
   <v-main class="background">
-    <v-row class="landingPage" align="center" align-content="center">
-      <v-col>
-        <v-flex class="title">
-          <slot name="title" />
-        </v-flex>
-        <div class="text">
-          <slot name="body" />
+    <v-parallax
+      height="800"
+      src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+    >
+      <v-row class="landingPage" align="center" align-content="center">
+        <v-col>
+          <v-flex class="title">
+            <slot name="title" />
+          </v-flex>
+          <div class="text">
+            <slot name="body" />
+          </div>
+        </v-col>
+        <div class="image">
+          <slot name="img" />
         </div>
-      </v-col>
-      <div class="image">
-        <slot name="img" />
-      </div>
-    </v-row>
+      </v-row>
+    </v-parallax>
   </v-main>
 </template>
 
 <script>
-
 export default {
-  name: "LandingTwo",
-  components:{
-  }
+  name: "LandingScreen",
+  components: {},
 };
 </script>
 

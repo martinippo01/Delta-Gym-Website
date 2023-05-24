@@ -1,354 +1,177 @@
 <template>
-  <div id="app">
-    <v-app>
-      <NavBar select="myRoutines"></NavBar>
-      <v-main class="background">
-        <!--        _______________________________________________________________________________________-->
-        <v-sheet class="mx-auto sheet" color="secondary" rounded="xl">
-          <v-row class="d-flex">
-            <v-col class="d-flex ml-7">
-              <h1>{{ this.routineName }}</h1>
-            </v-col>
-            <v-col class="justify-end d-flex" md="2" offset-md="3">
-              <!--              CASO 1 -> Edit mode-->
-              <v-btn
-                color="primary"
-                plain
-                class="temp justify-end mr-7"
-                v-if="editMode"
-                @click="discard"
-              >
-                DISCARD
-              </v-btn>
-              <!--              CASO 1 -> Edit mode-->
-              <v-btn
-                color="primary"
-                class="temp justify-end mr-7 secondary--text"
-                v-if="editMode"
-                @click="save"
-              >
-                SAVE
-              </v-btn>
-              <!--              CASO 2 -> Vista normal-->
-              <v-btn
-                color="primary"
-                class="temp justify-end mr-7 secondary--text"
-                v-if="!editMode"
-                @click="editMode = true"
-              >
-                EDIT ROUTINE
-              </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <!--            Caso 1 -> Vista de edicion-->
-            <v-textarea
-              class="descripcion"
-              label="DESCRIPTION"
-              color="primary"
-              v-model="routineDetail"
-              max-
-              dark
-              v-if="editMode"
-            ></v-textarea>
-            <!--            Caso 2 -> Vista normal-->
-            <p
-              v-else
-              class="text-justify"
-              style="margin: 40px; color: white; margin-bottom: 20px"
+  <div>
+    <div id="app">
+      <v-app>
+        <NavBar select="explore"></NavBar>
+        <v-main class="background">
+          <!--        _______________________________________________________________________________________-->
+          <v-card class="mx-auto sheet" color="secondary" rounded="xl" max-width="1500">
+            <v-img :src="this.image"
+                   max-height="300"
+                   gradient="to top , rgba(30,30,30,0.75), rgba(30,30,30,0.75)"
             >
-              {{ this.routineDetail }}
-            </p>
-          </v-row>
-        </v-sheet>
+            <v-row class="d-flex">
+              <v-col class="d-flex ml-7">
+                <!--              Caso 1 ->  Vista de edicion-->
 
-        <!--        _______________________________________________________________________________________-->
-
-        <div class="slider">
-          <h1 class="textSlider">WARM UP</h1>
-          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-            <v-slide-item
-              v-for="card in getWarmUpExercises"
-              :key="card.indexId"
-            >
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.indexId"
-                type="warmUp"
-                :exerciseName="card.name"
-                :edit-mode="editMode"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item v-if="editMode">
-              <button
-                @click="
-                  addRoutine(0);
-                  dialogSelectExercise = true;
-                "
-              >
-                <addButtom></addButtom>
-              </button>
-            </v-slide-item>
-          </v-slide-group>
-        </div>
-
-        <!--        _______________________________________________________________________________________-->
-
-        <div class="slider">
-          <h1 class="textSlider">MAIN SETS</h1>
-          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-            <v-slide-item
-              v-for="card in getMainSetExercises"
-              :key="card.indexId"
-            >
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.indexId"
-                type="mainSet"
-                :exerciseName="card.name"
-                :edit-mode="editMode"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item v-if="editMode">
-              <button
-                @click="
-                  addRoutine(1);
-                  dialogSelectExercise = true;
-                "
-              >
-                <addButtom></addButtom>
-              </button>
-            </v-slide-item>
-          </v-slide-group>
-        </div>
-
-        <!--        _______________________________________________________________________________________-->
-        <div class="slider">
-          <h1 class="textSlider">COOL DOWN</h1>
-          <v-slide-group class="pa-4" active-class="success" show-arrows dark>
-            <v-slide-item
-              v-for="card in getCoolDownExercise"
-              :key="card.indexId"
-            >
-              <exerciseCard
-                class="ma-3 position-absolute top-0 start-100 translate-middle"
-                :id="card.indexId"
-                type="coolDown"
-                :exerciseName="card.name"
-                :edit-mode="editMode"
-              ></exerciseCard>
-            </v-slide-item>
-            <v-slide-item v-if="editMode">
-              <button
-                @click="
-                  addRoutine(2);
-                  dialogSelectExercise = true;
-                "
-              >
-                <addButtom></addButtom>
-              </button>
-            </v-slide-item>
-          </v-slide-group>
-        </div>
-      </v-main>
-    </v-app>
-
-    <!--    ____________________________________________________________________________-->
-    <v-dialog v-model="dialogSelectExercise" persistent max-width="600px">
-      <v-card color="background">
-        <v-card-title>
-          <span class="text-h5" style="color: #cfffb3">Add exercise</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="10" md="8">
-                <v-autocomplete
-                  label="Search"
-                  required
-                  color="primary"
-                  dark
-                ></v-autocomplete>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-btn
-                  color="primary"
-                  @click="
-                    dialogSelectExercise = false;
-                    dialogCreateExercise = true;
-                  "
-                >
-                  <span style="color: #1e1e1e">Create New</span>
-                </v-btn>
-              </v-col>
-              <v-col>
-                <v-autocomplete
-                  :items="createdExercise"
-                  item-text="name"
-                  dense
-                  chips
-                  small-chips
-                  label="Tags"
-                  multiple
-                  solo
-                  color="secondary"
-                  background-color="secondary"
-                ></v-autocomplete>
+                <!--              Caso 2 -> Vista normal-->
+                <h1>{{ this.routineName }}</h1>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col>
-                <v-virtual-scroll
-                  :items="createdExercise"
-                  :item-height="50"
-                  height="300"
-                >
-                  <template v-slot:default="{ item }">
-                    <v-list-item :key="item.name">
-                      <v-list-item-content>
-                        <v-list-item-title>
-                          <span style="color: white">{{ item.name }}</span>
-                        </v-list-item-title>
-                      </v-list-item-content>
 
-                      <v-list-item-action>
-                        <v-btn
-                          fab
-                          small
-                          depressed
-                          color="primary"
-                          @click="selectedName = item"
-                        >
-                          <v-icon color="#1e1e1e" v-if="selectedName === item"
-                            >mdi-check</v-icon
-                          >
-                          <v-icon color="#1e1e1e" v-else>mdi-plus</v-icon>
-                        </v-btn>
-                      </v-list-item-action>
-                    </v-list-item>
-                  </template>
-                </v-virtual-scroll>
-              </v-col>
+            <v-row>
+              <!--            Caso 1 -> Vista de edicion-->
+
+              <!--            Caso 2 -> Vista normal-->
+              <p
+                class="text-justify"
+                style="margin: 40px; color: white; margin-bottom: 20px"
+              >
+                {{ this.routineDetail }}
+              </p>
             </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            outlined
-            @click="
-              dialogSelectExercise = false;
-              selectedName = null;
-            "
-          >
-            Discard
-          </v-btn>
-          <v-btn
-            color="primary"
-            filled
-            :disabled="selectedName === null"
-            @click="saveExercise"
-          >
-            <span style="color: #1e1e1e"> Save </span>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <!--    ____________________________________________________________________________-->
-    <DialogCreateExercise
-      v-show="dialogSelectExercise"
-      @discarded="dialogSelectExercise = false"
-      @saved="newExercise"
-    />
-    <!--    ____________________________________________________________________________-->
+            </v-img>
+          </v-card>
+
+          <!--        _______________________________________________________________________________________-->
+
+          <div class="slider">
+            <h1 class="textSlider">WARM UP</h1>
+            <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+              <v-slide-item
+                v-for="card in getWarmUpExercises"
+                :key="card.indexId"
+              >
+                <exerciseCard
+                  class="ma-3 position-absolute top-0 start-100 translate-middle"
+                  :id="card.indexId"
+                  type="warmUp"
+                  :exerciseName="card.exercise.name"
+                  :edit-mode="false"
+                ></exerciseCard>
+              </v-slide-item>
+            </v-slide-group>
+          </div>
+
+          <!--        _______________________________________________________________________________________-->
+
+          <div class="slider">
+            <h1 class="textSlider">MAIN SETS</h1>
+            <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+              <v-slide-item
+                v-for="card in getMainSetExercises"
+                :key="card.indexId"
+              >
+                <exerciseCard
+                  class="ma-3 position-absolute top-0 start-100 translate-middle"
+                  :id="card.indexId"
+                  type="mainSet"
+                  :exerciseName="card.exercise.name"
+                  :edit-mode="false"
+                ></exerciseCard>
+              </v-slide-item>
+            </v-slide-group>
+          </div>
+
+          <!--        _______________________________________________________________________________________-->
+          <div class="slider">
+            <h1 class="textSlider">COOL DOWN</h1>
+            <v-slide-group class="pa-4" active-class="success" show-arrows dark>
+              <v-slide-item
+                v-for="card in getCoolDownExercise"
+                :key="card.exercise.id"
+              >
+                <exerciseCard
+                  class="ma-3 position-absolute top-0 start-100 translate-middle"
+                  :id="card.exercise.id"
+                  type="coolDown"
+                  :exerciseName="card.exercise.name"
+                  :edit-mode="false"
+                ></exerciseCard>
+              </v-slide-item>
+            </v-slide-group>
+          </div>
+        </v-main>
+      </v-app>
+
+      <!--    ____________________________________________________________________________-->
+
+      <v-snackbar v-model="error" color="error">
+        {{ errorText }}
+        <template v-slot:action="{ attrs }">
+          <v-btn v-bind="attrs" @click="error = false" outlined> Close </v-btn>
+        </template>
+      </v-snackbar>
+    </div>
   </div>
 </template>
 
 <script>
 import exerciseCard from "@/components/Routines/exerciseCard";
 import NavBar from "@/components/NavBar";
-import router from "@/router";
-import addButtom from "@/components/Routines/add";
-import DialogCreateExercise from "@/components/DialogCreateExercise";
+
 import { mapState, mapActions, storeToRefs } from "pinia";
-import { useExerciseStore } from "../store/exerciseData";
-import { useCreateRoutine } from "../store/createRoutine";
+import { useExerciseStore } from "@/store/exerciseData";
+import {useBreadCrumbs} from "@/store/breadCrumbsStore";
+import { RoutinesApi } from "@/api/routines";
 
 export default {
-  name: "ViewRoutineView",
-  components: { NavBar, exerciseCard, addButtom },
-
+  name: "CreateRoutuneView",
+  components: { NavBar, exerciseCard },
   data() {
     return {
-      routineName: "",
-      routineDetail: "",
       error: false,
       errorText: "",
-      detail: "",
-      title: "",
       difficulty: "medium",
       isPublic: true,
       dialogSelectExercise: false,
       dialogCreateExercise: false,
       selectedName: null,
-      cycleSelect: 0,
-      maxId: 0,
-      editMode: false,
+      image:''
     };
   },
   methods: {
-    ...mapActions(useExerciseStore, ["addExercise"]),
-    ...mapActions(useExerciseStore, ["uploadExercises"]),
-    ...mapActions(useExerciseStore, ["getCreatedExercises"]),
-    ...mapActions(useCreateRoutine, ["createRoutine"]),
+    ...mapActions(useExerciseStore, ["getRoutineData"]),
+    ...mapActions(useExerciseStore, ["setId"]),
+    ...mapActions(useExerciseStore, ["deleteAll"]),
+    ...mapActions(useBreadCrumbs, ["addPage"]),
+    ...mapActions(useExerciseStore,['setRoutine'])
 
-    discard() {
-      this.editMode = false;
-    },
-    async save() {
-      this.editMode = false;
-      try {
-        await this.createRoutine(this.routineName, this.routineDetail);
-      } catch (error) {
-        this.error = true;
-        this.errorText = error.name;
-      }
-    },
-    addRoutine(type) {
-      this.dialogSelectExercise = true;
-      this.cycleSelect = type;
-    },
-    async saveExercise() {
-      this.dialogSelectExercise = false;
-      this.dialogCreateExercise = false;
-      this.selectedName = null;
-      await this.uploadExercises(
-        {
-          name: this.title,
-          detail: this.detail,
-          type: "exercise",
-          metadata: null,
-        },
-        this.cycleSelect,
-        this.maxId
-      );
-      this.maxId++;
-    },
   },
   computed: {
     ...mapState(useExerciseStore, ["getCoolDownExercise"]),
     ...mapState(useExerciseStore, ["getMainSetExercises"]),
     ...mapState(useExerciseStore, ["getWarmUpExercises"]),
     ...mapState(useExerciseStore, ["createdExercise"]),
+    ...mapState(useExerciseStore, ["routineId"]),
+    ...mapState(useExerciseStore, ["routineName"]),
+    ...mapState(useExerciseStore, ["routineDetail"]),
   },
-  created() {
-    this.editMode = this.$route.params.editMode;
-    this.getCreatedExercises();
+  async mounted() {
+    this.addPage('View Routine',false,'/ViewRoutine')
+    const routineID = this.$route.params.id;
+    if (routineID != null) {
+      this.setId(parseInt(routineID));
+      const resp = await RoutinesApi.getRoutine(parseInt(routineID));
+      this.image = resp.metadata.img;
+      this.setRoutine(resp.name, resp.detail, resp.isPublic, resp.metadata.img);
+      this.getRoutineData();
+    }else{
+      const routineShare = this.$route.query.id;
+      console.log(routineShare);
+      if (routineShare != null){
+        this.setId(parseInt(routineShare));
+        const resp = await RoutinesApi.getRoutine(parseInt(routineShare));
+        this.image = resp.metadata.img;
+        this.setRoutine(resp.name, resp.detail, resp.isPublic, resp.metadata.img);
+        this.getRoutineData();
+      }
+    }
+  },
+  destroyed() {
+    this.deleteAll();
   },
 };
-import { useExerciseStore } from "../store/exerciseData";
 </script>
 
 <style scoped>

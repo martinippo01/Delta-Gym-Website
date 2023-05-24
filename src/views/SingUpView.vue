@@ -69,6 +69,12 @@
                   >
                     REGISTER
                   </v-btn>
+                  <v-overlay absolute :value="loading">
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-overlay>
                 </v-row>
                 <v-row justify="center" class="mt-4">
                   <router-link to="/login">
@@ -86,6 +92,7 @@
         </v-row>
       </v-container>
     </v-main>
+
     <v-snackbar v-model="snackbar" color="error">
       {{ snackbarMsg }}
 
@@ -109,6 +116,7 @@ export default {
   components: { NavBar },
   data() {
     return {
+      loading: false,
       snackbar: false,
       snackbarMsg: "",
       username: "",
@@ -129,6 +137,7 @@ export default {
       }
     },
     async registerHandler() {
+      this.loading = true;
       const credentials = new Registration(
         this.username,
         this.email,
@@ -137,13 +146,31 @@ export default {
       const store = useUserStore();
       store.addEmail(this.email);
       try {
+        if(this.password !== this.re_password) {
+          throw { code:88 };
+        }
         await UserApi.addUser(credentials);
+        this.loading = false;
         router.push("/verifyEmail");
       } catch (error) {
+        if(this.password !== this.re_password) {
+          this.snackbarMsg = "Passwords don't match, type them again";
+        }else
+         if(error.details[0] === 'UNIQUE constraint failed: User.username')
+          this.snackbarMsg = "Username is already in use, pick another one";
+        
+        else if(error.details[0] === 'UNIQUE constraint failed: User.email')
+          this.snackbarMsg = "Email is already in use, try logging in";
+        
+        else if(error.details[0] === 'NOT NULL constraint failed: User.password')
+          this.snackbarMsg = "Password field is empty";
+        
+        else 
+          this.snackbarMsg = "failed to add" ; 
+        
+        this.loading = false;
         this.snackbar = true;
-        this.snackbarMsg = "failed to add";
-        //aca habria que hacer un buen trabajo, presentar bien en que fallo
-        //esto es HCI
+
       }
     },
   },

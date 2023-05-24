@@ -8,37 +8,47 @@
         class="ma-3 position-absolute top-100 start-100 translate-middle"
       ></v-img>
     </router-link>
+    <v-breadcrumbs
+      :items="items"
+      dark
+      style="margin-top: 40px"
+    ><template v-slot:divider>
+      <v-icon>mdi-forward</v-icon>
+    </template>
+    </v-breadcrumbs>
     <v-spacer></v-spacer>
-    <v-btn
-      class="ma-3 position-absolute top-0 start-100 translate-middle"
-      :color="select === 'explore' ? 'primary' : 'topBar'"
-      plain
-    >
-      <router-link style="text-decoration: none; color: inherit" to="/explore">
-        EXPLORE
-      </router-link>
-    </v-btn>
-    <v-btn
-      class="ma-3 position-absolute top-0 start-100 translate-middle"
-      :color="select === 'myRoutines' ? 'primary' : 'topBar'"
-      plain
-    >
-      <router-link
-        style="text-decoration: none; color: inherit"
-        to="/myRoutines"
+    <router-link style="text-decoration: none; color: inherit" to="/explore">
+      <v-btn
+        class="ma-3 position-absolute top-0 start-100 translate-middle"
+        :color="select === 'explore' ? 'primary' : 'topBar'"
+        plain
       >
-        MY ROUTINES
-      </router-link>
-    </v-btn>
+          EXPLORE
+      </v-btn>
+    </router-link>
+
+    <router-link
+      style="text-decoration: none; color: inherit"
+      to="/myRoutines"
+    >
+      <v-btn
+        class="ma-3 position-absolute top-0 start-100 translate-middle"
+        :color="select === 'myRoutines' ? 'primary' : 'topBar'"
+        plain
+      >
+          MY ROUTINES
+
+      </v-btn>
+    </router-link>
+    <router-link style="text-decoration: none; color: inherit" to="/profile">
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
       :color="select === 'profile' ? 'primary' : 'topBar'"
       plain
     >
-      <router-link style="text-decoration: none; color: inherit" to="/profile">
-        <v-icon>mdi-account-circle-outline</v-icon>
-      </router-link>
+      <v-icon>mdi-account-circle-outline</v-icon>
     </v-btn>
+    </router-link>
 
     <v-btn
       class="ma-3 position-absolute top-0 start-100 translate-middle"
@@ -54,7 +64,8 @@
 <script>
 import { useSecurityStore } from "@/store/securityStore";
 import router from "@/router";
-import { mapActions } from "pinia";
+import { mapActions,mapState } from "pinia";
+import {useBreadCrumbs} from "@/store/breadCrumbsStore";
 
 export default {
   name: "MainTopBar",
@@ -65,7 +76,13 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+
+
+    };
+  },
+  computed:{
+    ...mapState(useBreadCrumbs,['items'])
   },
   methods: {
     ...mapActions(useSecurityStore, ["logout"]),
