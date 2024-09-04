@@ -11,13 +11,15 @@
             rounded="xl"
           >
             <v-row class="justify-center">
-              <h1>We are sorry!</h1>
+              <h1>Delta is unavailable</h1>
+              <h2>We are sorry, the web does no longer function.</h2>
+              <!-- <h1>We are sorry!</h1>
               <h2>
                 There has been an
                 <span style="color: #ef5757; font-family: 'Roboto Black'"
                   >error</span
                 >
-              </h2>
+              </h2> -->
             </v-row>
             <v-row justify="center" style="padding: 10px">
               <router-link style="text-decoration: none; color: inherit" to="/">
