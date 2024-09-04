@@ -6,7 +6,7 @@ class Api {
   //aca 127.0.0.0.1 = localhost,
   //esto setea donde vive la api y su puerto
   static get baseUrl() {
-    return "http://127.0.0.1:8081/api";
+    return "http://martinippolito.com.ar:8080/api";
   }
 
   static get timeout() {
